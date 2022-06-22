@@ -14,8 +14,9 @@ class MainViewController: UIViewController {
     }
     
     override func loadView() {
-        let main = MainViewController()
+        let main = MainView()
         main.setupView()
+        main.setupConstraints()
         view = main
     }
 
