@@ -8,9 +8,10 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "ToDo List with data"
     }
     
     override func loadView() {

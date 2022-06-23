@@ -9,6 +9,7 @@ import UIKit
 
 class MainView: UIView {
     
+    //MARK: -- components
     lazy var coreDataButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("ToDo using CoreData", for: .normal)
@@ -16,6 +17,7 @@ class MainView: UIView {
         return button
     }()
     
+    //MARK: -- Setup components
     func setupView() {
         backgroundColor = .white
         addSubview(coreDataButton)
