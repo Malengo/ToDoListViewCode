@@ -17,6 +17,12 @@ class MainView: UIView {
         return button
     }()
     
+    lazy var realmButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("ToDo using Realm", for: .normal)
+        button.backgroundColor = .systemRed
+        return button
+    }()
     //MARK: -- Setup components
     func setupView() {
         backgroundColor = .white
