@@ -4,10 +4,13 @@
 //
 //  Created by user on 24/06/22.
 //
-
+import CoreData
 import UIKit
 
 class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var categories = [NSManagedObject]()
+    
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
