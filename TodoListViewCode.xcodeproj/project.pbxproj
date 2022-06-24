@@ -71,7 +71,6 @@
 				CE8D16D62863A12D001FCD4F /* Assets.xcassets */,
 				CE8D16D82863A12D001FCD4F /* LaunchScreen.storyboard */,
 				CE8D16DB2863A12D001FCD4F /* Info.plist */,
-				CE8D16D32863A12C001FCD4F /* TodoListViewCode.xcdatamodeld */,
 			);
 			path = TodoListViewCode;
 			sourceTree = "<group>";
@@ -115,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				CE95671B28664134003DB3A2 /* Model.swift */,
+				CE8D16D32863A12C001FCD4F /* TodoListViewCode.xcdatamodeld */,
 			);
 			path = ModelFromCoreData;
 			sourceTree = "<group>";

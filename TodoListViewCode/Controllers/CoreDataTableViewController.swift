@@ -6,11 +6,12 @@
 //
 import CoreData
 import UIKit
+import CoreData
 
 class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var categories = [NSManagedObject]()
-    
+    var model = Model<Category>()
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
@@ -19,9 +20,13 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray5
+        navigationItem.title = "Core Data"
+        
         coreDataView?.tableView.delegate = self
         coreDataView?.tableView.dataSource = self
-        navigationItem.title = "Core Data"
+        
+        categories = model.read()
+    
     }
     
     override func loadView() {
@@ -39,14 +44,21 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 10
+        let count = categories.count > 0 ? categories.count  : 1
+        return count
     }
 
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
         
+        let cell = UITableViewCell()
+        if categories.count > 0 {
+            let category = categories[indexPath.row] as? Category
+            cell.textLabel?.text = category?.name
+        } else {
+            cell.textLabel?.text = "There no Item in the Category List"
+        }
+       
         return cell
     }
     
