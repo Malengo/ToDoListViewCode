@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CoreDateTableView: UIView {
+class DataTableView: UIView {
     //MARK : Components View
     lazy var tableView: UITableView = {
         let table = UITableView()

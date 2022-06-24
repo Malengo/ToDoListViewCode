@@ -9,8 +9,8 @@ import UIKit
 
 class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var coreDataView: CoreDateTableView? {
-        return view as? CoreDateTableView
+    var coreDataView: DataTableView? {
+        return view as? DataTableView
     }
 
     override func viewDidLoad() {
@@ -22,7 +22,7 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     override func loadView() {
-        let tableView = CoreDateTableView()
+        let tableView = DataTableView()
         tableView.setupView()
         tableView.setupConstraints()
         view = tableView
