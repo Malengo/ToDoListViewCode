@@ -8,12 +8,19 @@
 import UIKit
 
 class DataTableView: UIView {
+    
     //MARK : Components View
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.layer.cornerRadius = 8
         table.clipsToBounds =  true
         return table
+    }()
+    
+    lazy var barButton: UIBarButtonItem = {
+       let button = UIBarButtonItem()
+        button.image = UIImage(systemName: "plus.circle")
+        return button
     }()
     
     func setupView() {

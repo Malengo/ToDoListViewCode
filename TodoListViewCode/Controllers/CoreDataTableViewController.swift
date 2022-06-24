@@ -21,6 +21,7 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         view.backgroundColor = .systemGray5
         navigationItem.title = "Core Data"
+        navigationItem.rightBarButtonItem = coreDataView?.barButton
         
         coreDataView?.tableView.delegate = self
         coreDataView?.tableView.dataSource = self
