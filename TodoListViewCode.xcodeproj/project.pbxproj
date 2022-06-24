@@ -62,9 +62,10 @@
 		CE8D16C92863A12C001FCD4F /* TodoListViewCode */ = {
 			isa = PBXGroup;
 			children = (
+				CE95671928663B30003DB3A2 /* Model */,
+				CE8D16E12863A18B001FCD4F /* View */,
 				CE8D16E32863A1C8001FCD4F /* Controllers */,
 				CE8D16E22863A196001FCD4F /* AppDelegates */,
-				CE8D16E12863A18B001FCD4F /* View */,
 				CE8D16D62863A12D001FCD4F /* Assets.xcassets */,
 				CE8D16D82863A12D001FCD4F /* LaunchScreen.storyboard */,
 				CE8D16DB2863A12D001FCD4F /* Info.plist */,
@@ -98,6 +99,13 @@
 				CE9567172865DFDE003DB3A2 /* CoreDataTableViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CE95671928663B30003DB3A2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
