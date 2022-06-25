@@ -20,8 +20,7 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray5
-        navigationItem.title = "Core Data"
-        navigationItem.rightBarButtonItem = coreDataView?.barButton
+        setupNavigationBar()
         
         coreDataView?.tableView.delegate = self
         coreDataView?.tableView.dataSource = self
@@ -35,6 +34,19 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.setupView()
         tableView.setupConstraints()
         view = tableView
+    }
+    
+    //MARK: - Configuration navigation
+    func setupNavigationBar(){
+        navigationItem.title = "Core Data"
+        navigationItem.rightBarButtonItem = coreDataView?.barButton
+        coreDataView?.barButton.action = #selector(addCategoryPressed)
+        coreDataView?.barButton.target = self
+        
+    }
+    
+    @objc func addCategoryPressed() {
+        print("Clicked")
     }
 
     // MARK: - Table view data source
