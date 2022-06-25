@@ -50,8 +50,8 @@ class MainView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-        stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        stackView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        stackView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         realmButton.translatesAutoresizingMaskIntoConstraints = false
         realmButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
