@@ -83,15 +83,19 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
         } else {
             let item = items[indexPath.row] as! Item
             cell.textLabel?.text = item.title
+            cell.accessoryType = item.isChecked ? .checkmark : .none
         }
         return cell
     }
     
     //MARK - TableView Delegate Methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.reloadData()
-        tableView.deselectRow(at: indexPath, animated: true)
+      
+        let item = items[indexPath.row] as! Item
+        item.isChecked = !item.isChecked
+        itemManager.save()
+        coreDataView?.tableView.reloadData()
+        coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
         
     }
 }
@@ -103,7 +107,6 @@ extension ItemOfCategoryViewController {
         do {
             let item = Item(context: context)
             item.title = itemName
-            item.isChecked = false
             item.parentCategory = selectedCategory
             try context.save()
             items.append(item)
