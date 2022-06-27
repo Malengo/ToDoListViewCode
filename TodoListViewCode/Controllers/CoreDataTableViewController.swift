@@ -12,13 +12,12 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     var categories = [NSManagedObject]()
     var model = Model<Category>()
-    
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray5
@@ -28,7 +27,7 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
         coreDataView?.tableView.dataSource = self
         
         categories = model.read()
-    
+        
     }
     
     override func loadView() {
@@ -48,49 +47,54 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @objc func addCategoryPressed() {
-        let category = Category(context: context)
-        category.name = "Teste"
-        try? context.save()
-        categories.append(category)
-        coreDataView?.tableView.reloadData()
-
+        let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
+        alertToAddCategory.addTextField { textfieldNewCategory in
+            textfieldNewCategory.placeholder = "Enter here for new Category"
+        }
+        
+        let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
+            if let textFields = alertToAddCategory.textFields {
+                if let newCategory = textFields[0].text {
+                    self.saveCategory(categoryName: newCategory)
+                }
+            }
+            
+        }
+        
+        alertToAddCategory.addAction(addActionCategory)
+        alertToAddCategory.addAction(UIAlertAction(title: "Cancel", style: .destructive))
+        present(alertToAddCategory, animated: true)
     }
-
+    
     // MARK: - Table view data source
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = categories.isEmpty ? 1  : categories.count
         return count
     }
-
-   
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
         if categories.isEmpty {
-            cell.textLabel?.text = "There no Item in the Category List"
+            cell.textLabel?.text = "There are no Items in the Category List"
         } else {
             let category = categories[indexPath.row] as? Category
             cell.textLabel?.text = category?.name
         }
-       
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
-    */
-
+    
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -100,33 +104,23 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
             coreDataView?.tableView.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
+}
+
+extension CoreDataTableViewController {
     
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    func saveCategory(categoryName: String) {
+        do {
+            let category = Category(context: self.context)
+            category.name = categoryName
+            try self.context.save()
+            self.categories.append(category)
+            self.coreDataView?.tableView.reloadData()
+        } catch {
+            let alertError = UIAlertController(title: "Error adding category", message: "", preferredStyle: .alert)
+            alertError.addAction(UIAlertAction(title: "Ok", style: .default))
+            self.present(alertError, animated: true)
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

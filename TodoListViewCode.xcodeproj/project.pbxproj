@@ -17,6 +17,8 @@
 		CE9567162865DFB5003DB3A2 /* DataTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9567152865DFB5003DB3A2 /* DataTableView.swift */; };
 		CE9567182865DFDE003DB3A2 /* CoreDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9567172865DFDE003DB3A2 /* CoreDataTableViewController.swift */; };
 		CE95671C28664134003DB3A2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95671B28664134003DB3A2 /* Model.swift */; };
+		CEE5B9542869EDFE00F3DB1F /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B9532869EDFE00F3DB1F /* CategoryView.swift */; };
+		CEE5B9562869EF4E00F3DB1F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B9552869EF4E00F3DB1F /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		CE9567152865DFB5003DB3A2 /* DataTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableView.swift; sourceTree = "<group>"; };
 		CE9567172865DFDE003DB3A2 /* CoreDataTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTableViewController.swift; sourceTree = "<group>"; };
 		CE95671B28664134003DB3A2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CEE5B9532869EDFE00F3DB1F /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		CEE5B9552869EF4E00F3DB1F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,7 @@
 			children = (
 				CE8D16E42863A1EC001FCD4F /* MainView.swift */,
 				CE9567152865DFB5003DB3A2 /* DataTableView.swift */,
+				CEE5B9532869EDFE00F3DB1F /* CategoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -98,6 +103,7 @@
 			children = (
 				CE8D16CE2863A12C001FCD4F /* MainViewController.swift */,
 				CE9567172865DFDE003DB3A2 /* CoreDataTableViewController.swift */,
+				CEE5B9552869EF4E00F3DB1F /* CategoryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -189,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE5B9562869EF4E00F3DB1F /* CategoryViewController.swift in Sources */,
 				CE9567182865DFDE003DB3A2 /* CoreDataTableViewController.swift in Sources */,
 				CE8D16CF2863A12C001FCD4F /* MainViewController.swift in Sources */,
 				CE8D16D52863A12C001FCD4F /* TodoListViewCode.xcdatamodeld in Sources */,
@@ -197,6 +204,7 @@
 				CE8D16CD2863A12C001FCD4F /* SceneDelegate.swift in Sources */,
 				CE8D16E52863A1EC001FCD4F /* MainView.swift in Sources */,
 				CE95671C28664134003DB3A2 /* Model.swift in Sources */,
+				CEE5B9542869EDFE00F3DB1F /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
