@@ -13,6 +13,8 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     var categories = [NSManagedObject]()
     var model = Model<Category>()
     
+    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     var coreDataView: DataTableView? {
         return view as? DataTableView
     }
@@ -46,7 +48,12 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @objc func addCategoryPressed() {
-        print("Clicked")
+        let category = Category(context: context)
+        category.name = "Teste"
+        try? context.save()
+        categories.append(category)
+        coreDataView?.tableView.reloadData()
+
     }
 
     // MARK: - Table view data source
@@ -57,7 +64,7 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = categories.count > 0 ? categories.count  : 1
+        let count = categories.isEmpty ? 1  : categories.count
         return count
     }
 
@@ -65,11 +72,11 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
-        if categories.count > 0 {
+        if categories.isEmpty {
+            cell.textLabel?.text = "There no Item in the Category List"
+        } else {
             let category = categories[indexPath.row] as? Category
             cell.textLabel?.text = category?.name
-        } else {
-            cell.textLabel?.text = "There no Item in the Category List"
         }
        
         return cell
@@ -84,17 +91,18 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     */
 
-    /*
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let category = categories[indexPath.row]
+            model.delete(entity: category)
+            categories.remove(at: indexPath.row)
+            coreDataView?.tableView.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
