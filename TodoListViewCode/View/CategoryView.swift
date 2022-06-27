@@ -104,7 +104,6 @@ class CategoryView: UIView {
         
         stackViewButtons.translatesAutoresizingMaskIntoConstraints = false
         stackViewButtons.heightAnchor.constraint(equalToConstant: 80).isActive = true
-
     }
     
     func setupAdditional(){

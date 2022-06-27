@@ -33,7 +33,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func coreDataButtonPressed(){
-        let coreDataTebleView = CoreDataTableViewController()
+        let coreDataTebleView = CategoryTableViewController()
         self.navigationController?.pushViewController(coreDataTebleView, animated: true)
     }
     

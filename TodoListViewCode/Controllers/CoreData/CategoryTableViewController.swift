@@ -8,7 +8,7 @@ import CoreData
 import UIKit
 import CoreData
 
-class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CategoryTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var categories = [NSManagedObject]()
     var model = Model<Category>()
@@ -27,7 +27,6 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
         coreDataView?.tableView.dataSource = self
         
         categories = model.read()
-        
     }
     
     override func loadView() {
@@ -80,7 +79,6 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = UITableViewCell()
         if categories.isEmpty {
             cell.textLabel?.text = "There are no Items in the Category List"
@@ -92,7 +90,10 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = ItemOfCategoryViewController ()
+        let category = categories[indexPath.row] as? Category
+        vc.selectedCategory = category
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // Override to support editing the table view.
@@ -107,8 +108,8 @@ class CoreDataTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
 }
-
-extension CoreDataTableViewController {
+    //MARK: Data
+extension CategoryTableViewController {
     
     func saveCategory(categoryName: String) {
         do {
