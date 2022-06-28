@@ -20,7 +20,7 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray5
+        setupView()
         setupNavigationBar()
         
         coreDataView?.tableView.delegate = self
@@ -36,13 +36,16 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
         view = tableView
     }
     
-    //MARK: - Configuration navigation
+    //MARK: - SetUp navigation and View
     func setupNavigationBar(){
         navigationItem.title = "Core Data"
         navigationItem.rightBarButtonItem = coreDataView?.barButton
         coreDataView?.barButton.action = #selector(addCategoryPressed)
         coreDataView?.barButton.target = self
-        
+    }
+    
+    func setupView() {
+        view.backgroundColor = .systemGray5
     }
     
     @objc func addCategoryPressed() {
@@ -65,10 +68,9 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
         present(alertToAddCategory, animated: true)
     }
     
-    // MARK: - Table view data source
+    // MARK: - TableView data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -97,19 +99,17 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
             let category = categories[indexPath.row] as? Category
             vc.selectedCategory = category
             navigationController?.pushViewController(vc, animated: true)
+            coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
-    // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let category = categories[indexPath.row]
             model.delete(entity: category)
             categories.remove(at: indexPath.row)
             coreDataView?.tableView.reloadData()
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+        } 
     }
 }
     //MARK: Data

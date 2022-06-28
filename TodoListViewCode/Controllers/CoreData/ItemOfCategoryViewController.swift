@@ -79,7 +79,7 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         if items.isEmpty {
-            cell.textLabel?.text = "There are no Items in the Category \(selectedCategory?.name ?? "ToDo")"
+            cell.textLabel?.text = "There are no Items in the \(selectedCategory?.name ?? "ToDo") Category "
         } else {
             let item = items[indexPath.row] as! Item
             cell.textLabel?.text = item.title
