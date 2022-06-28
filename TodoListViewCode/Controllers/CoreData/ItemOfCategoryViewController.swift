@@ -29,6 +29,7 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
         view.backgroundColor = .systemGray5
         coreDataView?.tableView.delegate = self
         coreDataView?.tableView.dataSource = self
+        coreDataView?.searchBar.searchResultsUpdater = self
         
         setupNavigationBar()
     }
@@ -44,6 +45,9 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     func setupNavigationBar(){
         navigationItem.title = selectedCategory?.name
         navigationItem.rightBarButtonItem = coreDataView?.barButton
+        navigationItem.searchController = coreDataView?.searchBar
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         coreDataView?.barButton.action = #selector(addCategoryPressed)
         coreDataView?.barButton.target = self
         
@@ -102,8 +106,7 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     }
 }
 
-//MARK: Data
-
+    //MARK: Data Model
 extension ItemOfCategoryViewController {
     func saveItem(itemName: String) {
         do {
@@ -117,6 +120,23 @@ extension ItemOfCategoryViewController {
             let alertError = UIAlertController(title: "Error adding item", message: "", preferredStyle: .alert)
             alertError.addAction(UIAlertAction(title: "Ok", style: .default))
             self.present(alertError, animated: true)
+        }
+    }
+}
+
+    //MARK: SearchBar delegate
+extension ItemOfCategoryViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let title = searchController.searchBar.text {
+            if title != "" {
+                items = self.itemManager.searchByTitle(textSearch: title)
+                coreDataView?.tableView.reloadData()
+            } else {
+                DispatchQueue.main.async {
+                    self.items = self.itemManager.listingItemByCategory()
+                    self.coreDataView?.tableView.reloadData()
+                }
+            }
         }
     }
 }

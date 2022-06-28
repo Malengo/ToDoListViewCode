@@ -23,6 +23,13 @@ class DataTableView: UIView {
         return button
     }()
     
+    lazy var searchBar: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        search.searchBar.placeholder = "Search..."
+        return search
+    }()
+    
+    //MARK: -- Setup
     func setupView() {
         addSubview(tableView)
     }

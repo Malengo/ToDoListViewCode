@@ -11,7 +11,7 @@ import CoreData
 class CategoryTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var categories = [NSManagedObject]()
-    var model = Model<Category>()
+    let categoryModel = CategoryModel()
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var coreDataView: DataTableView? {
@@ -26,20 +26,25 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
         coreDataView?.tableView.delegate = self
         coreDataView?.tableView.dataSource = self
         
-        categories = model.read()
+        categories = categoryModel.read()
     }
     
     override func loadView() {
         let tableView = DataTableView()
         tableView.setupView()
         tableView.setupConstraints()
+        tableView.searchBar.searchResultsUpdater = self
         view = tableView
     }
     
     //MARK: - SetUp navigation and View
     func setupNavigationBar(){
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.searchController = coreDataView?.searchBar
+        navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Core Data"
         navigationItem.rightBarButtonItem = coreDataView?.barButton
+        
         coreDataView?.barButton.action = #selector(addCategoryPressed)
         coreDataView?.barButton.target = self
     }
@@ -106,13 +111,13 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let category = categories[indexPath.row]
-            model.delete(entity: category)
+            categoryModel.delete(entity: category)
             categories.remove(at: indexPath.row)
             coreDataView?.tableView.reloadData()
         } 
     }
 }
-    //MARK: Data
+    //MARK: Data Methods
 extension CategoryTableViewController {
     
     func saveCategory(categoryName: String) {
@@ -126,6 +131,24 @@ extension CategoryTableViewController {
             let alertError = UIAlertController(title: "Error adding category", message: "", preferredStyle: .alert)
             alertError.addAction(UIAlertAction(title: "Ok", style: .default))
             self.present(alertError, animated: true)
+        }
+    }
+}
+
+    //MARK: SearchBar Methods
+extension CategoryTableViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let name = searchController.searchBar.text {
+            if name != "" {
+                categories = categoryModel.searchByName(name: name)
+                self.coreDataView?.tableView.reloadData()
+            } else {
+                DispatchQueue.main.async {
+                    self.categories = self.categoryModel.read()
+                    self.coreDataView?.tableView.reloadData()
+                }
+            }
         }
     }
 }
