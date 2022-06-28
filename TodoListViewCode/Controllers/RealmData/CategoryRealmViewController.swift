@@ -107,6 +107,7 @@ class CategoryRealmViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
 }
+
 //MARK: Data Methods
 extension CategoryRealmViewController {
     
@@ -117,6 +118,7 @@ extension CategoryRealmViewController {
         coreDataView?.tableView.reloadData()
     }
 }
+
 //MARK: SearchBar Methods
 extension CategoryRealmViewController: UISearchResultsUpdating {
     

@@ -86,7 +86,7 @@ class ItemRealmViewController: UIViewController, UITableViewDataSource, UITableV
         if let item = items?[indexPath.row] {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
-        }
+        } 
         return cell
     }
     
@@ -101,7 +101,7 @@ class ItemRealmViewController: UIViewController, UITableViewDataSource, UITableV
     }
 }
 
-    //MARK: Data Model
+//MARK: Data Model
 extension ItemRealmViewController {
     
     func saveItem(itemName: String) {
@@ -120,7 +120,7 @@ extension ItemRealmViewController {
     }
 }
 
-    //MARK: SearchBar delegate
+//MARK: SearchBar delegate
 extension ItemRealmViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let title = searchController.searchBar.text {
