@@ -20,6 +20,11 @@
 		CEE4A7BB286B2E7600A08DA7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CEE4A7BA286B2E7600A08DA7 /* Realm */; };
 		CEE4A7BD286B2E7600A08DA7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEE4A7BC286B2E7600A08DA7 /* RealmSwift */; };
 		CEE4A7BF286B52C800A08DA7 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A7BE286B52C800A08DA7 /* CategoryModel.swift */; };
+		CEE4A7C1286B730800A08DA7 /* CategoryRealmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A7C0286B730800A08DA7 /* CategoryRealmViewController.swift */; };
+		CEE4A7C6286B739700A08DA7 /* ItemRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A7C3286B739700A08DA7 /* ItemRealm.swift */; };
+		CEE4A7C7286B739700A08DA7 /* CategoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A7C4286B739700A08DA7 /* CategoryRealm.swift */; };
+		CEE4A7C8286B739700A08DA7 /* ModelRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A7C5286B739700A08DA7 /* ModelRealm.swift */; };
+		CEE4A7CA286B7BE300A08DA7 /* ItemRealmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A7C9286B7BE300A08DA7 /* ItemRealmViewController.swift */; };
 		CEE5B9542869EDFE00F3DB1F /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B9532869EDFE00F3DB1F /* CategoryView.swift */; };
 		CEE5B9562869EF4E00F3DB1F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B9552869EF4E00F3DB1F /* CategoryViewController.swift */; };
 		CEE5B959286A30F900F3DB1F /* ItemOfCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B958286A30F900F3DB1F /* ItemOfCategoryViewController.swift */; };
@@ -40,6 +45,11 @@
 		CE9567172865DFDE003DB3A2 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		CE95671B28664134003DB3A2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		CEE4A7BE286B52C800A08DA7 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		CEE4A7C0286B730800A08DA7 /* CategoryRealmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRealmViewController.swift; sourceTree = "<group>"; };
+		CEE4A7C3286B739700A08DA7 /* ItemRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemRealm.swift; sourceTree = "<group>"; };
+		CEE4A7C4286B739700A08DA7 /* CategoryRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryRealm.swift; sourceTree = "<group>"; };
+		CEE4A7C5286B739700A08DA7 /* ModelRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelRealm.swift; sourceTree = "<group>"; };
+		CEE4A7C9286B7BE300A08DA7 /* ItemRealmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRealmViewController.swift; sourceTree = "<group>"; };
 		CEE5B9532869EDFE00F3DB1F /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		CEE5B9552869EF4E00F3DB1F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		CEE5B958286A30F900F3DB1F /* ItemOfCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOfCategoryViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +132,7 @@
 		CE95671928663B30003DB3A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CEE4A7C2286B738600A08DA7 /* ModelFromRealm */,
 				CE95671A2866411D003DB3A2 /* ModelFromCoreData */,
 			);
 			path = Model;
@@ -141,8 +152,20 @@
 		CEE4A7B8286B2D8C00A08DA7 /* RealmData */ = {
 			isa = PBXGroup;
 			children = (
+				CEE4A7C0286B730800A08DA7 /* CategoryRealmViewController.swift */,
+				CEE4A7C9286B7BE300A08DA7 /* ItemRealmViewController.swift */,
 			);
 			path = RealmData;
+			sourceTree = "<group>";
+		};
+		CEE4A7C2286B738600A08DA7 /* ModelFromRealm */ = {
+			isa = PBXGroup;
+			children = (
+				CEE4A7C4286B739700A08DA7 /* CategoryRealm.swift */,
+				CEE4A7C3286B739700A08DA7 /* ItemRealm.swift */,
+				CEE4A7C5286B739700A08DA7 /* ModelRealm.swift */,
+			);
+			path = ModelFromRealm;
 			sourceTree = "<group>";
 		};
 		CEE5B957286A30B900F3DB1F /* CoreData */ = {
@@ -232,9 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE4A7BF286B52C800A08DA7 /* CategoryModel.swift in Sources */,
+				CEE4A7CA286B7BE300A08DA7 /* ItemRealmViewController.swift in Sources */,
 				CEE5B9562869EF4E00F3DB1F /* CategoryViewController.swift in Sources */,
+				CEE4A7C6286B739700A08DA7 /* ItemRealm.swift in Sources */,
+				CEE4A7C1286B730800A08DA7 /* CategoryRealmViewController.swift in Sources */,
 				CE9567182865DFDE003DB3A2 /* CategoryTableViewController.swift in Sources */,
 				CE8D16CF2863A12C001FCD4F /* MainViewController.swift in Sources */,
+				CEE4A7C8286B739700A08DA7 /* ModelRealm.swift in Sources */,
 				CE8D16D52863A12C001FCD4F /* TodoListViewCode.xcdatamodeld in Sources */,
 				CE9567162865DFB5003DB3A2 /* DataTableView.swift in Sources */,
 				CE8D16CB2863A12C001FCD4F /* AppDelegate.swift in Sources */,
@@ -242,6 +269,7 @@
 				CE8D16CD2863A12C001FCD4F /* SceneDelegate.swift in Sources */,
 				CEE5B959286A30F900F3DB1F /* ItemOfCategoryViewController.swift in Sources */,
 				CE8D16E52863A1EC001FCD4F /* MainView.swift in Sources */,
+				CEE4A7C7286B739700A08DA7 /* CategoryRealm.swift in Sources */,
 				CE95671C28664134003DB3A2 /* Model.swift in Sources */,
 				CEE5B9542869EDFE00F3DB1F /* CategoryView.swift in Sources */,
 			);

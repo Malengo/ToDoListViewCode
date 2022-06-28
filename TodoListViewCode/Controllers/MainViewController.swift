@@ -30,11 +30,17 @@ class MainViewController: UIViewController {
     
     func setupButtons(){
         self.mainView?.coreDataButton.addTarget(self, action: #selector(coreDataButtonPressed), for: .touchDown)
+        self.mainView?.realmButton.addTarget(self, action: #selector(realmButtonPressed), for: .touchDown)
     }
     
     @objc func coreDataButtonPressed(){
         let coreDataTebleView = CategoryTableViewController()
         self.navigationController?.pushViewController(coreDataTebleView, animated: true)
+    }
+    
+    @objc func realmButtonPressed(){
+        let realmTableView = CategoryRealmViewController()
+        self.navigationController?.pushViewController(realmTableView, animated: true)
     }
     
 }
