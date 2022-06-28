@@ -90,7 +90,6 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     
     //MARK - TableView Delegate Methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
         let item = items[indexPath.row] as! Item
         item.isChecked = !item.isChecked
         itemManager.save()

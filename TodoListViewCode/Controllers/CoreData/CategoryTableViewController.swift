@@ -90,10 +90,14 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ItemOfCategoryViewController ()
-        let category = categories[indexPath.row] as? Category
-        vc.selectedCategory = category
-        navigationController?.pushViewController(vc, animated: true)
+        if categories.isEmpty {
+            coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            let vc = ItemOfCategoryViewController ()
+            let category = categories[indexPath.row] as? Category
+            vc.selectedCategory = category
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     // Override to support editing the table view.
