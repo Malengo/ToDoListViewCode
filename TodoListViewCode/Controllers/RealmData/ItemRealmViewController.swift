@@ -14,9 +14,8 @@ class ItemRealmViewController: UIViewController, UITableViewDataSource, UITableV
     var itemManager = ModelRealm<ItemRealm>()
     let realm = try? Realm()
    
-    
-    var selectedCategory: CategoryRealm?{
-        didSet{
+    var selectedCategory: CategoryRealm? {
+        didSet {
             items = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
             navigationItem.title = selectedCategory?.name
         }
@@ -28,34 +27,25 @@ class ItemRealmViewController: UIViewController, UITableViewDataSource, UITableV
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray5
-        coreDataView?.tableView.delegate = self
-        coreDataView?.tableView.dataSource = self
-        coreDataView?.searchBar.searchResultsUpdater = self
-        
+        coreDataView?.setViewDelegateAndDataSource(to: self)
         setupNavigationBar()
     }
     
     override func loadView() {
         let tableView = DataTableView()
         tableView.setupView()
-        tableView.setupConstraints()
         view = tableView
     }
     
     //MARK: - Configuration navigation
-    func setupNavigationBar(){
+    private func setupNavigationBar(){
         navigationItem.title = selectedCategory?.name
-        navigationItem.rightBarButtonItem = coreDataView?.barButton
-        navigationItem.searchController = coreDataView?.searchBar
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-        coreDataView?.barButton.action = #selector(addCategoryPressed)
-        coreDataView?.barButton.target = self
         
     }
     
-    @objc func addCategoryPressed() {
+    @objc private func addCategoryPressed() {
         let alertToAddItem = UIAlertController(title: "Add new Item", message: nil, preferredStyle: .alert)
         alertToAddItem.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Item"
@@ -63,7 +53,7 @@ class ItemRealmViewController: UIViewController, UITableViewDataSource, UITableV
         
         let addActionCategory = UIAlertAction(title: "Add Item", style: .default) { _ in
             if let textFields = alertToAddItem.textFields {
-                if let newItem = textFields[0].text {
+                if let newItem = textFields.first?.text {
                     self.saveItem(itemName: newItem)
                 }
             }
@@ -96,7 +86,7 @@ class ItemRealmViewController: UIViewController, UITableViewDataSource, UITableV
             try? realm?.write({
                 item.done = !item.done
             })
-            tableView.reloadData()
+            coreDataView?.reloadTableViewData()
         }
     }
 }
@@ -110,7 +100,7 @@ extension ItemRealmViewController {
                 let item = ItemRealm()
                 item.title = itemName
                 selectedCategory?.items.append(item)
-                coreDataView?.tableView.reloadData()
+                coreDataView?.reloadTableViewData()
             }
         } catch {
             let alertError = UIAlertController(title: "Error adding item", message: "", preferredStyle: .alert)
@@ -121,17 +111,16 @@ extension ItemRealmViewController {
 }
 
 //MARK: SearchBar delegate
-extension ItemRealmViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let title = searchController.searchBar.text {
-            if title != "" {
-                items = items?.filter("title CONTAINS[cd] %@", title).sorted(byKeyPath: "title", ascending: true)
-                coreDataView?.tableView.reloadData()
-            } else {
-                DispatchQueue.main.async {
-                    self.items = self.selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
-                    self.coreDataView?.tableView.reloadData()
-                }
+extension ItemRealmViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let title = searchBar.text, !title.isEmpty {
+            items = items?.filter("title CONTAINS[cd] %@", title).sorted(byKeyPath: "title", ascending: true)
+            coreDataView?.reloadTableViewData()
+        } else {
+            DispatchQueue.main.async {
+                self.items = self.selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+                self.coreDataView?.reloadTableViewData()
             }
         }
     }

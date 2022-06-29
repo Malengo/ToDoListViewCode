@@ -40,7 +40,8 @@ class ItemModel: Model<Item> {
     
     func searchByTitle(textSearch: String) -> [Item] {
         let titlePredicate = NSPredicate(format: "title CONTAINS[cd] %@", textSearch)
-        search.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [titlePredicate, predicate!])
+        guard let predicate = predicate else { return [] }
+        search.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [titlePredicate, predicate])
         search.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         let itens = load(with: search)
         return  itens

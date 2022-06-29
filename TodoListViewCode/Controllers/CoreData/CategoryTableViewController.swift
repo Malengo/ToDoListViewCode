@@ -20,40 +20,26 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
         setupNavigationBar()
-        
-        coreDataView?.tableView.delegate = self
-        coreDataView?.tableView.dataSource = self
-        
+        coreDataView?.setViewDelegateAndDataSource(to: self)
         categories = categoryModel.read()
     }
     
     override func loadView() {
         let tableView = DataTableView()
         tableView.setupView()
-        tableView.setupConstraints()
-        tableView.searchBar.searchResultsUpdater = self
         view = tableView
     }
     
     //MARK: - SetUp navigation and View
-    func setupNavigationBar(){
+    private func setupNavigationBar(){
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.searchController = coreDataView?.searchBar
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Core Data"
-        navigationItem.rightBarButtonItem = coreDataView?.barButton
-        
-        coreDataView?.barButton.action = #selector(addCategoryPressed)
-        coreDataView?.barButton.target = self
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
     }
     
-    func setupView() {
-        view.backgroundColor = .systemGray5
-    }
-    
-    @objc func addCategoryPressed() {
+    @objc private func addCategoryPressed() {
         let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
         alertToAddCategory.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Category"
@@ -61,7 +47,7 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
             if let textFields = alertToAddCategory.textFields {
-                if let newCategory = textFields[0].text {
+                if let newCategory = textFields.first?.text {
                     self.saveCategory(categoryName: newCategory)
                 }
             }
@@ -98,13 +84,13 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if categories.isEmpty {
-            coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
+            coreDataView?.deselectRow(at: indexPath)
         } else {
             let vc = ItemOfCategoryViewController ()
             let category = categories[indexPath.row] as? Category
             vc.selectedCategory = category
             navigationController?.pushViewController(vc, animated: true)
-            coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
+            coreDataView?.deselectRow(at: indexPath)
         }
     }
     
@@ -113,7 +99,7 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
             let category = categories[indexPath.row]
             categoryModel.delete(entity: category)
             categories.remove(at: indexPath.row)
-            coreDataView?.tableView.reloadData()
+            coreDataView?.reloadTableViewData()
         } 
     }
 }
@@ -126,7 +112,7 @@ extension CategoryTableViewController {
             category.name = categoryName
             try self.context.save()
             self.categories.append(category)
-            self.coreDataView?.tableView.reloadData()
+            self.coreDataView?.reloadTableViewData()
         } catch {
             let alertError = UIAlertController(title: "Error adding category", message: "", preferredStyle: .alert)
             alertError.addAction(UIAlertAction(title: "Ok", style: .default))
@@ -136,18 +122,16 @@ extension CategoryTableViewController {
 }
 
     //MARK: SearchBar Methods
-extension CategoryTableViewController: UISearchResultsUpdating {
+extension CategoryTableViewController: UISearchBarDelegate {
     
-    func updateSearchResults(for searchController: UISearchController) {
-        if let name = searchController.searchBar.text {
-            if name != "" {
-                categories = categoryModel.searchByName(name: name)
-                self.coreDataView?.tableView.reloadData()
-            } else {
-                DispatchQueue.main.async {
-                    self.categories = self.categoryModel.read()
-                    self.coreDataView?.tableView.reloadData()
-                }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let name = searchBar.text, !name.isEmpty {
+            categories = categoryModel.searchByName(name: name)
+            self.coreDataView?.reloadTableViewData()
+        } else {
+            DispatchQueue.main.async {
+                self.categories = self.categoryModel.read()
+                self.coreDataView?.reloadTableViewData()
             }
         }
     }

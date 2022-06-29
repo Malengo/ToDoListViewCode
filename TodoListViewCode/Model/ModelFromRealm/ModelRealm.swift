@@ -11,26 +11,26 @@ import RealmSwift
 
 class ModelRealm<U: Object>{
     
-    let realm = try! Realm()
+    let realm = try? Realm()
     
     func create(entity: Object) {
         do {
-            try realm.write {
-                realm.add(entity)
+            try realm?.write {
+                realm?.add(entity)
             }
         } catch {
             print("Error to add new \(error)")
         }
     }
     
-    func read() -> Results<U> {
-        return realm.objects(U.self)
+    func read() -> Results<U>? {
+        return realm?.objects(U.self)
     }
     
     func delete(entity: Object) {
         do {
-            try realm.write {
-                realm.delete(entity)
+            try realm?.write {
+                realm?.delete(entity)
             }
         } catch {
             

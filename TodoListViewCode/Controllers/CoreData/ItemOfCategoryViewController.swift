@@ -26,34 +26,24 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray5
-        coreDataView?.tableView.delegate = self
-        coreDataView?.tableView.dataSource = self
-        coreDataView?.searchBar.searchResultsUpdater = self
-        
+        coreDataView?.setViewDelegateAndDataSource(to: self)
         setupNavigationBar()
     }
     
     override func loadView() {
         let tableView = DataTableView()
         tableView.setupView()
-        tableView.setupConstraints()
         view = tableView
     }
     
     //MARK: - Configuration navigation
-    func setupNavigationBar(){
+    private func setupNavigationBar(){
         navigationItem.title = selectedCategory?.name
-        navigationItem.rightBarButtonItem = coreDataView?.barButton
-        navigationItem.searchController = coreDataView?.searchBar
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-        coreDataView?.barButton.action = #selector(addCategoryPressed)
-        coreDataView?.barButton.target = self
-        
     }
     
-    @objc func addCategoryPressed() {
+    @objc private func addCategoryPressed() {
         let alertToAddItem = UIAlertController(title: "Add new Item", message: nil, preferredStyle: .alert)
         alertToAddItem.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Item"
@@ -61,7 +51,7 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
         
         let addActionCategory = UIAlertAction(title: "Add Item", style: .default) { _ in
             if let textFields = alertToAddItem.textFields {
-                if let newItem = textFields[0].text {
+                if let newItem = textFields.first?.text {
                     self.saveItem(itemName: newItem)
                 }
             }
@@ -85,9 +75,10 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
         if items.isEmpty {
             cell.textLabel?.text = "There are no Items in the \(selectedCategory?.name ?? "ToDo") Category "
         } else {
-            let item = items[indexPath.row] as! Item
-            cell.textLabel?.text = item.title
-            cell.accessoryType = item.isChecked ? .checkmark : .none
+            if let item = items[indexPath.row] as? Item {
+                cell.textLabel?.text = item.title
+                cell.accessoryType = item.isChecked ? .checkmark : .none
+            }
         }
         return cell
     }
@@ -95,13 +86,14 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     //MARK - TableView Delegate Methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if items.isEmpty {
-            coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
+            coreDataView?.deselectRow(at: indexPath)
         } else {
-            let item = items[indexPath.row] as! Item
-            item.isChecked = !item.isChecked
-            itemManager.save()
-            coreDataView?.tableView.reloadData()
-            coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
+            if let item = items[indexPath.row] as? Item {
+                item.isChecked = !item.isChecked
+                itemManager.save()
+                coreDataView?.reloadTableViewData()
+                coreDataView?.deselectRow(at: indexPath)
+            }
         }
     }
 }
@@ -115,7 +107,7 @@ extension ItemOfCategoryViewController {
             item.parentCategory = selectedCategory
             try context.save()
             items.append(item)
-            coreDataView?.tableView.reloadData()
+            coreDataView?.reloadTableViewData()
         } catch {
             let alertError = UIAlertController(title: "Error adding item", message: "", preferredStyle: .alert)
             alertError.addAction(UIAlertAction(title: "Ok", style: .default))
@@ -125,17 +117,16 @@ extension ItemOfCategoryViewController {
 }
 
     //MARK: SearchBar delegate
-extension ItemOfCategoryViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let title = searchController.searchBar.text {
-            if title != "" {
-                items = self.itemManager.searchByTitle(textSearch: title)
-                coreDataView?.tableView.reloadData()
-            } else {
-                DispatchQueue.main.async {
-                    self.items = self.itemManager.listingItemByCategory()
-                    self.coreDataView?.tableView.reloadData()
-                }
+extension ItemOfCategoryViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let title = searchBar.text, !title.isEmpty {
+            items = self.itemManager.searchByTitle(textSearch: title)
+            coreDataView?.reloadTableViewData()
+        } else {
+            DispatchQueue.main.async {
+                self.items = self.itemManager.listingItemByCategory()
+                self.coreDataView?.reloadTableViewData()
             }
         }
     }

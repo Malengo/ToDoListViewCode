@@ -38,12 +38,21 @@ class MainView: UIView {
         return button
     }()
     
+    lazy var firebaseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("ToDo using Firebase", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 8
+        return button
+    }()
+    
     //MARK: -- Setup components
     func setupView() {
         backgroundColor = .white
         addSubview(stackView)
         [coreDataButton,
-         realmButton].forEach { stackView.addArrangedSubview($0) }
+         realmButton, firebaseButton].forEach { stackView.addArrangedSubview($0) }
     }
     
     func setupConstraints() {
@@ -62,5 +71,10 @@ class MainView: UIView {
         coreDataButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
         coreDataButton.leftAnchor.constraint(equalTo: stackView.leftAnchor).isActive = true
         coreDataButton.rightAnchor.constraint(equalTo: stackView.rightAnchor).isActive = true
+        
+        firebaseButton.translatesAutoresizingMaskIntoConstraints = false
+        firebaseButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        firebaseButton.leftAnchor.constraint(equalTo: stackView.leftAnchor).isActive = true
+        firebaseButton.rightAnchor.constraint(equalTo: stackView.rightAnchor).isActive = true
     }
 }

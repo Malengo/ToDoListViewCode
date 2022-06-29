@@ -10,49 +10,35 @@ import RealmSwift
 
 class CategoryRealmViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var categories: Results<CategoryRealm>?
-    let categoryModel = ModelRealm<CategoryRealm>()
+    private var categories: Results<CategoryRealm>?
+    private let categoryModel = ModelRealm<CategoryRealm>()
     
-    var coreDataView: DataTableView? {
+    private var coreDataView: DataTableView? {
         return view as? DataTableView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
         setupNavigationBar()
-        
-        coreDataView?.tableView.delegate = self
-        coreDataView?.tableView.dataSource = self
-        
+        coreDataView?.setViewDelegateAndDataSource(to: self)
         categories = categoryModel.read()
     }
     
     override func loadView() {
         let tableView = DataTableView()
         tableView.setupView()
-        tableView.setupConstraints()
-        tableView.searchBar.searchResultsUpdater = self
         view = tableView
     }
     
     //MARK: - SetUp navigation and View
-    func setupNavigationBar(){
+    private func setupNavigationBar(){
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.searchController = coreDataView?.searchBar
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Realm Data"
-        navigationItem.rightBarButtonItem = coreDataView?.barButton
-        
-        coreDataView?.barButton.action = #selector(addCategoryPressed)
-        coreDataView?.barButton.target = self
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
     }
     
-    func setupView() {
-        view.backgroundColor = .systemGray5
-    }
-    
-    @objc func addCategoryPressed() {
+    @objc private func addCategoryPressed() {
         let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
         alertToAddCategory.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Category"
@@ -60,7 +46,7 @@ class CategoryRealmViewController: UIViewController, UITableViewDelegate, UITabl
         
         let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
             if let textFields = alertToAddCategory.textFields {
-                if let newCategory = textFields[0].text {
+                if let newCategory = textFields.first?.text {
                     self.saveCategory(categoryName: newCategory)
                 }
             }
@@ -95,7 +81,7 @@ class CategoryRealmViewController: UIViewController, UITableViewDelegate, UITabl
         let category = categories?[indexPath.row]
         vc.selectedCategory = category
         navigationController?.pushViewController(vc, animated: true)
-        coreDataView?.tableView.deselectRow(at: indexPath, animated: true)
+        coreDataView?.deselectRow(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -115,23 +101,32 @@ extension CategoryRealmViewController {
         let category = CategoryRealm()
         category.name = categoryName
         categoryModel.create(entity: category)
-        coreDataView?.tableView.reloadData()
+        coreDataView?.reloadTableViewData()
     }
 }
 
 //MARK: SearchBar Methods
-extension CategoryRealmViewController: UISearchResultsUpdating {
+extension CategoryRealmViewController: UISearchBarDelegate {
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let name = searchBar.text, !name.isEmpty {
+            categories = categories?.filter("name CONTAINS[cd] %@", name).sorted(byKeyPath: "name", ascending: true)
+            coreDataView?.reloadTableViewData()
+        } else {
+            DispatchQueue.main.async {
+                self.categories = self.categoryModel.read()
+                self.coreDataView?.reloadTableViewData()
+            }
+        }
+    }
     func updateSearchResults(for searchController: UISearchController) {
-        if let name = searchController.searchBar.text {
-            if name != "" {
-                categories = categories?.filter("name CONTAINS[cd] %@", name).sorted(byKeyPath: "name", ascending: true)
-                coreDataView?.tableView.reloadData()
-            } else {
-                DispatchQueue.main.async {
-                    self.categories = self.categoryModel.read()
-                    self.coreDataView?.tableView.reloadData()
-                }
+        if let name = searchController.searchBar.text, !name.isEmpty {
+            categories = categories?.filter("name CONTAINS[cd] %@", name).sorted(byKeyPath: "name", ascending: true)
+            coreDataView?.reloadTableViewData()
+        } else {
+            DispatchQueue.main.async {
+                self.categories = self.categoryModel.read()
+                self.coreDataView?.reloadTableViewData()
             }
         }
     }

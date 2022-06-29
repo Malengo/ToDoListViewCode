@@ -10,7 +10,6 @@ import CoreData
 
 class CategoryModel: Model<Category> {
     
-    
     func searchByName(name: String) -> [Category] {
         let request: NSFetchRequest<Category> = Category.fetchRequest()
         let titlePredicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
