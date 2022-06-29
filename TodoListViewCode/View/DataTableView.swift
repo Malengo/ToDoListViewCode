@@ -48,7 +48,6 @@ class DataTableView: UIView, ViewCodeProtocol {
         tableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 18).isActive = true
         tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 18).isActive = true
         tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
     }
     
     func addictionalConfiguration() {

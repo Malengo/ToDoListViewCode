@@ -4,15 +4,19 @@
 //
 //  Created by user on 24/06/22.
 //
-import CoreData
 import UIKit
 import CoreData
 
-class CategoryTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol SaveWordProtocol: AnyObject {
+    func saveSearch(word: String)
+}
+
+class CategoryTableViewController: UIViewController {
     
     var categories = [NSManagedObject]()
     let categoryModel = CategoryModel()
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var delegate: SaveWordProtocol?
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
@@ -40,6 +44,7 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @objc private func addCategoryPressed() {
+        
         let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
         alertToAddCategory.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Category"
@@ -51,25 +56,19 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
                     self.saveCategory(categoryName: newCategory)
                 }
             }
-            
         }
-        
         alertToAddCategory.addAction(addActionCategory)
         alertToAddCategory.addAction(UIAlertAction(title: "Cancel", style: .destructive))
         present(alertToAddCategory, animated: true)
     }
-    
+}
     // MARK: - TableView data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+extension CategoryTableViewController: UITableViewDataSource {
+      
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = categories.isEmpty ? 1  : categories.count
         return count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
@@ -80,7 +79,12 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
             cell.textLabel?.text = category?.name
         }
         return cell
-    }
+    }    
+}
+
+// MARK: - TableView Delegate
+
+extension CategoryTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if categories.isEmpty {
@@ -100,10 +104,12 @@ class CategoryTableViewController: UIViewController, UITableViewDelegate, UITabl
             categoryModel.delete(entity: category)
             categories.remove(at: indexPath.row)
             coreDataView?.reloadTableViewData()
-        } 
+        }
     }
 }
-    //MARK: Data Methods
+
+//MARK: Data Methods
+
 extension CategoryTableViewController {
     
     func saveCategory(categoryName: String) {
@@ -121,12 +127,14 @@ extension CategoryTableViewController {
     }
 }
 
-    //MARK: SearchBar Methods
+//MARK: SearchBar Methods
+
 extension CategoryTableViewController: UISearchBarDelegate {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let name = searchBar.text, !name.isEmpty {
             categories = categoryModel.searchByName(name: name)
+            delegate?.saveSearch(word: name)
             self.coreDataView?.reloadTableViewData()
         } else {
             DispatchQueue.main.async {

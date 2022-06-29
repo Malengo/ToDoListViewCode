@@ -9,6 +9,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    let defaults = UserDefaults.standard
+    var words: [String] = []
     var mainView: MainView? {
         return view as? MainView
     }
@@ -28,20 +30,30 @@ class MainViewController: UIViewController {
     
     //MARK: Button Actions and settings
     
-    func setupButtons(){
+    func setupButtons() {
         self.mainView?.coreDataButton.addTarget(self, action: #selector(coreDataButtonPressed), for: .touchDown)
         self.mainView?.realmButton.addTarget(self, action: #selector(realmButtonPressed), for: .touchDown)
     }
     
-    @objc func coreDataButtonPressed(){
+    @objc func coreDataButtonPressed() {
         let coreDataTebleView = CategoryTableViewController()
+        coreDataTebleView.delegate = self
         self.navigationController?.pushViewController(coreDataTebleView, animated: true)
     }
     
-    @objc func realmButtonPressed(){
+    @objc func realmButtonPressed() {
         let realmTableView = CategoryRealmViewController()
         self.navigationController?.pushViewController(realmTableView, animated: true)
     }
     
+}
+
+// MARK: -  SaveWordProtocol
+
+extension MainViewController: SaveWordProtocol {
+    func saveSearch(word: String) {
+        words.append(word)
+        defaults.set(words, forKey: "SearchWord")
+    }
 }
 
