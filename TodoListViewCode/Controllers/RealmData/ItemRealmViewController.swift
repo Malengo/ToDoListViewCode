@@ -125,3 +125,18 @@ extension ItemRealmViewController: UISearchBarDelegate {
         }
     }
 }
+
+// MARK: - CollectionView DataSource
+
+extension ItemRealmViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .white
+        return cell
+    }
+}

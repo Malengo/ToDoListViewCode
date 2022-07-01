@@ -10,6 +10,8 @@ import CoreData
 
 class CategoryModel: Model<Category> {
     
+    private var categories = [Category]()
+    
     func searchByName(name: String) -> [Category] {
         let request: NSFetchRequest<Category> = Category.fetchRequest()
         let titlePredicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
@@ -17,5 +19,14 @@ class CategoryModel: Model<Category> {
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         let categories = (try? context.fetch(request)) ?? []
         return categories
+    }
+    
+    func getAllCategories() -> [Category] {
+        guard let categories = read() as? [Category] else { return [] }
+        return categories
+    }
+    
+    func getCategoriesCount() -> Int {
+        return categories.count
     }
 }

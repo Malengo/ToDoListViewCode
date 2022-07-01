@@ -17,6 +17,8 @@
 		CE9567162865DFB5003DB3A2 /* DataTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9567152865DFB5003DB3A2 /* DataTableView.swift */; };
 		CE9567182865DFDE003DB3A2 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9567172865DFDE003DB3A2 /* CategoryTableViewController.swift */; };
 		CE95671C28664134003DB3A2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95671B28664134003DB3A2 /* Model.swift */; };
+		CEC9CDEA286DE7B800C7D1FD /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9CDE9286DE7B700C7D1FD /* SearchHistoryCell.swift */; };
+		CEC9CDEC286E2F2D00C7D1FD /* SearchHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */; };
 		CEE25D19286C83B9002F1C17 /* ViewCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */; };
 		CEE25D1C286CA44E002F1C17 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CEE25D1B286CA44E002F1C17 /* FirebaseDatabase */; };
 		CEE25D1E286CA44E002F1C17 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CEE25D1D286CA44E002F1C17 /* FirebaseFirestore */; };
@@ -48,6 +50,8 @@
 		CE9567152865DFB5003DB3A2 /* DataTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableView.swift; sourceTree = "<group>"; };
 		CE9567172865DFDE003DB3A2 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		CE95671B28664134003DB3A2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CEC9CDE9286DE7B700C7D1FD /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
+		CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryData.swift; sourceTree = "<group>"; };
 		CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodeProtocol.swift; sourceTree = "<group>"; };
 		CEE25D20286CAB0E002F1C17 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEE4A7BE286B52C800A08DA7 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				CE8D16E42863A1EC001FCD4F /* MainView.swift */,
 				CE9567152865DFB5003DB3A2 /* DataTableView.swift */,
 				CEE5B9532869EDFE00F3DB1F /* CategoryView.swift */,
+				CEC9CDE9286DE7B700C7D1FD /* SearchHistoryCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 				CEE4A7C2286B738600A08DA7 /* ModelFromRealm */,
 				CE95671A2866411D003DB3A2 /* ModelFromCoreData */,
 				CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */,
+				CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 			files = (
 				CEE25D19286C83B9002F1C17 /* ViewCodeProtocol.swift in Sources */,
 				CEE4A7BF286B52C800A08DA7 /* CategoryModel.swift in Sources */,
+				CEC9CDEA286DE7B800C7D1FD /* SearchHistoryCell.swift in Sources */,
 				CEE4A7CA286B7BE300A08DA7 /* ItemRealmViewController.swift in Sources */,
 				CEE5B9562869EF4E00F3DB1F /* CategoryViewController.swift in Sources */,
 				CEE4A7C6286B739700A08DA7 /* ItemRealm.swift in Sources */,
@@ -294,6 +301,7 @@
 				CE8D16E52863A1EC001FCD4F /* MainView.swift in Sources */,
 				CEE4A7C7286B739700A08DA7 /* CategoryRealm.swift in Sources */,
 				CE95671C28664134003DB3A2 /* Model.swift in Sources */,
+				CEC9CDEC286E2F2D00C7D1FD /* SearchHistoryData.swift in Sources */,
 				CEE5B9542869EDFE00F3DB1F /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

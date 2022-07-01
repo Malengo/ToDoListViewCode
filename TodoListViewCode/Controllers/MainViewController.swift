@@ -37,7 +37,6 @@ class MainViewController: UIViewController {
     
     @objc func coreDataButtonPressed() {
         let coreDataTebleView = CategoryTableViewController()
-        coreDataTebleView.delegate = self
         self.navigationController?.pushViewController(coreDataTebleView, animated: true)
     }
     

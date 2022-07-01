@@ -15,8 +15,9 @@ class CategoryTableViewController: UIViewController {
     
     var categories = [NSManagedObject]()
     let categoryModel = CategoryModel()
+    var searchData = SearchHistoryData()
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var delegate: SaveWordProtocol?
+    var width: CGFloat = 0.0
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
@@ -27,6 +28,12 @@ class CategoryTableViewController: UIViewController {
         setupNavigationBar()
         coreDataView?.setViewDelegateAndDataSource(to: self)
         categories = categoryModel.read()
+        print("Teste")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(" here")
+        coreDataView?.hideSearchHistory()
     }
     
     override func loadView() {
@@ -41,25 +48,6 @@ class CategoryTableViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Core Data"
         navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
-    }
-    
-    @objc private func addCategoryPressed() {
-        
-        let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
-        alertToAddCategory.addTextField { textfieldNewCategory in
-            textfieldNewCategory.placeholder = "Enter here for new Category"
-        }
-        
-        let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
-            if let textFields = alertToAddCategory.textFields {
-                if let newCategory = textFields.first?.text {
-                    self.saveCategory(categoryName: newCategory)
-                }
-            }
-        }
-        alertToAddCategory.addAction(addActionCategory)
-        alertToAddCategory.addAction(UIAlertAction(title: "Cancel", style: .destructive))
-        present(alertToAddCategory, animated: true)
     }
 }
     // MARK: - TableView data source
@@ -108,7 +96,38 @@ extension CategoryTableViewController: UITableViewDelegate {
     }
 }
 
-//MARK: Data Methods
+// MARK: - Buttons action
+extension CategoryTableViewController {
+    
+    @objc private func addCategoryPressed() {
+        
+        let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
+        alertToAddCategory.addTextField { textfieldNewCategory in
+            textfieldNewCategory.placeholder = "Enter here for new Category"
+        }
+        
+        let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
+            if let textFields = alertToAddCategory.textFields {
+                if let newCategory = textFields.first?.text {
+                    self.saveCategory(categoryName: newCategory)
+                }
+            }
+        }
+        alertToAddCategory.addAction(addActionCategory)
+        alertToAddCategory.addAction(UIAlertAction(title: "Cancel", style: .destructive))
+        present(alertToAddCategory, animated: true)
+    }
+    
+    @objc func deleteItemSearch(_ sender: UIButton) {
+        guard let word = sender.titleLabel?.text else { return }
+        searchData.deleteWord(word: word)
+        DispatchQueue.main.async {
+            self.coreDataView?.reloadCollectionViewData()
+        }
+    }
+
+}
+// MARK: Data Methods
 
 extension CategoryTableViewController {
     
@@ -134,13 +153,47 @@ extension CategoryTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let name = searchBar.text, !name.isEmpty {
             categories = categoryModel.searchByName(name: name)
-            delegate?.saveSearch(word: name)
+            searchData.saveData(word: name)
             self.coreDataView?.reloadTableViewData()
+            self.coreDataView?.reloadCollectionViewData()
         } else {
             DispatchQueue.main.async {
                 self.categories = self.categoryModel.read()
                 self.coreDataView?.reloadTableViewData()
             }
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let name = searchBar.text, !name.isEmpty {
+            coreDataView?.showSearchHistory()
+        }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        coreDataView?.showSearchHistory()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        coreDataView?.hideSearchHistory()
+    }
+}
+
+// MARK: - CollectionView DataSource
+
+extension CategoryTableViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return searchData.getWordsCount()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? SearchHistoryCell {
+            print(indexPath.row)
+            cell.setButtonTitle(title: searchData.getWord(index: indexPath.row))
+            cell.configureButtonTrash(action: #selector(deleteItemSearch(_ :)), target: self)
+        return cell
+        }
+        fatalError("Unable to dequeue subclassed cell")
     }
 }
