@@ -38,13 +38,8 @@ struct SearchHistoryData {
         return wordsList[index]
     }
     
-    mutating func deleteWord(word: String) {
-        for (index, item) in wordsList.enumerated() {
-            if item == word {
-                wordsList.remove(at: index)
-                break
-            }
-        }
+    mutating func deleteWord(index: Int) {
+        wordsList.remove(at: index)
         defaults.set(wordsList, forKey: keyWord)
     }
 }

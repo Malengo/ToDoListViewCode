@@ -20,37 +20,57 @@ class SearchHistoryCell: UICollectionViewCell, ViewCodeProtocol {
     
     // MARK: - Components Cell
     
-    private lazy var buttonDelete: UIButton = {
+    private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "trash"), for: .normal)
+        return button
+    }()
+    
+    private lazy var buttonAdd: UIButton = {
+        let button = UIButton()
         button.setTitleColor(.black, for: .normal)
         return button
     }()
     
+    private lazy var mainStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fill
+        stack.spacing = 4
+        return stack
+    }()
+    
     // MARK: - View Code
     func buildViewHierachy() {
-        addSubview(buttonDelete)
+        addSubview(mainStack)
+        mainStack.addArrangedSubview(buttonAdd)
+        mainStack.addArrangedSubview(deleteButton)
     }
     
     func setupConstraints() {
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        mainStack.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18).isActive = true
         
-        buttonDelete.translatesAutoresizingMaskIntoConstraints = false
-        buttonDelete.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        buttonDelete.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18).isActive = true
-        
-        trailingAnchor.constraint(equalTo: buttonDelete.trailingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: mainStack.trailingAnchor).isActive = true
     }
     
     func addictionalConfiguration() {
+
     }
     
     // MARK: - public methods
        
-    func configureButtonTrash(action: Selector, target: AnyObject) {
-        buttonDelete.addTarget(target, action: action, for: .touchDown)
+    func configureTrashButton(action: Selector, target: AnyObject) {
+        deleteButton.addTarget(target, action: action, for: .touchDown)
     }
     
     func setButtonTitle(title: String) {
-        buttonDelete.setTitle(title, for: .normal)
+        buttonAdd.setTitle(title, for: .normal)
+    }
+    
+    func setIndexButton(index: Int) {
+        deleteButton.tag = index
     }
 }

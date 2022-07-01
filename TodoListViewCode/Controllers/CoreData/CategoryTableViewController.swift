@@ -28,11 +28,9 @@ class CategoryTableViewController: UIViewController {
         setupNavigationBar()
         coreDataView?.setViewDelegateAndDataSource(to: self)
         categories = categoryModel.read()
-        print("Teste")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(" here")
         coreDataView?.hideSearchHistory()
     }
     
@@ -119,13 +117,15 @@ extension CategoryTableViewController {
     }
     
     @objc func deleteItemSearch(_ sender: UIButton) {
-        guard let word = sender.titleLabel?.text else { return }
-        searchData.deleteWord(word: word)
+        let index = sender.tag 
+        searchData.deleteWord(index: index)
         DispatchQueue.main.async {
             self.coreDataView?.reloadCollectionViewData()
         }
+        if self.searchData.getWordsCount() == 0 {
+            self.coreDataView?.hideSearchHistory()
+        }
     }
-
 }
 // MARK: Data Methods
 
@@ -154,6 +154,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
         if let name = searchBar.text, !name.isEmpty {
             categories = categoryModel.searchByName(name: name)
             searchData.saveData(word: name)
+            coreDataView?.showSearchHistory()
             self.coreDataView?.reloadTableViewData()
             self.coreDataView?.reloadCollectionViewData()
         } else {
@@ -165,12 +166,14 @@ extension CategoryTableViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchData.getWordsCount() != 0 else { return }
         if let name = searchBar.text, !name.isEmpty {
             coreDataView?.showSearchHistory()
         }
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        guard searchData.getWordsCount() != 0 else { return }
         coreDataView?.showSearchHistory()
     }
     
@@ -189,9 +192,9 @@ extension CategoryTableViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? SearchHistoryCell {
-            print(indexPath.row)
             cell.setButtonTitle(title: searchData.getWord(index: indexPath.row))
-            cell.configureButtonTrash(action: #selector(deleteItemSearch(_ :)), target: self)
+            cell.setIndexButton(index: indexPath.row)
+            cell.configureTrashButton(action: #selector(deleteItemSearch(_ :)), target: self)
         return cell
         }
         fatalError("Unable to dequeue subclassed cell")

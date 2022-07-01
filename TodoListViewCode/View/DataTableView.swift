@@ -84,12 +84,12 @@ class DataTableView: UIView, ViewCodeProtocol {
         searchBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         searchStack.translatesAutoresizingMaskIntoConstraints = false
-        searchStack.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        searchStack.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         mainStack.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -18).isActive = true
         mainStack.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 18).isActive = true
-        mainStack.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 18).isActive = true
+        mainStack.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5).isActive = true
         mainStack.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         
     }
