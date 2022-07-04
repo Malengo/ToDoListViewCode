@@ -8,15 +8,15 @@
 import Foundation
 import CoreData
 
-class CategoryModel: Model<Category> {
+class CategoryModel: Model<Category>, TableConfigurationProtocol {
     
-    private var categories: [Category] = []
+    var categories: [Category] = []
     
     func addNewCategory(category: Category) {
         categories.append(category)
     }
     
-    func deleteCategory(index: IndexPath) {
+    func deleteTableItem(index: IndexPath) {
         categories.remove(at: index.row)
     }
     
@@ -29,18 +29,18 @@ class CategoryModel: Model<Category> {
         categories = list
     }
     
-    func getAllCategories() {
+    func getAll() {
         guard let listCategory = read() as? [Category] else { return }
         categories = listCategory
     }
     
-    func getCategoriesCount() -> Int {
-        if isEmpty() { getAllCategories() }
+    func getCount() -> Int {
+        if isEmpty() { getAll() }
         return categories.count
     }
     
-    func getCategoryName(index: Int) -> String {
-        guard let name = categories[index].name else { return "There are no Items in the Category List" }
+    func getTextPosition(indexPath: IndexPath) -> String {
+        guard let name = categories[indexPath.row].name else { return "There are no Items in the Category List" }
         return name
     }
     
@@ -52,3 +52,5 @@ class CategoryModel: Model<Category> {
         return categories[index.row]
     }
 }
+
+

@@ -9,14 +9,13 @@ import UIKit
 
 class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var items = [NSManagedObject]()
     var itemManager = ItemModel()
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var selectedCategory: Category?{
         didSet{
             itemManager.typeCategory = (selectedCategory?.name)!
-            items = itemManager.listingItemByCategory()
+            itemManager.getAll()
         }
     }
     
@@ -66,34 +65,28 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     
     //MARK: -- tableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = items.isEmpty ? 1  : items.count
-        return count
+        return itemManager.getCount() == 0 ? 1 : itemManager.getCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        if items.isEmpty {
+        if itemManager.isEmpty() {
             cell.textLabel?.text = "There are no Items in the \(selectedCategory?.name ?? "ToDo") Category "
         } else {
-            if let item = items[indexPath.row] as? Item {
-                cell.textLabel?.text = item.title
-                cell.accessoryType = item.isChecked ? .checkmark : .none
-            }
+            cell.textLabel?.text = itemManager.getTextPosition(indexPath: indexPath)
+            cell.accessoryType = itemManager.isChecked(index: indexPath) ? .checkmark : .none
         }
         return cell
     }
     
     //MARK - TableView Delegate Methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if items.isEmpty {
+        if itemManager.isEmpty() {
             coreDataView?.deselectRow(at: indexPath)
         } else {
-            if let item = items[indexPath.row] as? Item {
-                item.isChecked = !item.isChecked
-                itemManager.save()
-                coreDataView?.reloadTableViewData()
-                coreDataView?.deselectRow(at: indexPath)
-            }
+            itemManager.updateIsChecked(index: indexPath)
+            coreDataView?.reloadTableViewData()
+            coreDataView?.deselectRow(at: indexPath)
         }
     }
 }
@@ -106,7 +99,7 @@ extension ItemOfCategoryViewController {
             item.title = itemName
             item.parentCategory = selectedCategory
             try context.save()
-            items.append(item)
+            itemManager.addNewItem(item: item)
             coreDataView?.reloadTableViewData()
         } catch {
             let alertError = UIAlertController(title: "Error adding item", message: "", preferredStyle: .alert)
@@ -121,11 +114,11 @@ extension ItemOfCategoryViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let title = searchBar.text, !title.isEmpty {
-            items = self.itemManager.searchByTitle(textSearch: title)
+            itemManager.searchByTitle(textSearch: title)
             coreDataView?.reloadTableViewData()
         } else {
             DispatchQueue.main.async {
-                self.items = self.itemManager.listingItemByCategory()
+                self.itemManager.getAll()
                 self.coreDataView?.reloadTableViewData()
             }
         }

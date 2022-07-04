@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE5E557E28735D9E006A5150 /* TableConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */; };
 		CE8D16CB2863A12C001FCD4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D16CA2863A12C001FCD4F /* AppDelegate.swift */; };
 		CE8D16CD2863A12C001FCD4F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D16CC2863A12C001FCD4F /* SceneDelegate.swift */; };
 		CE8D16CF2863A12C001FCD4F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D16CE2863A12C001FCD4F /* MainViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableConfigurationProtocol.swift; sourceTree = "<group>"; };
 		CE8D16C72863A12C001FCD4F /* TodoListViewCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoListViewCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8D16CA2863A12C001FCD4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE8D16CC2863A12C001FCD4F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				CE95671A2866411D003DB3A2 /* ModelFromCoreData */,
 				CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */,
 				CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */,
+				CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				CEE4A7C1286B730800A08DA7 /* CategoryRealmViewController.swift in Sources */,
 				CE9567182865DFDE003DB3A2 /* CategoryTableViewController.swift in Sources */,
 				CE8D16CF2863A12C001FCD4F /* MainViewController.swift in Sources */,
+				CE5E557E28735D9E006A5150 /* TableConfigurationProtocol.swift in Sources */,
 				CEE4A7C8286B739700A08DA7 /* ModelRealm.swift in Sources */,
 				CE8D16D52863A12C001FCD4F /* TodoListViewCode.xcdatamodeld in Sources */,
 				CE9567162865DFB5003DB3A2 /* DataTableView.swift in Sources */,

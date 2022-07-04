@@ -45,12 +45,12 @@ class CategoryTableViewController: UIViewController {
 extension CategoryTableViewController: UITableViewDataSource {
       
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryModel.getCategoriesCount() == 0 ? 1 : categoryModel.getCategoriesCount()
+        return categoryModel.getCount() == 0 ? 1 : categoryModel.getCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = categoryModel.getCategoriesCount() == 0 ? "There are no Items in the Category List" : categoryModel.getCategoryName(index: indexPath.row)
+        cell.textLabel?.text = categoryModel.getCount() == 0 ? "There are no Items in the Category List" : categoryModel.getTextPosition(indexPath: indexPath)
         return cell
     }    
 }
@@ -75,7 +75,7 @@ extension CategoryTableViewController: UITableViewDelegate {
         if editingStyle == .delete {
             let category = categoryModel.getCategory(index: indexPath)
             categoryModel.delete(entity: category)
-            categoryModel.deleteCategory(index: indexPath)
+            categoryModel.deleteTableItem(index: indexPath)
             coreDataView?.reloadTableViewData()
         }
     }
@@ -150,7 +150,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
             self.coreDataView?.reloadCollectionViewData()
         } else {
             DispatchQueue.main.async {
-                self.categoryModel.getAllCategories()
+                self.categoryModel.getAll()
                 self.coreDataView?.reloadTableViewData()
             }
         }
@@ -162,7 +162,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
             coreDataView?.showSearchHistory()
         } else {
             DispatchQueue.main.async {
-                self.categoryModel.getAllCategories()
+                self.categoryModel.getAll()
                 self.coreDataView?.reloadTableViewData()
             }
         }
