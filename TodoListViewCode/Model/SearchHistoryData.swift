@@ -26,20 +26,10 @@ struct SearchHistoryData {
     
     mutating func saveData(word: String) {
         wordsList = readData()
-        var isExist = true
         if wordsList.isEmpty {
             wordsList.append(word)
         } else {
-            for itemList in wordsList {
-                if word.compare(itemList, options: .caseInsensitive) == .orderedSame {
-                    print("Same word")
-                    isExist = true
-                    break
-                } else {
-                    isExist = false
-                }
-            }
-            if !isExist { wordsList.append(word) }
+            if !wordsList.contains(word) { wordsList.append(word) }
         }
         defaults.set(wordsList, forKey: keyWord)
     }
