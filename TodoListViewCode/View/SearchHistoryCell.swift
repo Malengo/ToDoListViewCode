@@ -73,4 +73,8 @@ class SearchHistoryCell: UICollectionViewCell, ViewCodeProtocol {
     func setIndexButton(index: Int) {
         deleteButton.tag = index
     }
+    
+    func configureAddButton(action: Selector, target: AnyObject) {
+        buttonAdd.addTarget(target, action: action, for: .touchDown)
+    }
 }

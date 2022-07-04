@@ -126,6 +126,11 @@ extension CategoryTableViewController {
             self.coreDataView?.hideSearchHistory()
         }
     }
+    
+    @objc func getWordForSearch(_ sender: UIButton) {
+        guard let text = sender.titleLabel?.text else { return }
+        coreDataView?.setTextSearchBar(text: text)
+    }
 }
 // MARK: Data Methods
 
@@ -179,12 +184,18 @@ extension CategoryTableViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         guard searchData.getWordsCount() != 0 else { return }
-        coreDataView?.showSearchHistory()
+        if let name = searchBar.text, !name.isEmpty{
+            coreDataView?.showSearchHistory()
+        } else {
+            coreDataView?.hideSearchHistory()
+        }
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         coreDataView?.hideSearchHistory()
         DispatchQueue.main.async {
+            searchBar.text = ""
             self.categories = self.categoryModel.read()
             self.coreDataView?.reloadTableViewData()
         }
@@ -204,6 +215,7 @@ extension CategoryTableViewController: UICollectionViewDataSource, UICollectionV
             cell.setButtonTitle(title: searchData.getWord(index: indexPath.row))
             cell.setIndexButton(index: indexPath.row)
             cell.configureTrashButton(action: #selector(deleteItemSearch(_ :)), target: self)
+            cell.configureAddButton(action: #selector(getWordForSearch(_ :)), target: self)
         return cell
         }
         fatalError("Unable to dequeue subclassed cell")

@@ -139,4 +139,8 @@ class DataTableView: UIView, ViewCodeProtocol {
         searchStack.isHidden = false
         reloadInputViews()
     }
+    
+    func setTextSearchBar(text: String) {
+        searchBar.text = text
+    }
 }
