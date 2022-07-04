@@ -7,17 +7,11 @@
 import UIKit
 import CoreData
 
-protocol SaveWordProtocol: AnyObject {
-    func saveSearch(word: String)
-}
-
 class CategoryTableViewController: UIViewController {
     
-    var categories = [NSManagedObject]()
     let categoryModel = CategoryModel()
     var searchData = SearchHistoryData()
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var width: CGFloat = 0.0
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
@@ -27,7 +21,6 @@ class CategoryTableViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         coreDataView?.setViewDelegateAndDataSource(to: self)
-        categories = categoryModel.read()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,18 +45,12 @@ class CategoryTableViewController: UIViewController {
 extension CategoryTableViewController: UITableViewDataSource {
       
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = categories.isEmpty ? 1  : categories.count
-        return count
+        return categoryModel.getCategoriesCount() == 0 ? 1 : categoryModel.getCategoriesCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        if categories.isEmpty {
-            cell.textLabel?.text = "There are no Items in the Category List"
-        } else {
-            let category = categories[indexPath.row] as? Category
-            cell.textLabel?.text = category?.name
-        }
+        cell.textLabel?.text = categoryModel.getCategoriesCount() == 0 ? "There are no Items in the Category List" : categoryModel.getCategoryName(index: indexPath.row)
         return cell
     }    
 }
@@ -73,11 +60,11 @@ extension CategoryTableViewController: UITableViewDataSource {
 extension CategoryTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if categories.isEmpty {
+        if categoryModel.isEmpty() {
             coreDataView?.deselectRow(at: indexPath)
         } else {
             let vc = ItemOfCategoryViewController ()
-            let category = categories[indexPath.row] as? Category
+            let category = categoryModel.getCategory(index: indexPath)
             vc.selectedCategory = category
             navigationController?.pushViewController(vc, animated: true)
             coreDataView?.deselectRow(at: indexPath)
@@ -86,9 +73,9 @@ extension CategoryTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let category = categories[indexPath.row]
+            let category = categoryModel.getCategory(index: indexPath)
             categoryModel.delete(entity: category)
-            categories.remove(at: indexPath.row)
+            categoryModel.deleteCategory(index: indexPath)
             coreDataView?.reloadTableViewData()
         }
     }
@@ -132,7 +119,7 @@ extension CategoryTableViewController {
         coreDataView?.setTextSearchBar(text: text)
     }
 }
-// MARK: Data Methods
+// MARK: - Data Methods
 
 extension CategoryTableViewController {
     
@@ -141,7 +128,7 @@ extension CategoryTableViewController {
             let category = Category(context: self.context)
             category.name = categoryName
             try self.context.save()
-            self.categories.append(category)
+            self.categoryModel.addNewCategory(category: category)
             self.coreDataView?.reloadTableViewData()
         } catch {
             let alertError = UIAlertController(title: "Error adding category", message: "", preferredStyle: .alert)
@@ -151,20 +138,19 @@ extension CategoryTableViewController {
     }
 }
 
-//MARK: SearchBar Methods
+//MARK: - SearchBar Methods
 
 extension CategoryTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let name = searchBar.text, !name.isEmpty {
-            categories = categoryModel.searchByName(name: name)
+            categoryModel.searchByName(name: name)
             searchData.saveData(word: name)
-            coreDataView?.showSearchHistory()
             self.coreDataView?.reloadTableViewData()
             self.coreDataView?.reloadCollectionViewData()
         } else {
             DispatchQueue.main.async {
-                self.categories = self.categoryModel.read()
+                self.categoryModel.getAllCategories()
                 self.coreDataView?.reloadTableViewData()
             }
         }
@@ -176,7 +162,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
             coreDataView?.showSearchHistory()
         } else {
             DispatchQueue.main.async {
-                self.categories = self.categoryModel.read()
+                self.categoryModel.getAllCategories()
                 self.coreDataView?.reloadTableViewData()
             }
         }
@@ -196,7 +182,6 @@ extension CategoryTableViewController: UISearchBarDelegate {
         coreDataView?.hideSearchHistory()
         DispatchQueue.main.async {
             searchBar.text = ""
-            self.categories = self.categoryModel.read()
             self.coreDataView?.reloadTableViewData()
         }
     }

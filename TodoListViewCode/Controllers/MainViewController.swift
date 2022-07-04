@@ -47,12 +47,4 @@ class MainViewController: UIViewController {
     
 }
 
-// MARK: -  SaveWordProtocol
-
-extension MainViewController: SaveWordProtocol {
-    func saveSearch(word: String) {
-        words.append(word)
-        defaults.set(words, forKey: "SearchWord")
-    }
-}
 
