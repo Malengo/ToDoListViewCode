@@ -169,6 +169,11 @@ extension CategoryTableViewController: UISearchBarDelegate {
         guard searchData.getWordsCount() != 0 else { return }
         if let name = searchBar.text, !name.isEmpty {
             coreDataView?.showSearchHistory()
+        } else {
+            DispatchQueue.main.async {
+                self.categories = self.categoryModel.read()
+                self.coreDataView?.reloadTableViewData()
+            }
         }
     }
     
@@ -179,6 +184,10 @@ extension CategoryTableViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         coreDataView?.hideSearchHistory()
+        DispatchQueue.main.async {
+            self.categories = self.categoryModel.read()
+            self.coreDataView?.reloadTableViewData()
+        }
     }
 }
 
