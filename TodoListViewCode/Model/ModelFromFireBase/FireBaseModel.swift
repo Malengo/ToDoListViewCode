@@ -37,7 +37,6 @@ class FireBaseModel: TableConfigurationProtocol {
     }
     
     func getAll() {
-        listCategories = []
         db.collection(dbName).getDocuments { query, error in
             if let error = error {
                 print(error)
@@ -62,8 +61,8 @@ class FireBaseModel: TableConfigurationProtocol {
         let name = listCategories[index.row].name
         listCategories.remove(at: index.row)
         delegate?.update()
-        db.collection(dbName).whereField("name", isEqualTo: name)
-            .getDocuments() { (querySnapshot, err) in
+        db.collection(dbName).whereField("name", isEqualTo: name).getDocuments() {
+            (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -75,12 +74,13 @@ class FireBaseModel: TableConfigurationProtocol {
     }
     
     func addItem(categoty: CategoryFireBase) throws {
+        listCategories.append(categoty)
+        delegate?.update()
         db.collection(dbName).addDocument(data: ["name" : categoty.name]) { error in
             if let erro = error {
                 print(erro)
             }
         }
-        getAll()
     }
     
 }

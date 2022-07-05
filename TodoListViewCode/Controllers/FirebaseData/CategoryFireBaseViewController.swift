@@ -25,7 +25,7 @@ class CategoryFireBaseViewController: UIViewController, UICollectionViewDataSour
     private var fireBaseTableView: DataTableView? {
         return view as? DataTableView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fireBaseTableView?.setViewDelegateAndDataSource(to: self)
@@ -111,7 +111,7 @@ extension CategoryFireBaseViewController: UITableViewDelegate {
 
 extension CategoryFireBaseViewController: UpdateTableProtocol {
     func update() {
-            self.fireBaseTableView?.reloadTableViewData()
+        self.fireBaseTableView?.reloadTableViewData()
     }
     
 }
