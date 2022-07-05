@@ -29,6 +29,7 @@ class CategoryFireBaseViewController: UIViewController, UICollectionViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         fireBaseTableView?.setViewDelegateAndDataSource(to: self)
+        setupNavigationBar()
         categoryFireBaseModel.delegate = self
     }
     
@@ -36,6 +37,46 @@ class CategoryFireBaseViewController: UIViewController, UICollectionViewDataSour
         let tableView = DataTableView()
         tableView.setupView()
         view = tableView
+    }
+    
+    //MARK: - SetUp navigation and View
+    private func setupNavigationBar(){
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.title = "FireBase"
+        navigationItem.rightBarButtonItem = fireBaseTableView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
+    }
+    
+    @objc private func addCategoryPressed() {
+        let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
+        alertToAddCategory.addTextField { textfieldNewCategory in
+            textfieldNewCategory.placeholder = "Enter here for new Category"
+        }
+        
+        let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
+            if let textFields = alertToAddCategory.textFields {
+                if let newCategory = textFields.first?.text {
+                    self.saveCategory(categoryName: newCategory)
+                }
+            }
+        }
+        alertToAddCategory.addAction(addActionCategory)
+        alertToAddCategory.addAction(UIAlertAction(title: "Cancel", style: .destructive))
+        present(alertToAddCategory, animated: true)
+    }
+}
+
+extension CategoryFireBaseViewController {
+    
+    func saveCategory(categoryName: String) {
+        do {
+            let category = CategoryFireBase(name: categoryName)
+            try categoryFireBaseModel.addItem(categoty: category)
+        } catch {
+            let alertError = UIAlertController(title: "Error adding category", message: "", preferredStyle: .alert)
+            alertError.addAction(UIAlertAction(title: "Ok", style: .default))
+            self.present(alertError, animated: true)
+        }
     }
 }
 
@@ -59,7 +100,11 @@ extension CategoryFireBaseViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 
 extension CategoryFireBaseViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete, !categoryFireBaseModel.isEmpty() {
+            categoryFireBaseModel.deleteTableItem(index: indexPath)
+        }
+    }
 }
 
 // MARK: - Update Delegate

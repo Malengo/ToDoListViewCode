@@ -11,6 +11,7 @@
 		CE8A667D28746A0D00F9CAD7 /* CategoryFireBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A667C28746A0D00F9CAD7 /* CategoryFireBaseViewController.swift */; };
 		CE8A6680287473F800F9CAD7 /* FireBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A667F287473F800F9CAD7 /* FireBaseModel.swift */; };
 		CE8A6682287474C600F9CAD7 /* CategoryFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A6681287474C600F9CAD7 /* CategoryFireBase.swift */; };
+		CE8A66852874B37E00F9CAD7 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE8A66842874B37E00F9CAD7 /* FirebaseFirestoreSwift */; };
 		CE8D16CB2863A12C001FCD4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D16CA2863A12C001FCD4F /* AppDelegate.swift */; };
 		CE8D16CD2863A12C001FCD4F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D16CC2863A12C001FCD4F /* SceneDelegate.swift */; };
 		CE8D16CF2863A12C001FCD4F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D16CE2863A12C001FCD4F /* MainViewController.swift */; };
@@ -79,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8A66852874B37E00F9CAD7 /* FirebaseFirestoreSwift in Frameworks */,
 				CEE25D1C286CA44E002F1C17 /* FirebaseDatabase in Frameworks */,
 				CEE25D1E286CA44E002F1C17 /* FirebaseFirestore in Frameworks */,
 				CEE4A7BD286B2E7600A08DA7 /* RealmSwift in Frameworks */,
@@ -242,6 +244,7 @@
 				CEE4A7BC286B2E7600A08DA7 /* RealmSwift */,
 				CEE25D1B286CA44E002F1C17 /* FirebaseDatabase */,
 				CEE25D1D286CA44E002F1C17 /* FirebaseFirestore */,
+				CE8A66842874B37E00F9CAD7 /* FirebaseFirestoreSwift */,
 			);
 			productName = TodoListViewCode;
 			productReference = CE8D16C72863A12C001FCD4F /* TodoListViewCode.app */;
@@ -274,6 +277,7 @@
 			packageReferences = (
 				CEE4A7B9286B2E7600A08DA7 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				CEE25D1A286CA44E002F1C17 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CE8A66832874B37E00F9CAD7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = CE8D16C82863A12C001FCD4F /* Products */;
 			projectDirPath = "";
@@ -536,6 +540,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CE8A66832874B37E00F9CAD7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		CEE25D1A286CA44E002F1C17 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -555,6 +567,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE8A66842874B37E00F9CAD7 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE8A66832874B37E00F9CAD7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
 		CEE25D1B286CA44E002F1C17 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CEE25D1A286CA44E002F1C17 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

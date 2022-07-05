@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct CategoryFireBase {
+struct CategoryFireBase: Codable {
     var name: String 
-    
-    init(name: String) {
-        self.name = name
-    }
 }
