@@ -37,23 +37,31 @@ class FireBaseModel: TableConfigurationProtocol {
     }
     
     func getAll() {
-        db.collection(dbName).getDocuments { query, error in
-            if let error = error {
-                print(error)
-            } else {
-                for document in query!.documents {
-                    let doc = self.db.collection(self.dbName).document(document.documentID)
-                    doc.getDocument(as: CategoryFireBase.self) { result in
-                        switch result {
-                        case .success(let category):
-                            self.listCategories.append(category)
-                            self.delegate?.update()
-                        case .failure(let error):
-                            print("Error decoding category: \(error)")
-                        }
-                    }
-                }
+        db.collection(dbName).addSnapshotListener { (query, error) in
+            guard let documents = query?.documents else {
+                print("No Category")
+                return
             }
+            self.listCategories = documents.compactMap { (queryDocumentSnapshot) -> CategoryFireBase in
+                return try! queryDocumentSnapshot.data(as: CategoryFireBase.self
+                )}
+//            if let error = error {
+//                print(error)
+//            } else {
+//                for document in query!.documents {
+//                    let doc = self.db.collection(self.dbName).document(document.documentID)
+//                    doc.getDocument(as: CategoryFireBase.self) { result in
+//                        switch result {
+//                        case .success(let category):
+//                            self.listCategories.append(category)
+//                            self.delegate?.update()
+//                        case .failure(let error):
+//                            print("Error decoding category: \(error)")
+//                        }
+//                    }
+//                }
+//            }
+            self.delegate?.update()
         }
     }
     
@@ -76,11 +84,7 @@ class FireBaseModel: TableConfigurationProtocol {
     func addItem(categoty: CategoryFireBase) throws {
         listCategories.append(categoty)
         delegate?.update()
-        db.collection(dbName).addDocument(data: ["name" : categoty.name]) { error in
-            if let erro = error {
-                print(erro)
-            }
-        }
+        let _ = try? db.collection(dbName).addDocument(from: categoty)
     }
     
 }
