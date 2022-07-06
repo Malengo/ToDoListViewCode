@@ -72,4 +72,13 @@ class ItemFireBaseModel: TableConfigurationProtocol {
             }
         }
     }
+    
+    // MARK: - Methods Basic
+    func isChecked(indexPath: IndexPath) -> Bool {
+        return items[indexPath.row].isChecked
+    }
+    
+    func isEmpty() -> Bool {
+        return items.isEmpty
+    }
 }

@@ -98,7 +98,12 @@ extension ItemFireBaseViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = itemModel.getCount() == 0 ? "Update List....." : itemModel.getTextInTheCell(indexPath: indexPath)
+        if itemModel.isEmpty() {
+            cell.textLabel?.text = "There are no Items in the \(selectedCategory?.name ?? "ToDo") Category "
+        } else {
+            cell.textLabel?.text = itemModel.getTextInTheCell(indexPath: indexPath)
+            cell.accessoryType = itemModel.isChecked(indexPath: indexPath) ? .checkmark : .none
+        }        
         return cell
     }
 }

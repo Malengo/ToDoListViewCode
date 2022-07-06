@@ -9,4 +9,5 @@ import Foundation
 
 struct ItemFireBase: Codable {
     var title: String
+    var isChecked: Bool = false
 }
