@@ -81,4 +81,24 @@ class ItemFireBaseModel: TableConfigurationProtocol {
     func isEmpty() -> Bool {
         return items.isEmpty
     }
+    
+    func isCheckedUpdate(indexPath: IndexPath) {
+        
+        let item = items[indexPath.row]
+        items[indexPath.row].isChecked = !items[indexPath.row].isChecked
+        delegate?.update()
+        db.collection(dbName).whereField("name", isEqualTo: fieldDb).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for documento in querySnapshot!.documents {
+                    self.db.collection(self.dbName).document(documento.documentID).collection("items").whereField("title", isEqualTo: item.title).getDocuments { query, error in
+                        for documents in query!.documents {
+                            self.db.collection(self.dbName).document(documento.documentID).collection("items").document(documents.documentID)                               .updateData(["isChecked" : !item.isChecked])
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

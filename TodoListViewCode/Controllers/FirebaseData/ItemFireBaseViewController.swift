@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ItemFireBaseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UITableViewDelegate {
+class ItemFireBaseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
@@ -105,6 +105,15 @@ extension ItemFireBaseViewController: UITableViewDataSource {
             cell.accessoryType = itemModel.isChecked(indexPath: indexPath) ? .checkmark : .none
         }        
         return cell
+    }
+}
+
+// MARK: - TableView Delegate
+
+extension ItemFireBaseViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        itemModel.isCheckedUpdate(indexPath: indexPath)
     }
 }
 
