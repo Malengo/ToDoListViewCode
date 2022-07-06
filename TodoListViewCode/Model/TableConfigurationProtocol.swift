@@ -8,9 +8,9 @@
 import Foundation
 
 protocol TableConfigurationProtocol {
-    func isEmpty() -> Bool
-    func getTextPosition(indexPath: IndexPath) -> String
+    func isEmptyList() -> Bool
+    func getTextInTheCell(indexPath: IndexPath) -> String
     func getCount() -> Int
     func getAll()
-    func deleteTableItem(index: IndexPath)
+    func deleteTableItem(indexPath: IndexPath)
 }

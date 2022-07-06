@@ -13,7 +13,7 @@ protocol UpdateTableProtocol {
     func update()
 }
 
-class FireBaseModel: TableConfigurationProtocol {
+class CategoryFireBaseModel: TableConfigurationProtocol {
     
     private let db = Firestore.firestore()
     private var listCategories: [CategoryFireBase] = []
@@ -24,16 +24,29 @@ class FireBaseModel: TableConfigurationProtocol {
         getAll()
     }
     
-    func isEmpty() -> Bool {
+    // MARK: - TableConfiguratonProtocol
+    
+    func isEmptyList() -> Bool {
         return listCategories.isEmpty
     }
     
-    func getTextPosition(indexPath: IndexPath) -> String {
+    func getTextInTheCell(indexPath: IndexPath) -> String {
         return listCategories[indexPath.row].name
     }
     
     func getCount() -> Int {
         return listCategories.count
+    }
+    
+    func getOneCategory(indexPath: IndexPath) -> CategoryFireBase {
+        return listCategories[indexPath.row]
+    }
+    
+    // MARK: - Crud Methods
+    func addItem(categoty: CategoryFireBase) throws {
+        listCategories.append(categoty)
+        delegate?.update()
+        let _ = try? db.collection(dbName).addDocument(from: categoty)
     }
     
     func getAll() {
@@ -49,26 +62,18 @@ class FireBaseModel: TableConfigurationProtocol {
         }
     }
     
-    func deleteTableItem(index: IndexPath) {
-        let name = listCategories[index.row].name
-        listCategories.remove(at: index.row)
+    func deleteTableItem(indexPath: IndexPath) {
+        let name = getTextInTheCell(indexPath: indexPath)
+        listCategories.remove(at: indexPath.row)
         delegate?.update()
-        db.collection(dbName).whereField("name", isEqualTo: name).getDocuments() {
-            (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        document.reference.delete()
-                    }
+        db.collection(dbName).whereField("name", isEqualTo: name).getDocuments() { (querySnapshot, error) in
+            if let err = error {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    document.reference.delete()
                 }
             }
+        }
     }
-    
-    func addItem(categoty: CategoryFireBase) throws {
-        listCategories.append(categoty)
-        delegate?.update()
-        let _ = try? db.collection(dbName).addDocument(from: categoty)
-    }
-    
 }

@@ -70,10 +70,10 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        if itemManager.isEmpty() {
+        if itemManager.isEmptyList() {
             cell.textLabel?.text = "There are no Items in the \(selectedCategory?.name ?? "ToDo") Category "
         } else {
-            cell.textLabel?.text = itemManager.getTextPosition(indexPath: indexPath)
+            cell.textLabel?.text = itemManager.getTextInTheCell(indexPath: indexPath)
             cell.accessoryType = itemManager.isChecked(index: indexPath) ? .checkmark : .none
         }
         return cell
@@ -81,7 +81,7 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     
     //MARK - TableView Delegate Methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if itemManager.isEmpty() {
+        if itemManager.isEmptyList() {
             coreDataView?.deselectRow(at: indexPath)
         } else {
             itemManager.updateIsChecked(index: indexPath)

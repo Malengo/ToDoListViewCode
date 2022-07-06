@@ -16,8 +16,8 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
         categories.append(category)
     }
     
-    func deleteTableItem(index: IndexPath) {
-        categories.remove(at: index.row)
+    func deleteTableItem(indexPath: IndexPath) {
+        categories.remove(at: indexPath.row)
     }
     
     func searchByName(name: String) {
@@ -35,16 +35,16 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
     }
     
     func getCount() -> Int {
-        if isEmpty() { getAll() }
+        if isEmptyList() { getAll() }
         return categories.count
     }
     
-    func getTextPosition(indexPath: IndexPath) -> String {
+    func getTextInTheCell(indexPath: IndexPath) -> String {
         guard let name = categories[indexPath.row].name else { return "There are no Items in the Category List" }
         return name
     }
     
-    func isEmpty() -> Bool {
+    func isEmptyList() -> Bool {
         return categories.isEmpty
     }
     

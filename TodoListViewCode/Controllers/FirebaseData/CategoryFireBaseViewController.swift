@@ -21,7 +21,8 @@ class CategoryFireBaseViewController: UIViewController, UICollectionViewDataSour
     }
     
     
-    var categoryFireBaseModel = FireBaseModel()
+    var categoryFireBaseModel = CategoryFireBaseModel()
+    
     private var fireBaseTableView: DataTableView? {
         return view as? DataTableView
     }
@@ -90,7 +91,7 @@ extension CategoryFireBaseViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = categoryFireBaseModel.getCount() == 0 ? "Update List....." : categoryFireBaseModel.getTextPosition(indexPath: indexPath)
+        cell.textLabel?.text = categoryFireBaseModel.getCount() == 0 ? "Update List....." : categoryFireBaseModel.getTextInTheCell(indexPath: indexPath)
         return cell
     }
     
@@ -100,10 +101,17 @@ extension CategoryFireBaseViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 
 extension CategoryFireBaseViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete, !categoryFireBaseModel.isEmpty() {
-            categoryFireBaseModel.deleteTableItem(index: indexPath)
+        if editingStyle == .delete, !categoryFireBaseModel.isEmptyList() {
+            categoryFireBaseModel.deleteTableItem(indexPath: indexPath)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ItemFireBaseViewController()
+        vc.selectedCategory = categoryFireBaseModel.getOneCategory(indexPath: indexPath)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

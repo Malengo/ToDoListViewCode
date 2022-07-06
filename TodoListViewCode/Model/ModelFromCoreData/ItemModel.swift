@@ -21,17 +21,17 @@ class ItemModel: Model<Item>, TableConfigurationProtocol {
         }
     }
     
-    func isEmpty() -> Bool {
+    func isEmptyList() -> Bool {
         return items.isEmpty
     }
     
-    func getTextPosition(indexPath: IndexPath) -> String {
+    func getTextInTheCell(indexPath: IndexPath) -> String {
         guard let title = items[indexPath.row].title else { return "There no Items "}
         return title
     }
     
     func getCount() -> Int {
-        if isEmpty() { getAll() }
+        if isEmptyList() { getAll() }
         return items.count
     }
     
@@ -48,8 +48,8 @@ class ItemModel: Model<Item>, TableConfigurationProtocol {
         items.append(item)
     }
     
-    func deleteTableItem(index: IndexPath) {
-        items.remove(at: index.row)
+    func deleteTableItem(indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
     }
     
     func isChecked(index: IndexPath) -> Bool {

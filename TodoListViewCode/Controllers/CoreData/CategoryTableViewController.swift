@@ -50,7 +50,7 @@ extension CategoryTableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = categoryModel.getCount() == 0 ? "There are no Items in the Category List" : categoryModel.getTextPosition(indexPath: indexPath)
+        cell.textLabel?.text = categoryModel.getCount() == 0 ? "There are no Items in the Category List" : categoryModel.getTextInTheCell(indexPath: indexPath)
         return cell
     }    
 }
@@ -60,7 +60,7 @@ extension CategoryTableViewController: UITableViewDataSource {
 extension CategoryTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if categoryModel.isEmpty() {
+        if categoryModel.isEmptyList() {
             coreDataView?.deselectRow(at: indexPath)
         } else {
             let vc = ItemOfCategoryViewController ()
@@ -75,7 +75,7 @@ extension CategoryTableViewController: UITableViewDelegate {
         if editingStyle == .delete {
             let category = categoryModel.getCategory(index: indexPath)
             categoryModel.delete(entity: category)
-            categoryModel.deleteTableItem(index: indexPath)
+            categoryModel.deleteTableItem(indexPath: indexPath)
             coreDataView?.reloadTableViewData()
         }
     }
