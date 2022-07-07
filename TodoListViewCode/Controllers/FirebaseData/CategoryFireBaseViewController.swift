@@ -8,17 +8,7 @@
 import UIKit
 import Firebase
 
-class CategoryFireBaseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? SearchHistoryCell {
-            return cell
-        }
-        fatalError("Unable to dequeue subclassed cell")
-    }
+class CategoryFireBaseViewController: UIViewController {
     
     
     var categoryFireBaseModel = CategoryFireBaseModel()
@@ -112,6 +102,7 @@ extension CategoryFireBaseViewController: UITableViewDelegate {
         let vc = ItemFireBaseViewController()
         vc.selectedCategory = categoryFireBaseModel.getOneCategory(indexPath: indexPath)
         self.navigationController?.pushViewController(vc, animated: true)
+        self.fireBaseTableView?.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -121,5 +112,33 @@ extension CategoryFireBaseViewController: UpdateTableProtocol {
     func update() {
         self.fireBaseTableView?.reloadTableViewData()
     }
+    
+}
+
+// MARK: - CollectioView datasource
+
+extension CategoryFireBaseViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? SearchHistoryCell {
+            return cell
+        }
+        fatalError("Unable to dequeue subclassed cell")
+    }
+}
+
+// MARK: - CollectionView Delegate
+
+extension CategoryFireBaseViewController: UICollectionViewDelegate {
+    
+}
+
+// MARK: - SearchBarDelegate
+
+extension CategoryFireBaseViewController: UISearchBarDelegate {
     
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainView: UIView {
+class MainView: UIView, ViewCodeProtocol {
     
     //MARK: -- View Components
     lazy var stackView: UIStackView = {
@@ -48,7 +48,7 @@ class MainView: UIView {
     }()
     
     //MARK: -- Setup components
-    func setupView() {
+    func buildViewHierachy() {
         backgroundColor = .white
         addSubview(stackView)
         [coreDataButton,
@@ -76,5 +76,9 @@ class MainView: UIView {
         firebaseButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
         firebaseButton.leftAnchor.constraint(equalTo: stackView.leftAnchor).isActive = true
         firebaseButton.rightAnchor.constraint(equalTo: stackView.rightAnchor).isActive = true
+    }
+    
+    func addictionalConfiguration() {
+        
     }
 }

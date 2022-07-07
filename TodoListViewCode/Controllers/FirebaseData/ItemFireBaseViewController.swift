@@ -114,6 +114,7 @@ extension ItemFireBaseViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemModel.isCheckedUpdate(indexPath: indexPath)
+        self.tableItem?.deselectRow(at: indexPath, animated: true)
     }
 }
 

@@ -31,8 +31,6 @@ class ItemFireBaseModel: TableConfigurationProtocol {
         return items.count
     }
     
-    // MARK: - Crud Methods
-    
     func getAll() {
         db.collection(dbName).whereField("name", isEqualTo: fieldDb).getDocuments() {
             (querySnapshot, err) in
@@ -82,8 +80,7 @@ class ItemFireBaseModel: TableConfigurationProtocol {
         return items.isEmpty
     }
     
-    func isCheckedUpdate(indexPath: IndexPath) {
-        
+    func isCheckedUpdate(indexPath: IndexPath) {        
         let item = items[indexPath.row]
         items[indexPath.row].isChecked = !items[indexPath.row].isChecked
         delegate?.update()
