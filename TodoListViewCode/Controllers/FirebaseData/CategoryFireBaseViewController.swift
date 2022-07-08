@@ -81,7 +81,7 @@ extension CategoryFireBaseViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = categoryFireBaseModel.getCount() == 0 ? "Update List....." : categoryFireBaseModel.getTextInTheCell(indexPath: indexPath)
+        cell.textLabel?.text = categoryFireBaseModel.getCount() == 0 ? "Update List....." : categoryFireBaseModel.currentTextCell(indexPath: indexPath)
         return cell
     }
     

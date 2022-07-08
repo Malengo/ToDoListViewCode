@@ -14,8 +14,10 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     
     var selectedCategory: Category?{
         didSet{
-            itemManager.typeCategory = (selectedCategory?.name)!
-            itemManager.getAll()
+            if let nameCategory = selectedCategory?.name {
+                itemManager.typeCategory = nameCategory
+                itemManager.getAll()
+            }
         }
     }
     
@@ -73,7 +75,7 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
         if itemManager.isEmptyList() {
             cell.textLabel?.text = "There are no Items in the \(selectedCategory?.name ?? "ToDo") Category "
         } else {
-            cell.textLabel?.text = itemManager.getTextInTheCell(indexPath: indexPath)
+            cell.textLabel?.text = itemManager.currentTextCell(indexPath: indexPath)
             cell.accessoryType = itemManager.isChecked(index: indexPath) ? .checkmark : .none
         }
         return cell

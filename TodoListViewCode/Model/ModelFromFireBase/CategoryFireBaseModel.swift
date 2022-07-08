@@ -30,7 +30,7 @@ class CategoryFireBaseModel: TableConfigurationProtocol {
         return listCategories.isEmpty
     }
     
-    func getTextInTheCell(indexPath: IndexPath) -> String {
+    func currentTextCell(indexPath: IndexPath) -> String {
         return listCategories[indexPath.row].name
     }
     
@@ -63,7 +63,7 @@ class CategoryFireBaseModel: TableConfigurationProtocol {
     }
     
     func deleteTableItem(indexPath: IndexPath) {
-        let name = getTextInTheCell(indexPath: indexPath)
+        let name = currentTextCell(indexPath: indexPath)
         listCategories.remove(at: indexPath.row)
         delegate?.update()
         db.collection(dbName).whereField("name", isEqualTo: name).getDocuments() { (querySnapshot, error) in

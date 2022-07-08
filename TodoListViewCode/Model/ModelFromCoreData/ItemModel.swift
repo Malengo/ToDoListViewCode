@@ -25,7 +25,7 @@ class ItemModel: Model<Item>, TableConfigurationProtocol {
         return items.isEmpty
     }
     
-    func getTextInTheCell(indexPath: IndexPath) -> String {
+    func currentTextCell(indexPath: IndexPath) -> String {
         guard let title = items[indexPath.row].title else { return "There no Items "}
         return title
     }

@@ -23,7 +23,7 @@ class ItemFireBaseModel: TableConfigurationProtocol {
         return items.isEmpty
     }
     
-    func getTextInTheCell(indexPath: IndexPath) -> String {
+    func currentTextCell(indexPath: IndexPath) -> String {
         return items[indexPath.row].title
     }
     

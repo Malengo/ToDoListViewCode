@@ -39,7 +39,7 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
         return categories.count
     }
     
-    func getTextInTheCell(indexPath: IndexPath) -> String {
+    func currentTextCell(indexPath: IndexPath) -> String {
         guard let name = categories[indexPath.row].name else { return "There are no Items in the Category List" }
         return name
     }

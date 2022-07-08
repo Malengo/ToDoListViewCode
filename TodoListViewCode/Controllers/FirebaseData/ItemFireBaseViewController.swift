@@ -28,7 +28,9 @@ class ItemFireBaseViewController: UIViewController, UICollectionViewDataSource, 
     
     var selectedCategory: CategoryFireBase? {
         didSet {
-            itemModel.fieldDb = selectedCategory!.name
+            if let nameCategory = selectedCategory?.name {
+                itemModel.fieldDb = nameCategory
+            }
         }
     }
 
@@ -101,7 +103,7 @@ extension ItemFireBaseViewController: UITableViewDataSource {
         if itemModel.isEmpty() {
             cell.textLabel?.text = "There are no Items in the \(selectedCategory?.name ?? "ToDo") Category "
         } else {
-            cell.textLabel?.text = itemModel.getTextInTheCell(indexPath: indexPath)
+            cell.textLabel?.text = itemModel.currentTextCell(indexPath: indexPath)
             cell.accessoryType = itemModel.isChecked(indexPath: indexPath) ? .checkmark : .none
         }        
         return cell
