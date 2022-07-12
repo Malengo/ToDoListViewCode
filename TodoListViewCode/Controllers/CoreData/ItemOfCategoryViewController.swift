@@ -7,7 +7,7 @@
 import CoreData
 import UIKit
 
-class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ItemOfCategoryViewController: UIViewController {
     
     var itemManager = ItemModel()
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -24,7 +24,7 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     var coreDataView: DataTableView? {
         return view as? DataTableView
     }
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         coreDataView?.setViewDelegateAndDataSource(to: self)
@@ -64,8 +64,9 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
         present(alertToAddItem, animated: true)
     }
     
-    
-    //MARK: -- tableView DataSource
+}
+//MARK: -- tableView DataSource
+extension ItemOfCategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemManager.getCount() == 0 ? 1 : itemManager.getCount()
     }
@@ -80,8 +81,9 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
         }
         return cell
     }
-    
-    //MARK - TableView Delegate Methods
+}
+//MARK: - TableView Delegate Methods
+extension ItemOfCategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if itemManager.isEmptyList() {
             coreDataView?.deselectRow(at: indexPath)
@@ -93,7 +95,8 @@ class ItemOfCategoryViewController: UIViewController, UITableViewDataSource, UIT
     }
 }
 
-    //MARK: Data Model
+
+//MARK: - Data Model
 extension ItemOfCategoryViewController {
     func saveItem(itemName: String) {
         do {
@@ -111,7 +114,7 @@ extension ItemOfCategoryViewController {
     }
 }
 
-    //MARK: SearchBar delegate
+//MARK: SearchBar delegate
 extension ItemOfCategoryViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

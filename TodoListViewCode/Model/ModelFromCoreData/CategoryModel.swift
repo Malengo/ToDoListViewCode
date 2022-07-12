@@ -10,7 +10,7 @@ import CoreData
 
 class CategoryModel: Model<Category>, TableConfigurationProtocol {
     
-    var categories: [Category] = []
+    private var categories: [Category] = []
     
     func addNewCategory(category: Category) {
         categories.append(category)

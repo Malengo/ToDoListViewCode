@@ -14,6 +14,7 @@ protocol ManagedObject {
 }
 
 class Model<U: NSManagedObject>: NSManagedObject, ManagedObject {
+    
     var request: NSFetchRequest<U> = NSFetchRequest<U>(entityName:  String(describing: U.self))
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     

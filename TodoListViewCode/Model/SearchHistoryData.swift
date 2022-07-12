@@ -11,13 +11,15 @@ struct SearchHistoryData {
     
     private var wordsList: [String] = []
     private let defaults = UserDefaults.standard
-    private let keyWord = "SearchWord"
+    private let keyWord: String?
     
-    init() {
+    init(keyWord: String) {
+        self.keyWord = keyWord
         wordsList = readData()
     }
     
     mutating func readData() -> [String] {
+        guard let keyWord = keyWord else { return [] }
         if let words = defaults.array(forKey: keyWord) as? [String] {
             self.wordsList = words
         }
@@ -25,7 +27,7 @@ struct SearchHistoryData {
     }
     
     mutating func saveData(word: String) {
-        wordsList = readData()
+        guard let keyWord = keyWord else { return }
         if wordsList.isEmpty {
             wordsList.append(word)
         } else {
@@ -34,7 +36,7 @@ struct SearchHistoryData {
         defaults.set(wordsList, forKey: keyWord)
     }
     
-    mutating func getWordsCount() -> Int {
+    mutating func getCount() -> Int {
         return wordsList.count
     }
     
@@ -43,6 +45,7 @@ struct SearchHistoryData {
     }
     
     mutating func deleteWord(index: Int) {
+        guard let keyWord = keyWord else { return }
         wordsList.remove(at: index)
         defaults.set(wordsList, forKey: keyWord)
     }

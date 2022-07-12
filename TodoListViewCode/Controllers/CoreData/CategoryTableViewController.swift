@@ -10,7 +10,7 @@ import CoreData
 class CategoryTableViewController: UIViewController {
     
     let categoryModel = CategoryModel()
-    var searchData = SearchHistoryData()
+    var searchData = SearchHistoryData(keyWord: Contants.keyWordSearchUserDefauts)
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var coreDataView: DataTableView? {
@@ -109,7 +109,7 @@ extension CategoryTableViewController {
         DispatchQueue.main.async {
             self.coreDataView?.reloadCollectionViewData()
         }
-        if self.searchData.getWordsCount() == 0 {
+        if self.searchData.getCount() == 0 {
             self.coreDataView?.hideSearchHistory()
         }
     }
@@ -157,7 +157,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard searchData.getWordsCount() != 0 else { return }
+        guard searchData.getCount() != 0 else { return }
         if let name = searchBar.text, !name.isEmpty {
             coreDataView?.showSearchHistory()
         } else {
@@ -169,7 +169,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        guard searchData.getWordsCount() != 0 else { return }
+        guard searchData.getCount() != 0 else { return }
         if let name = searchBar.text, !name.isEmpty{
             coreDataView?.showSearchHistory()
         } else {
@@ -192,7 +192,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
 extension CategoryTableViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchData.getWordsCount()
+        return searchData.getCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

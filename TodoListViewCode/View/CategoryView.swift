@@ -39,10 +39,11 @@ class CategoryView: UIView {
     
     lazy var viewBottom: UIView = {
         let view = UIView()
+        view.backgroundColor = .black
         return view
     }()
     
-    //MARK : Components
+    //MARK: - Components
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Create new Category"
@@ -100,7 +101,7 @@ class CategoryView: UIView {
         mainStackView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         stackViewLabel.translatesAutoresizingMaskIntoConstraints = false
-        stackViewLabel.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        stackViewLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         stackViewButtons.translatesAutoresizingMaskIntoConstraints = false
         stackViewButtons.heightAnchor.constraint(equalToConstant: 80).isActive = true
