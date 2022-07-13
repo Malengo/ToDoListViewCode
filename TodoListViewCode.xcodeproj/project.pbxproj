@@ -10,6 +10,7 @@
 		CE1323F52875C154005BFBA7 /* ItemFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1323F42875C154005BFBA7 /* ItemFireBase.swift */; };
 		CE1323F72875CA8A005BFBA7 /* ItemFireBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1323F62875CA8A005BFBA7 /* ItemFireBaseViewController.swift */; };
 		CE1323F92875CEC7005BFBA7 /* ItemFireBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1323F82875CEC7005BFBA7 /* ItemFireBaseModel.swift */; };
+		CE13824E287F59CF00B8481C /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13824D287F59CF00B8481C /* MainViewControllerTests.swift */; };
 		CE5E557E28735D9E006A5150 /* TableConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */; };
 		CE8A667D28746A0D00F9CAD7 /* CategoryFireBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A667C28746A0D00F9CAD7 /* CategoryFireBaseViewController.swift */; };
 		CE8A6680287473F800F9CAD7 /* CategoryFireBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A667F287473F800F9CAD7 /* CategoryFireBaseModel.swift */; };
@@ -61,6 +62,7 @@
 		CE1323F42875C154005BFBA7 /* ItemFireBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFireBase.swift; sourceTree = "<group>"; };
 		CE1323F62875CA8A005BFBA7 /* ItemFireBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFireBaseViewController.swift; sourceTree = "<group>"; };
 		CE1323F82875CEC7005BFBA7 /* ItemFireBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFireBaseModel.swift; sourceTree = "<group>"; };
+		CE13824D287F59CF00B8481C /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableConfigurationProtocol.swift; sourceTree = "<group>"; };
 		CE8A667C28746A0D00F9CAD7 /* CategoryFireBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFireBaseViewController.swift; sourceTree = "<group>"; };
 		CE8A667F287473F800F9CAD7 /* CategoryFireBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFireBaseModel.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				CEDC6591287DF8EB00B06290 /* SearchHistoryDataTests.swift */,
+				CE13824D287F59CF00B8481C /* MainViewControllerTests.swift */,
 			);
 			path = TodoListViewCodeTests;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEDC6592287DF8EB00B06290 /* SearchHistoryDataTests.swift in Sources */,
+				CE13824E287F59CF00B8481C /* MainViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
