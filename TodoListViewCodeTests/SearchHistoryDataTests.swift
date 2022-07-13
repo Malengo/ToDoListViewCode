@@ -42,4 +42,16 @@ class SearchHistoryDataTests: XCTestCase {
         //Then
         XCTAssertEqual(result, "Test")
     }
+    
+    func test_deleteword_withValueAtPosition_shouldReturn0() {
+        //Given
+        sut.saveData(word: "Test")
+        
+        //When
+        sut.deleteWord(index: 0)
+        let result = sut.getCount()
+        
+        //Then
+        XCTAssertEqual(result, 0)
+    }
 }
