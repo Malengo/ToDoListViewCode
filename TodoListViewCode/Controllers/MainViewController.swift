@@ -10,7 +10,6 @@ import UIKit
 class MainViewController: UIViewController {
     
     let defaults = UserDefaults.standard
-    var words: [String] = []
     var mainView: MainView? {
         return view as? MainView
     }
