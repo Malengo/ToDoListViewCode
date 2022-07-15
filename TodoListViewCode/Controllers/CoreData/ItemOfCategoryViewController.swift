@@ -40,11 +40,11 @@ class ItemOfCategoryViewController: UIViewController {
     //MARK: - Configuration navigation
     private func setupNavigationBar(){
         navigationItem.title = selectedCategory?.name
-        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(buttonAddCategoryPressed), target: self)
         navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    @objc private func addCategoryPressed() {
+    @objc private func buttonAddCategoryPressed() {
         let alertToAddItem = UIAlertController(title: "Add new Item", message: nil, preferredStyle: .alert)
         alertToAddItem.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Item"

@@ -37,7 +37,7 @@ class CategoryTableViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Core Data"
-        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(buttonAddCategoryPressed), target: self)
     }
 }
 // MARK: - TableView data source
@@ -84,7 +84,7 @@ extension CategoryTableViewController: UITableViewDelegate {
 // MARK: - Buttons action
 extension CategoryTableViewController {
     
-    @objc private func addCategoryPressed() {
+    @objc private func buttonAddCategoryPressed() {
         
         let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
         alertToAddCategory.addTextField { textfieldNewCategory in

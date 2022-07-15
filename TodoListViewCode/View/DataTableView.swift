@@ -10,26 +10,26 @@ import UIKit
 class DataTableView: UIView, ViewCodeProtocol {
     
     //MARK : Components View
-    private lazy var tableView: UITableView = {
+    private(set) lazy var tableView: UITableView = {
         let table = UITableView()
         table.layer.cornerRadius = 8
         table.clipsToBounds =  true
         return table
     }()
     
-    private lazy var barButton: UIBarButtonItem = {
+    private(set) lazy var barButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
         button.image = UIImage(systemName: "plus.circle")
         return button
     }()
     
-    private lazy var searchBar: UISearchBar = {
+    private(set) lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
         search.placeholder = "Search......"
         return search
     }()
     
-    private lazy var collection: UICollectionView = {
+    private(set) lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -41,13 +41,13 @@ class DataTableView: UIView, ViewCodeProtocol {
         return collection
     }()
     
-    private lazy var searchLabel: UILabel = {
+    private(set) lazy var searchLabel: UILabel = {
         let label = UILabel()
         label.text = "Search History"
         return label
     }()
     
-    private lazy var searchStack: UIStackView = {
+    private(set) lazy var searchStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.alignment = .fill
@@ -56,7 +56,7 @@ class DataTableView: UIView, ViewCodeProtocol {
         return stack
     }()
     
-    private lazy var mainStack: UIStackView = {
+    private(set) lazy var mainStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.alignment = .fill

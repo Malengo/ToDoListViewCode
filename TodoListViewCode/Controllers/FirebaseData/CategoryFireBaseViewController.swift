@@ -35,10 +35,10 @@ class CategoryFireBaseViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "FireBase"
-        navigationItem.rightBarButtonItem = fireBaseTableView?.configureBarButton(action: #selector(addCategoryPressed), target: self)
+        navigationItem.rightBarButtonItem = fireBaseTableView?.configureBarButton(action: #selector(buttonAddCategoryPressed), target: self)
     }
     
-    @objc private func addCategoryPressed() {
+    @objc private func buttonAddCategoryPressed() {
         let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
         alertToAddCategory.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Category"
