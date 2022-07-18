@@ -7,17 +7,25 @@
 
 import Foundation
 import CoreData
+import UIKit
+
+protocol UpdateTableProtocol {
+    func update()
+}
 
 class CategoryModel: Model<Category>, TableConfigurationProtocol {
     
     private var categories: [Category] = []
+    var delegate: UpdateTableProtocol?
     
     func addNewCategory(category: Category) {
         categories.append(category)
+        delegate?.update()
     }
     
     func deleteTableItem(indexPath: IndexPath) {
         categories.remove(at: indexPath.row)
+        delegate?.update()
     }
     
     func searchByName(name: String) {
@@ -50,6 +58,17 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
     
     func getCategory(index: IndexPath) -> Category {
         return categories[index.row]
+    }
+    
+    func saveCategory(categoryName: String) {
+        do {
+            let category = Category(context: self.context)
+            category.name = categoryName
+            addNewCategory(category: category)
+            try self.context.save()
+        } catch {
+            fatalError()
+        }
     }
 }
 

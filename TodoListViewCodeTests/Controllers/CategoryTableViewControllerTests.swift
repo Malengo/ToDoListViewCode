@@ -60,4 +60,15 @@ class CategoryTableViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.navigationItem.title)
         XCTAssertEqual(sut.navigationItem.title, "Core Data", "Should be Core Data  but is \(String(describing: sut.navigationItem.title))")
     }
+    
+    func test_whenRigthBarButtonPressed_WillCallTheFunctionbuttonAddCategoryPressed() {
+        //Given
+        sut.loadViewIfNeeded()
+        //When
+        sut.viewWillAppear(false)
+        let barButton = sut.navigationItem.rightBarButtonItem?.action
+        sut.perform(barButton)
+        //Then
+       // XCTAssertTrue(sut.buttonAddCategoryPressed, 1)
+    }
 }

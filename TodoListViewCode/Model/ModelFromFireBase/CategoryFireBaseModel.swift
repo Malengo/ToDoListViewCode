@@ -9,10 +9,6 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-protocol UpdateTableProtocol {
-    func update()
-}
-
 class CategoryFireBaseModel: TableConfigurationProtocol {
     
     private let db = Firestore.firestore()

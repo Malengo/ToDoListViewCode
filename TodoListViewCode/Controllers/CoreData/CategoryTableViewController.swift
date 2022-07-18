@@ -11,7 +11,6 @@ class CategoryTableViewController: UIViewController {
     
     let categoryModel = CategoryModel()
     var searchData = SearchHistoryData(keyWord: Contants.keyWordSearchUserDefauts)
-    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
@@ -19,6 +18,7 @@ class CategoryTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        categoryModel.delegate = self
         coreDataView?.setViewDelegateAndDataSource(to: self)
     }
     
@@ -76,7 +76,6 @@ extension CategoryTableViewController: UITableViewDelegate {
             let category = categoryModel.getCategory(index: indexPath)
             categoryModel.delete(entity: category)
             categoryModel.deleteTableItem(indexPath: indexPath)
-            coreDataView?.reloadTableViewData()
         }
     }
 }
@@ -94,7 +93,7 @@ extension CategoryTableViewController {
         let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
             if let textFields = alertToAddCategory.textFields {
                 if let newCategory = textFields.first?.text {
-                    self.saveCategory(categoryName: newCategory)
+                    self.categoryModel.saveCategory(categoryName: newCategory)
                 }
             }
         }
@@ -117,24 +116,6 @@ extension CategoryTableViewController {
     @objc func getWordForSearch(_ sender: UIButton) {
         guard let text = sender.titleLabel?.text else { return }
         coreDataView?.setTextSearchBar(text: text)
-    }
-}
-// MARK: - Data Methods
-
-extension CategoryTableViewController {
-    
-    func saveCategory(categoryName: String) {
-        do {
-            let category = Category(context: self.context)
-            category.name = categoryName
-            try self.context.save()
-            self.categoryModel.addNewCategory(category: category)
-            self.coreDataView?.reloadTableViewData()
-        } catch {
-            let alertError = UIAlertController(title: "Error adding category", message: "", preferredStyle: .alert)
-            alertError.addAction(UIAlertAction(title: "Ok", style: .default))
-            self.present(alertError, animated: true)
-        }
     }
 }
 
@@ -205,4 +186,12 @@ extension CategoryTableViewController: UICollectionViewDataSource, UICollectionV
         }
         fatalError("Unable to dequeue subclassed cell")
     }
+}
+
+// MARK: - Update Protocol
+extension CategoryTableViewController: UpdateTableProtocol {
+    func update() {
+        self.coreDataView?.reloadTableViewData()
+    }
+    
 }
