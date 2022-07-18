@@ -9,8 +9,8 @@ import CoreData
 
 class CategoryTableViewController: UIViewController {
     
-    let categoryModel = CategoryModel()
-    var searchData = SearchHistoryData(keyWord: Contants.keyWordSearchUserDefauts)
+    var categoryModel: TableConfigurationProtocol = CategoryModel()
+    var searchData = SearchHistoryData(keyWord: Constants.keyWordSearchUserDefauts)
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
@@ -64,8 +64,8 @@ extension CategoryTableViewController: UITableViewDelegate {
             coreDataView?.deselectRow(at: indexPath)
         } else {
             let vc = ItemOfCategoryViewController ()
-            let category = categoryModel.getCategory(index: indexPath)
-            vc.selectedCategory = category
+            let category = categoryModel.getEntity(indexPath: indexPath)
+            vc.selectedCategory = category as? Category
             navigationController?.pushViewController(vc, animated: true)
             coreDataView?.deselectRow(at: indexPath)
         }
@@ -73,8 +73,6 @@ extension CategoryTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let category = categoryModel.getCategory(index: indexPath)
-            categoryModel.delete(entity: category)
             categoryModel.deleteTableItem(indexPath: indexPath)
         }
     }
@@ -93,7 +91,7 @@ extension CategoryTableViewController {
         let addActionCategory = UIAlertAction(title: "Add Category", style: .default) { _ in
             if let textFields = alertToAddCategory.textFields {
                 if let newCategory = textFields.first?.text {
-                    self.categoryModel.saveCategory(categoryName: newCategory)
+                    self.categoryModel.saveData(data: newCategory)
                 }
             }
         }
@@ -125,7 +123,7 @@ extension CategoryTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let name = searchBar.text, !name.isEmpty {
-            categoryModel.searchByName(name: name)
+            //categoryModel.searchByName(name: name)
             searchData.saveData(word: name)
             self.coreDataView?.reloadTableViewData()
             self.coreDataView?.reloadCollectionViewData()

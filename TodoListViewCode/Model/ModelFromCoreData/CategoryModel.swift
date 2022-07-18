@@ -14,17 +14,19 @@ protocol UpdateTableProtocol {
 }
 
 class CategoryModel: Model<Category>, TableConfigurationProtocol {
-    
-    private var categories: [Category] = []
+   
+    var list: [Any] = []
     var delegate: UpdateTableProtocol?
     
     func addNewCategory(category: Category) {
-        categories.append(category)
+        list.append(category)
         delegate?.update()
     }
     
     func deleteTableItem(indexPath: IndexPath) {
-        categories.remove(at: indexPath.row)
+        guard let category = list[indexPath.row] as? Category else { return  }
+        delete(entity: category)
+        list.remove(at: indexPath.row)
         delegate?.update()
     }
     
@@ -34,36 +36,50 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
         request.predicate = titlePredicate
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         let list = (try? context.fetch(request)) ?? []
-        categories = list
+        self.list = list
     }
     
     func getAll() {
         guard let listCategory = read() as? [Category] else { return }
-        categories = listCategory
+        list = listCategory
     }
     
     func getCount() -> Int {
         if isEmptyList() { getAll() }
-        return categories.count
+        return list.count
     }
     
     func currentTextCell(indexPath: IndexPath) -> String {
-        guard let name = categories[indexPath.row].name else { return "There are no Items in the Category List" }
-        return name
+        guard let name = list[indexPath.row] as? Category else { return "There are no Items in the Category List" }
+        return name.name!
     }
     
     func isEmptyList() -> Bool {
-        return categories.isEmpty
+        return list.isEmpty
     }
     
-    func getCategory(index: IndexPath) -> Category {
-        return categories[index.row]
+    func getEntity(indexPath: IndexPath) -> AnyObject {
+        return list[indexPath.row] as AnyObject
     }
     
     func saveCategory(categoryName: String) {
         do {
             let category = Category(context: self.context)
             category.name = categoryName
+            addNewCategory(category: category)
+            try self.context.save()
+        } catch {
+            fatalError()
+        }
+    }
+}
+
+// MARK: - DataProtocol
+extension CategoryModel: DataEntityProtocol {
+    func saveData(data: String) {
+        do {
+            let category = Category(context: self.context)
+            category.name = data
             addNewCategory(category: category)
             try self.context.save()
         } catch {

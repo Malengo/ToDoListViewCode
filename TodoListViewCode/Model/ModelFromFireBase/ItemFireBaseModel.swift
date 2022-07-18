@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 
 class ItemFireBaseModel: TableConfigurationProtocol {
     
-    private var items: [ItemFireBase] = []
+    var list: [Any] = []
     private let db = Firestore.firestore()
     var delegate: UpdateTableProtocol?
     private let dbName = "category"
@@ -20,15 +20,16 @@ class ItemFireBaseModel: TableConfigurationProtocol {
     // MARK: - TableConfigurationProtocol
     
     func isEmptyList() -> Bool {
-        return items.isEmpty
+        return list.isEmpty
     }
     
     func currentTextCell(indexPath: IndexPath) -> String {
-        return items[indexPath.row].title
+        guard let itemList = list[indexPath.row] as? ItemFireBase else { return "" }
+        return itemList.title
     }
     
     func getCount() -> Int {
-        return items.count
+        return list.count
     }
     
     func getAll() {
@@ -43,7 +44,7 @@ class ItemFireBaseModel: TableConfigurationProtocol {
                             print("No Category")
                             return
                         }
-                        self.items = documents.compactMap { (queryDocumentSnapshot) -> ItemFireBase in
+                        self.list = documents.compactMap { (queryDocumentSnapshot) -> ItemFireBase in
                             return try! queryDocumentSnapshot.data(as: ItemFireBase.self
                             )}
                         self.delegate?.update()
@@ -58,7 +59,7 @@ class ItemFireBaseModel: TableConfigurationProtocol {
     }
     
     func saveNewItem(item: ItemFireBase) throws {
-        items.append(item)
+        list.append(item)
         delegate?.update()
         db.collection(dbName).whereField("name", isEqualTo: fieldDb).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -73,16 +74,17 @@ class ItemFireBaseModel: TableConfigurationProtocol {
     
     // MARK: - Methods Basic
     func isChecked(indexPath: IndexPath) -> Bool {
-        return items[indexPath.row].isChecked
+        guard let itemList = list[indexPath.row] as? ItemFireBase else { return false }
+        return itemList.isChecked
     }
     
     func isEmpty() -> Bool {
-        return items.isEmpty
+        return list.isEmpty
     }
     
     func isCheckedUpdate(indexPath: IndexPath) {        
-        let item = items[indexPath.row]
-        items[indexPath.row].isChecked = !items[indexPath.row].isChecked
+        guard var item = list[indexPath.row] as? ItemFireBase else { return }
+        item.isChecked = !item.isChecked
         delegate?.update()
         db.collection(dbName).whereField("name", isEqualTo: fieldDb).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -97,5 +99,12 @@ class ItemFireBaseModel: TableConfigurationProtocol {
                 }
             }
         }
+    }
+    func getEntity(indexPath: IndexPath) -> AnyObject {
+        return ItemFireBaseModel()
+    }
+    
+    func saveData(data: String) {
+        print("Ok")
     }
 }

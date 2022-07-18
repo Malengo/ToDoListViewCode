@@ -9,13 +9,12 @@ import UIKit
 
 class ItemOfCategoryViewController: UIViewController {
     
-    var itemManager = ItemModel()
-    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+    private var itemManager = ItemModel()
     var selectedCategory: Category?{
         didSet{
-            if let nameCategory = selectedCategory?.name {
-                itemManager.typeCategory = nameCategory
+            if let category = selectedCategory {
+                itemManager.typeCategory = category.name!
+                itemManager.category = category
                 itemManager.getAll()
             }
         }
@@ -27,6 +26,7 @@ class ItemOfCategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        itemManager.delegate = self
         coreDataView?.setViewDelegateAndDataSource(to: self)
         setupNavigationBar()
     }
@@ -53,7 +53,7 @@ class ItemOfCategoryViewController: UIViewController {
         let addActionCategory = UIAlertAction(title: "Add Item", style: .default) { _ in
             if let textFields = alertToAddItem.textFields {
                 if let newItem = textFields.first?.text {
-                    self.saveItem(itemName: newItem)
+                    self.itemManager.saveData(data: newItem)
                 }
             }
             
@@ -89,7 +89,6 @@ extension ItemOfCategoryViewController: UITableViewDelegate {
             coreDataView?.deselectRow(at: indexPath)
         } else {
             itemManager.updateIsChecked(index: indexPath)
-            coreDataView?.reloadTableViewData()
             coreDataView?.deselectRow(at: indexPath)
         }
     }
@@ -98,20 +97,7 @@ extension ItemOfCategoryViewController: UITableViewDelegate {
 
 //MARK: - Data Model
 extension ItemOfCategoryViewController {
-    func saveItem(itemName: String) {
-        do {
-            let item = Item(context: context)
-            item.title = itemName
-            item.parentCategory = selectedCategory
-            try context.save()
-            itemManager.addNewItem(item: item)
-            coreDataView?.reloadTableViewData()
-        } catch {
-            let alertError = UIAlertController(title: "Error adding item", message: "", preferredStyle: .alert)
-            alertError.addAction(UIAlertAction(title: "Ok", style: .default))
-            self.present(alertError, animated: true)
-        }
-    }
+    
 }
 
 //MARK: SearchBar delegate
@@ -142,5 +128,13 @@ extension ItemOfCategoryViewController: UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .white
         return cell
+    }
+}
+
+// MARK: - UpdateTable Protocol
+
+extension ItemOfCategoryViewController: UpdateTableProtocol {
+    func update() {
+        self.coreDataView?.reloadTableViewData()
     }
 }

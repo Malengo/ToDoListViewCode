@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Contants {
+struct Constants {
     static let keyWordSearchUserDefauts = "SearchWord"
 }

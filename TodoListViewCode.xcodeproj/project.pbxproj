@@ -27,16 +27,16 @@
 		CE9567182865DFDE003DB3A2 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9567172865DFDE003DB3A2 /* CategoryTableViewController.swift */; };
 		CE95671C28664134003DB3A2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95671B28664134003DB3A2 /* Model.swift */; };
 		CEA9A0002880AC1100F1150D /* CategoryModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA99FFF2880AC1100F1150D /* CategoryModelTests.swift */; };
-		CEC904E42881B6C500B738E8 /* MockCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC904E32881B6C500B738E8 /* MockCategoryModel.swift */; };
 		CEC904E92881F06600B738E8 /* CategoryTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC904E82881F06600B738E8 /* CategoryTableViewControllerTests.swift */; };
 		CEC9CDEA286DE7B800C7D1FD /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9CDE9286DE7B700C7D1FD /* SearchHistoryCell.swift */; };
 		CEC9CDEC286E2F2D00C7D1FD /* SearchHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */; };
 		CEDC6592287DF8EB00B06290 /* SearchHistoryDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC6591287DF8EB00B06290 /* SearchHistoryDataTests.swift */; };
-		CEDC6594287E0F3F00B06290 /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC6593287E0F3F00B06290 /* Contants.swift */; };
+		CEDC6594287E0F3F00B06290 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC6593287E0F3F00B06290 /* Constants.swift */; };
 		CEE25D19286C83B9002F1C17 /* ViewCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */; };
 		CEE25D1C286CA44E002F1C17 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CEE25D1B286CA44E002F1C17 /* FirebaseDatabase */; };
 		CEE25D1E286CA44E002F1C17 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CEE25D1D286CA44E002F1C17 /* FirebaseFirestore */; };
 		CEE25D21286CAB0E002F1C17 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEE25D20286CAB0E002F1C17 /* GoogleService-Info.plist */; };
+		CEE48F9F2885AF0900743CAA /* MockTableConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE48F9E2885AF0900743CAA /* MockTableConfigurationProtocol.swift */; };
 		CEE4A7BB286B2E7600A08DA7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CEE4A7BA286B2E7600A08DA7 /* Realm */; };
 		CEE4A7BD286B2E7600A08DA7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEE4A7BC286B2E7600A08DA7 /* RealmSwift */; };
 		CEE4A7BF286B52C800A08DA7 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A7BE286B52C800A08DA7 /* CategoryModel.swift */; };
@@ -83,15 +83,15 @@
 		CE9567172865DFDE003DB3A2 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		CE95671B28664134003DB3A2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		CEA99FFF2880AC1100F1150D /* CategoryModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelTests.swift; sourceTree = "<group>"; };
-		CEC904E32881B6C500B738E8 /* MockCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryModel.swift; sourceTree = "<group>"; };
 		CEC904E82881F06600B738E8 /* CategoryTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewControllerTests.swift; sourceTree = "<group>"; };
 		CEC9CDE9286DE7B700C7D1FD /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
 		CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryData.swift; sourceTree = "<group>"; };
 		CEDC6588287DF89600B06290 /* TodoListViewCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListViewCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEDC6591287DF8EB00B06290 /* SearchHistoryDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryDataTests.swift; sourceTree = "<group>"; };
-		CEDC6593287E0F3F00B06290 /* Contants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
+		CEDC6593287E0F3F00B06290 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodeProtocol.swift; sourceTree = "<group>"; };
 		CEE25D20286CAB0E002F1C17 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEE48F9E2885AF0900743CAA /* MockTableConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTableConfigurationProtocol.swift; sourceTree = "<group>"; };
 		CEE4A7BE286B52C800A08DA7 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		CEE4A7C0286B730800A08DA7 /* CategoryRealmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRealmViewController.swift; sourceTree = "<group>"; };
 		CEE4A7C3286B739700A08DA7 /* ItemRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemRealm.swift; sourceTree = "<group>"; };
@@ -206,13 +206,12 @@
 		CE95671928663B30003DB3A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CEE48F9B2885AE0B00743CAA /* Protocols */,
 				CE8A667E287473D200F9CAD7 /* ModelFromFireBase */,
 				CEE4A7C2286B738600A08DA7 /* ModelFromRealm */,
 				CE95671A2866411D003DB3A2 /* ModelFromCoreData */,
-				CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */,
 				CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */,
-				CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */,
-				CEDC6593287E0F3F00B06290 /* Contants.swift */,
+				CEDC6593287E0F3F00B06290 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -251,7 +250,7 @@
 				CEC904E52881F00E00B738E8 /* Controllers */,
 				CEA99FFE2880ABF600F1150D /* Models */,
 				CE13824D287F59CF00B8481C /* MainViewControllerTests.swift */,
-				CEC904E32881B6C500B738E8 /* MockCategoryModel.swift */,
+				CEE48F9E2885AF0900743CAA /* MockTableConfigurationProtocol.swift */,
 			);
 			path = TodoListViewCodeTests;
 			sourceTree = "<group>";
@@ -263,6 +262,15 @@
 				CE1323F62875CA8A005BFBA7 /* ItemFireBaseViewController.swift */,
 			);
 			path = FirebaseData;
+			sourceTree = "<group>";
+		};
+		CEE48F9B2885AE0B00743CAA /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */,
+				CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		CEE4A7B8286B2D8C00A08DA7 /* RealmData */ = {
@@ -432,7 +440,7 @@
 				CEE4A7C7286B739700A08DA7 /* CategoryRealm.swift in Sources */,
 				CE95671C28664134003DB3A2 /* Model.swift in Sources */,
 				CEC9CDEC286E2F2D00C7D1FD /* SearchHistoryData.swift in Sources */,
-				CEDC6594287E0F3F00B06290 /* Contants.swift in Sources */,
+				CEDC6594287E0F3F00B06290 /* Constants.swift in Sources */,
 				CEE5B9542869EDFE00F3DB1F /* CategoryView.swift in Sources */,
 				CE1323F72875CA8A005BFBA7 /* ItemFireBaseViewController.swift in Sources */,
 				CE1323F92875CEC7005BFBA7 /* ItemFireBaseModel.swift in Sources */,
@@ -446,8 +454,8 @@
 				CEDC6592287DF8EB00B06290 /* SearchHistoryDataTests.swift in Sources */,
 				CEC904E92881F06600B738E8 /* CategoryTableViewControllerTests.swift in Sources */,
 				CE13824E287F59CF00B8481C /* MainViewControllerTests.swift in Sources */,
+				CEE48F9F2885AF0900743CAA /* MockTableConfigurationProtocol.swift in Sources */,
 				CEA9A0002880AC1100F1150D /* CategoryModelTests.swift in Sources */,
-				CEC904E42881B6C500B738E8 /* MockCategoryModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

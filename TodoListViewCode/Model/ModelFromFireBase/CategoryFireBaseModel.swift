@@ -9,10 +9,10 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-class CategoryFireBaseModel: TableConfigurationProtocol {
+class CategoryFireBaseModel: TableConfigurationProtocol { 
     
     private let db = Firestore.firestore()
-    private var listCategories: [CategoryFireBase] = []
+    var list: [Any] = []
     private let dbName = "category"
     var delegate: UpdateTableProtocol?
     
@@ -23,24 +23,26 @@ class CategoryFireBaseModel: TableConfigurationProtocol {
     // MARK: - TableConfiguratonProtocol
     
     func isEmptyList() -> Bool {
-        return listCategories.isEmpty
+        return list.isEmpty
     }
     
     func currentTextCell(indexPath: IndexPath) -> String {
-        return listCategories[indexPath.row].name
+        guard let category = list[indexPath.row] as? CategoryFireBase else { return "Erro" }
+        return category.name
     }
     
     func getCount() -> Int {
-        return listCategories.count
+        return list.count
     }
     
     func getOneCategory(indexPath: IndexPath) -> CategoryFireBase {
-        return listCategories[indexPath.row]
+        guard let category = list[indexPath.row] as? CategoryFireBase else { return CategoryFireBase(name: "ToDo") }
+        return category
     }
     
     // MARK: - Crud Methods
     func addItem(categoty: CategoryFireBase) throws {
-        listCategories.append(categoty)
+        list.append(categoty)
         delegate?.update()
         let _ = try? db.collection(dbName).addDocument(from: categoty)
     }
@@ -51,7 +53,7 @@ class CategoryFireBaseModel: TableConfigurationProtocol {
                 print("No Category")
                 return
             }
-            self.listCategories = documents.compactMap { (queryDocumentSnapshot) -> CategoryFireBase in
+            self.list = documents.compactMap { (queryDocumentSnapshot) -> CategoryFireBase in
                 return try! queryDocumentSnapshot.data(as: CategoryFireBase.self
                 )}
             self.delegate?.update()
@@ -60,7 +62,7 @@ class CategoryFireBaseModel: TableConfigurationProtocol {
     
     func deleteTableItem(indexPath: IndexPath) {
         let name = currentTextCell(indexPath: indexPath)
-        listCategories.remove(at: indexPath.row)
+        list.remove(at: indexPath.row)
         delegate?.update()
         db.collection(dbName).whereField("name", isEqualTo: name).getDocuments() { (querySnapshot, error) in
             if let err = error {
@@ -71,5 +73,13 @@ class CategoryFireBaseModel: TableConfigurationProtocol {
                 }
             }
         }
+    }
+    
+    func getEntity(indexPath: IndexPath) -> AnyObject {
+        return CategoryFireBaseModel()
+    }
+    
+    func saveData(data: String) {
+        print("Ok")
     }
 }

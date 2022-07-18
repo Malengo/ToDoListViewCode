@@ -11,10 +11,13 @@ import UIKit
 import CoreData
 
 class ItemModel: Model<Item>, TableConfigurationProtocol {
-    
-    private var items: [Item] = []
+  
+    var list: [Any] = []
+    private var predicate: NSPredicate?
     var search: NSFetchRequest<Item> = Item.fetchRequest()
-    var predicate: NSPredicate?
+    var category: Category?
+    var delegate: UpdateTableProtocol?
+    
     var typeCategory: String = "" {
         didSet{
             predicate = NSPredicate(format: "parentCategory.name MATCHES %@", typeCategory)
@@ -22,17 +25,17 @@ class ItemModel: Model<Item>, TableConfigurationProtocol {
     }
     
     func isEmptyList() -> Bool {
-        return items.isEmpty
+        return list.isEmpty
     }
     
     func currentTextCell(indexPath: IndexPath) -> String {
-        guard let title = items[indexPath.row].title else { return "There no Items "}
-        return title
+        guard let title = list[indexPath.row] as? Item else { return "There are no Items "}
+        return title.title!
     }
     
     func getCount() -> Int {
         if isEmptyList() { getAll() }
-        return items.count
+        return list.count
     }
     
     func getAll() {
@@ -40,25 +43,29 @@ class ItemModel: Model<Item>, TableConfigurationProtocol {
     }
     
     func updateIsChecked(index: IndexPath) {
-        items[index.row].isChecked = !items[index.row].isChecked
+        guard let item = list[index.row] as? Item else { return }
+            item.isChecked = !item.isChecked
+        delegate?.update()
         save()
     }
     
     func addNewItem(item: Item) {
-        items.append(item)
+        list.append(item)
+        delegate?.update()
     }
     
     func deleteTableItem(indexPath: IndexPath) {
-        items.remove(at: indexPath.row)
+        list.remove(at: indexPath.row)
     }
     
     func isChecked(index: IndexPath) -> Bool {
-        return items[index.row].isChecked
+        guard let item = list[index.row] as? Item else { return false }
+        return item.isChecked
     }
     
     func load(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         do {
-            items = try context.fetch(request)
+            list = try context.fetch(request)
         } catch {
             print("Error to request Itens from dataBase \(error)")
         }
@@ -76,5 +83,21 @@ class ItemModel: Model<Item>, TableConfigurationProtocol {
         search.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [titlePredicate, predicate])
         search.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         load(with: search)
+    }
+    
+    func saveData(data: String) {
+        do {
+            let item = Item(context: context)
+            item.title = data
+            item.parentCategory = category
+            try context.save()
+            addNewItem(item: item)
+        } catch {
+           fatalError()
+        }
+    }
+    
+    func getEntity(indexPath: IndexPath) -> AnyObject {
+        return Item()
     }
 }

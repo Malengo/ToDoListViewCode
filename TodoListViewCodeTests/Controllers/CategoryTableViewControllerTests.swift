@@ -10,7 +10,8 @@ import XCTest
 class CategoryTableViewControllerTests: XCTestCase {
 
     let sut = CategoryTableViewController ()
-
+    let output = MockTableConfigurationProtocol()
+    
     func test_whenCategoryTableViewControllerLoaded_willTableviewDataSourceAndDelegateIsNotNil() {
         //Given
         //When
@@ -61,14 +62,93 @@ class CategoryTableViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.navigationItem.title, "Core Data", "Should be Core Data  but is \(String(describing: sut.navigationItem.title))")
     }
     
-    func test_whenRigthBarButtonPressed_WillCallTheFunctionbuttonAddCategoryPressed() {
+//    func test_whenRigthBarButtonPressed_WillCallTheFunctionbuttonAddCategoryPressed() {
+//        //Given
+//        sut.loadViewIfNeeded()
+//
+//        //When
+//        sut.viewWillAppear(false)
+//        sut.categoryModel = output
+//        let barButton = sut.navigationItem.rightBarButtonItem
+//        sut.perform(barButton?.action)
+//
+//        //Then
+//        XCTAssertEqual(output.saveDataCalled, "Yes")
+//    }
+    
+    func test_WhenCalledDidSelectRowAndListEmpty_WillCalledIsEmptyListMethod() {
         //Given
         sut.loadViewIfNeeded()
+        
         //When
-        sut.viewWillAppear(false)
-        let barButton = sut.navigationItem.rightBarButtonItem?.action
-        sut.perform(barButton)
+        sut.categoryModel = output
+        sut.tableView(sut.coreDataView!.tableView, didSelectRowAt: IndexPath())
+        
         //Then
-       // XCTAssertTrue(sut.buttonAddCategoryPressed, 1)
+        XCTAssertTrue(output.isEmpyListCalled)
+    }
+    
+    func test_WhenCalledDidSelectRowAndisItemInTheList_WillCalledGetEntityMethod() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.categoryModel = output
+        output.list.append("Test")
+        sut.tableView(sut.coreDataView!.tableView, didSelectRowAt: IndexPath())
+        
+        //Then
+        XCTAssertTrue(output.getEntityCalled)
+    }
+    
+    func test_WhenCallednumberOfRowsInSection_WillReturned1() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.categoryModel = output
+        output.list.append("Test")
+        let result = sut.tableView(sut.coreDataView!.tableView, numberOfRowsInSection: 0)
+        
+        //Then
+        XCTAssertEqual(result, 1)
+    }
+    
+    func test_WhenCellForRowAtCalledAndGetCountEqualsZero_WillReturnedThereAreNoItemsCategoryList() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.categoryModel = output
+        let result = sut.tableView(sut.coreDataView!.tableView, cellForRowAt: IndexPath())
+        
+        //Then
+        XCTAssertEqual(result.textLabel?.text, "There are no Items in the Category List")
+    }
+    
+    func test_WhenCellForRowAtCalledAndGetCountMoreThanZero_WillReturnedNameOfList() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.categoryModel = output
+        output.list.append("Test")
+        let result = sut.tableView(sut.coreDataView!.tableView, cellForRowAt: IndexPath(row: 1, section: 0))
+        
+        //Then
+        XCTAssertEqual(result.textLabel?.text, sut.categoryModel.currentTextCell(indexPath: IndexPath(row: 1, section: 0)))
+    }
+    
+    func test_WhenUITableViewCellEditingStyleDeleteCalled_WillCalledDeleteTableItem() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.categoryModel = output
+        output.list.append("Test")
+        sut.tableView(sut.coreDataView!.tableView, commit: .delete, forRowAt: IndexPath())
+        
+        //Then
+        XCTAssertTrue(output.deleteTableItemCalled)
     }
 }
