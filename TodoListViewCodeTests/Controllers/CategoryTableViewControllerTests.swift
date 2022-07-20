@@ -6,11 +6,25 @@
 //
 
 import XCTest
+import ViewControllerPresentationSpy
 @testable import TodoListViewCode
+
 class CategoryTableViewControllerTests: XCTestCase {
 
-    let sut = CategoryTableViewController ()
-    let output = MockTableConfigurationProtocol()
+    var alertVerifier: AlertVerifier!
+    var sut: CategoryTableViewController!
+    let mockTableConfigurationProtocol = MockTableConfigurationProtocol()
+    let mockSearchHistoryData = MockSearchHistoryData()
+    
+    override func setUpWithError() throws {
+        alertVerifier = AlertVerifier()
+        sut = CategoryTableViewController()
+    }
+    
+    override func tearDownWithError() throws {
+        alertVerifier = nil
+        sut = nil
+    }
     
     func test_whenCategoryTableViewControllerLoaded_willTableviewDataSourceAndDelegateIsNotNil() {
         //Given
@@ -61,31 +75,17 @@ class CategoryTableViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.navigationItem.title)
         XCTAssertEqual(sut.navigationItem.title, "Core Data", "Should be Core Data  but is \(String(describing: sut.navigationItem.title))")
     }
-    
-//    func test_whenRigthBarButtonPressed_WillCallTheFunctionbuttonAddCategoryPressed() {
-//        //Given
-//        sut.loadViewIfNeeded()
-//
-//        //When
-//        sut.viewWillAppear(false)
-//        sut.categoryModel = output
-//        let barButton = sut.navigationItem.rightBarButtonItem
-//        sut.perform(barButton?.action)
-//
-//        //Then
-//        XCTAssertEqual(output.saveDataCalled, "Yes")
-//    }
-    
+        
     func test_WhenCalledDidSelectRowAndListEmpty_WillCalledIsEmptyListMethod() {
         //Given
         sut.loadViewIfNeeded()
         
         //When
-        sut.categoryModel = output
+        sut.categoryModel = mockTableConfigurationProtocol
         sut.tableView(sut.coreDataView!.tableView, didSelectRowAt: IndexPath())
         
         //Then
-        XCTAssertTrue(output.isEmpyListCalled)
+        XCTAssertTrue(mockTableConfigurationProtocol.isEmpyListCalled)
     }
     
     func test_WhenCalledDidSelectRowAndisItemInTheList_WillCalledGetEntityMethod() {
@@ -93,12 +93,12 @@ class CategoryTableViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         //When
-        sut.categoryModel = output
-        output.list.append("Test")
+        sut.categoryModel = mockTableConfigurationProtocol
+        mockTableConfigurationProtocol.list.append("Test")
         sut.tableView(sut.coreDataView!.tableView, didSelectRowAt: IndexPath())
         
         //Then
-        XCTAssertTrue(output.getEntityCalled)
+        XCTAssertTrue(mockTableConfigurationProtocol.getEntityCalled)
     }
     
     func test_WhenCallednumberOfRowsInSection_WillReturned1() {
@@ -106,8 +106,8 @@ class CategoryTableViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         //When
-        sut.categoryModel = output
-        output.list.append("Test")
+        sut.categoryModel = mockTableConfigurationProtocol
+        mockTableConfigurationProtocol.list.append("Test")
         let result = sut.tableView(sut.coreDataView!.tableView, numberOfRowsInSection: 0)
         
         //Then
@@ -119,7 +119,7 @@ class CategoryTableViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         //When
-        sut.categoryModel = output
+        sut.categoryModel = mockTableConfigurationProtocol
         let result = sut.tableView(sut.coreDataView!.tableView, cellForRowAt: IndexPath())
         
         //Then
@@ -131,8 +131,8 @@ class CategoryTableViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         //When
-        sut.categoryModel = output
-        output.list.append("Test")
+        sut.categoryModel = mockTableConfigurationProtocol
+        mockTableConfigurationProtocol.list.append("Test")
         let result = sut.tableView(sut.coreDataView!.tableView, cellForRowAt: IndexPath(row: 1, section: 0))
         
         //Then
@@ -144,11 +144,111 @@ class CategoryTableViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         //When
-        sut.categoryModel = output
-        output.list.append("Test")
+        sut.categoryModel = mockTableConfigurationProtocol
+        mockTableConfigurationProtocol.list.append("Test")
         sut.tableView(sut.coreDataView!.tableView, commit: .delete, forRowAt: IndexPath())
         
         //Then
-        XCTAssertTrue(output.deleteTableItemCalled)
+        XCTAssertTrue(mockTableConfigurationProtocol.deleteTableItemCalled)
     }
+    
+    func test_whenRightBarButtonPressed_WillShowAddNewCategoryAlert() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.viewWillAppear(true)
+        let barButton = sut.navigationItem.rightBarButtonItem
+        
+        //When
+        sut.perform(barButton?.action)
+        //Then
+        XCTAssertEqual(alertVerifier.presentedCount, 1, "Shoulded return 1 but returned \(alertVerifier.presentedCount)")
+        XCTAssertTrue((alertVerifier.title != nil), "Should have a title, but doesn't have")
+    }
+    
+    func test_whenAddCategoryPressedInTheAlert_WillCallTheFunctionSaveData() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.viewWillAppear(false)
+        sut.categoryModel = mockTableConfigurationProtocol
+        let barButton = sut.navigationItem.rightBarButtonItem
+        
+        //When
+        sut.perform(barButton?.action)
+        try? alertVerifier.executeAction(forButton: "Add Category")
+        
+        //Then
+        XCTAssertEqual(mockTableConfigurationProtocol.saveDataCalled, "Yes")
+    }
+    
+    func test_whenSearchBarCalledTextDidChange_willCalledGetCoountAnd() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.searchData = mockSearchHistoryData
+        let searchBar = UISearchBar()
+        
+        //When
+        searchBar.text = "A"
+        sut.searchBar(searchBar, textDidChange: "")
+        
+        //Then
+        XCTAssertTrue(mockSearchHistoryData.getCountCalled)
+    }
+    
+    func test_whenSearchBarCalledSearchButtonClicked_willCalledSaveData() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.searchData = mockSearchHistoryData
+        let searchBar = UISearchBar()
+        
+        //When
+        searchBar.text = "A"
+        sut.searchBarSearchButtonClicked(searchBar)
+        
+        //Then
+        XCTAssertTrue(mockSearchHistoryData.saveDataCalled)
+    }
+    
+    func test_whenSearchBarCalledTextDidBeginEditingAndHaveSearchBarText_willShowSearchHistory() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.searchData = mockSearchHistoryData
+        let searchBar = UISearchBar()
+        
+        //When
+        searchBar.text = "A"
+        sut.searchBarTextDidBeginEditing(searchBar)
+        
+        //Then
+        guard let hidden = sut.coreDataView?.searchStack.isHidden else { return }
+        XCTAssertFalse(hidden, "Shoulded return false but return true")
+    }
+    
+    func test_whenSearchBarCalledTextDidBeginEditingAndDontHaveSearchBarText_willHideSearchHistory() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.searchData = mockSearchHistoryData
+        let searchBar = UISearchBar()
+        
+        //When
+        sut.searchBarTextDidBeginEditing(searchBar)
+        
+        //Then
+        guard let hidden = sut.coreDataView?.searchStack.isHidden else { return }
+        XCTAssertTrue(hidden, "Shoulded return true but return false")
+    }
+    
+    func test_whenSearchBarCalledsearchBarCancelButtonClicked_willHideSearchHistory() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.searchData = mockSearchHistoryData
+        let searchBar = UISearchBar()
+        
+        //When
+        sut.searchBarCancelButtonClicked(searchBar)
+        
+        //Then
+        guard let hidden = sut.coreDataView?.searchStack.isHidden else { return }
+        XCTAssertTrue(hidden, "Shoulded return true but return false")
+    }
+
 }

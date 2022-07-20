@@ -23,13 +23,18 @@
 		CE8D16D72863A12D001FCD4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE8D16D62863A12D001FCD4F /* Assets.xcassets */; };
 		CE8D16DA2863A12D001FCD4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8D16D82863A12D001FCD4F /* LaunchScreen.storyboard */; };
 		CE8D16E52863A1EC001FCD4F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8D16E42863A1EC001FCD4F /* MainView.swift */; };
+		CE8E1D2928871B57003CD970 /* ViewControllerPresentationSpy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8E1D2828871B57003CD970 /* ViewControllerPresentationSpy.xcframework */; };
+		CE8E1D2A28871B73003CD970 /* ViewControllerPresentationSpy.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE8E1D2828871B57003CD970 /* ViewControllerPresentationSpy.xcframework */; };
 		CE9567162865DFB5003DB3A2 /* DataTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9567152865DFB5003DB3A2 /* DataTableView.swift */; };
 		CE9567182865DFDE003DB3A2 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9567172865DFDE003DB3A2 /* CategoryTableViewController.swift */; };
 		CE95671C28664134003DB3A2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95671B28664134003DB3A2 /* Model.swift */; };
 		CEA9A0002880AC1100F1150D /* CategoryModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA99FFF2880AC1100F1150D /* CategoryModelTests.swift */; };
+		CEB43B6128874A7000848329 /* CategoryViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB43B6028874A7000848329 /* CategoryViewTest.swift */; };
 		CEC904E92881F06600B738E8 /* CategoryTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC904E82881F06600B738E8 /* CategoryTableViewControllerTests.swift */; };
 		CEC9CDEA286DE7B800C7D1FD /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9CDE9286DE7B700C7D1FD /* SearchHistoryCell.swift */; };
 		CEC9CDEC286E2F2D00C7D1FD /* SearchHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */; };
+		CECF9B8728888D5D001EAC14 /* SearchHistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECF9B8628888D5D001EAC14 /* SearchHistoryProtocol.swift */; };
+		CECF9B89288890F8001EAC14 /* MockSearchHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECF9B88288890F8001EAC14 /* MockSearchHistoryData.swift */; };
 		CEDC6592287DF8EB00B06290 /* SearchHistoryDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC6591287DF8EB00B06290 /* SearchHistoryDataTests.swift */; };
 		CEDC6594287E0F3F00B06290 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDC6593287E0F3F00B06290 /* Constants.swift */; };
 		CEE25D19286C83B9002F1C17 /* ViewCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */; };
@@ -52,6 +57,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CE478928288741BE00EDFD02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE8D16BF2863A12C001FCD4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE8D16C62863A12C001FCD4F;
+			remoteInfo = TodoListViewCode;
+		};
 		CEDC658C287DF89600B06290 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE8D16BF2863A12C001FCD4F /* Project object */;
@@ -61,11 +73,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CE8E1D2728871B24003CD970 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				CE8E1D2A28871B73003CD970 /* ViewControllerPresentationSpy.xcframework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		CE1323F42875C154005BFBA7 /* ItemFireBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFireBase.swift; sourceTree = "<group>"; };
 		CE1323F62875CA8A005BFBA7 /* ItemFireBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFireBaseViewController.swift; sourceTree = "<group>"; };
 		CE1323F82875CEC7005BFBA7 /* ItemFireBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFireBaseModel.swift; sourceTree = "<group>"; };
 		CE13824D287F59CF00B8481C /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
+		CE478922288741BE00EDFD02 /* TodoListViewCodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListViewCodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableConfigurationProtocol.swift; sourceTree = "<group>"; };
 		CE8A667C28746A0D00F9CAD7 /* CategoryFireBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFireBaseViewController.swift; sourceTree = "<group>"; };
 		CE8A667F287473F800F9CAD7 /* CategoryFireBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFireBaseModel.swift; sourceTree = "<group>"; };
@@ -79,13 +105,17 @@
 		CE8D16D92863A12D001FCD4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE8D16DB2863A12D001FCD4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE8D16E42863A1EC001FCD4F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		CE8E1D2828871B57003CD970 /* ViewControllerPresentationSpy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ViewControllerPresentationSpy.xcframework; sourceTree = "<group>"; };
 		CE9567152865DFB5003DB3A2 /* DataTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableView.swift; sourceTree = "<group>"; };
 		CE9567172865DFDE003DB3A2 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		CE95671B28664134003DB3A2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		CEA99FFF2880AC1100F1150D /* CategoryModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelTests.swift; sourceTree = "<group>"; };
+		CEB43B6028874A7000848329 /* CategoryViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewTest.swift; sourceTree = "<group>"; };
 		CEC904E82881F06600B738E8 /* CategoryTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewControllerTests.swift; sourceTree = "<group>"; };
 		CEC9CDE9286DE7B700C7D1FD /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
 		CEC9CDEB286E2F2D00C7D1FD /* SearchHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryData.swift; sourceTree = "<group>"; };
+		CECF9B8628888D5D001EAC14 /* SearchHistoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryProtocol.swift; sourceTree = "<group>"; };
+		CECF9B88288890F8001EAC14 /* MockSearchHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchHistoryData.swift; sourceTree = "<group>"; };
 		CEDC6588287DF89600B06290 /* TodoListViewCodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListViewCodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEDC6591287DF8EB00B06290 /* SearchHistoryDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryDataTests.swift; sourceTree = "<group>"; };
 		CEDC6593287E0F3F00B06290 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -105,6 +135,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CE47891F288741BE00EDFD02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE8D16C42863A12C001FCD4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -121,12 +158,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8E1D2928871B57003CD970 /* ViewControllerPresentationSpy.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE478923288741BE00EDFD02 /* TodoListViewCodeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CEB43B6028874A7000848329 /* CategoryViewTest.swift */,
+			);
+			path = TodoListViewCodeUITests;
+			sourceTree = "<group>";
+		};
 		CE8A667E287473D200F9CAD7 /* ModelFromFireBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +189,7 @@
 			children = (
 				CE8D16C92863A12C001FCD4F /* TodoListViewCode */,
 				CEDC6589287DF89600B06290 /* TodoListViewCodeTests */,
+				CE478923288741BE00EDFD02 /* TodoListViewCodeUITests */,
 				CE8D16C82863A12C001FCD4F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,6 +199,7 @@
 			children = (
 				CE8D16C72863A12C001FCD4F /* TodoListViewCode.app */,
 				CEDC6588287DF89600B06290 /* TodoListViewCodeTests.xctest */,
+				CE478922288741BE00EDFD02 /* TodoListViewCodeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,18 +287,28 @@
 		CEC904E52881F00E00B738E8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E1D2828871B57003CD970 /* ViewControllerPresentationSpy.xcframework */,
+				CE13824D287F59CF00B8481C /* MainViewControllerTests.swift */,
 				CEC904E82881F06600B738E8 /* CategoryTableViewControllerTests.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		CECF9B8A28889184001EAC14 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				CEE48F9E2885AF0900743CAA /* MockTableConfigurationProtocol.swift */,
+				CECF9B88288890F8001EAC14 /* MockSearchHistoryData.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		CEDC6589287DF89600B06290 /* TodoListViewCodeTests */ = {
 			isa = PBXGroup;
 			children = (
+				CECF9B8A28889184001EAC14 /* Mocks */,
 				CEC904E52881F00E00B738E8 /* Controllers */,
 				CEA99FFE2880ABF600F1150D /* Models */,
-				CE13824D287F59CF00B8481C /* MainViewControllerTests.swift */,
-				CEE48F9E2885AF0900743CAA /* MockTableConfigurationProtocol.swift */,
 			);
 			path = TodoListViewCodeTests;
 			sourceTree = "<group>";
@@ -269,6 +327,7 @@
 			children = (
 				CEE25D18286C83B9002F1C17 /* ViewCodeProtocol.swift */,
 				CE5E557D28735D9E006A5150 /* TableConfigurationProtocol.swift */,
+				CECF9B8628888D5D001EAC14 /* SearchHistoryProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -304,6 +363,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CE478921288741BE00EDFD02 /* TodoListViewCodeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE47892C288741BE00EDFD02 /* Build configuration list for PBXNativeTarget "TodoListViewCodeUITests" */;
+			buildPhases = (
+				CE47891E288741BE00EDFD02 /* Sources */,
+				CE47891F288741BE00EDFD02 /* Frameworks */,
+				CE478920288741BE00EDFD02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE478929288741BE00EDFD02 /* PBXTargetDependency */,
+			);
+			name = TodoListViewCodeUITests;
+			productName = TodoListViewCodeUITests;
+			productReference = CE478922288741BE00EDFD02 /* TodoListViewCodeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		CE8D16C62863A12C001FCD4F /* TodoListViewCode */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE8D16DE2863A12D001FCD4F /* Build configuration list for PBXNativeTarget "TodoListViewCode" */;
@@ -335,6 +412,7 @@
 				CEDC6584287DF89600B06290 /* Sources */,
 				CEDC6585287DF89600B06290 /* Frameworks */,
 				CEDC6586287DF89600B06290 /* Resources */,
+				CE8E1D2728871B24003CD970 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -356,6 +434,11 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					CE478921288741BE00EDFD02 = {
+						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
+						TestTargetID = CE8D16C62863A12C001FCD4F;
+					};
 					CE8D16C62863A12C001FCD4F = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -386,11 +469,19 @@
 			targets = (
 				CE8D16C62863A12C001FCD4F /* TodoListViewCode */,
 				CEDC6587287DF89600B06290 /* TodoListViewCodeTests */,
+				CE478921288741BE00EDFD02 /* TodoListViewCodeUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CE478920288741BE00EDFD02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE8D16C52863A12C001FCD4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -411,6 +502,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CE47891E288741BE00EDFD02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEB43B6128874A7000848329 /* CategoryViewTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE8D16C32863A12C001FCD4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,6 +532,7 @@
 				CE9567162865DFB5003DB3A2 /* DataTableView.swift in Sources */,
 				CE8D16CB2863A12C001FCD4F /* AppDelegate.swift in Sources */,
 				CEE5B95B286A39F700F3DB1F /* ItemModel.swift in Sources */,
+				CECF9B8728888D5D001EAC14 /* SearchHistoryProtocol.swift in Sources */,
 				CE8D16CD2863A12C001FCD4F /* SceneDelegate.swift in Sources */,
 				CEE5B959286A30F900F3DB1F /* ItemOfCategoryViewController.swift in Sources */,
 				CE8A6682287474C600F9CAD7 /* CategoryFireBase.swift in Sources */,
@@ -453,6 +553,7 @@
 			files = (
 				CEDC6592287DF8EB00B06290 /* SearchHistoryDataTests.swift in Sources */,
 				CEC904E92881F06600B738E8 /* CategoryTableViewControllerTests.swift in Sources */,
+				CECF9B89288890F8001EAC14 /* MockSearchHistoryData.swift in Sources */,
 				CE13824E287F59CF00B8481C /* MainViewControllerTests.swift in Sources */,
 				CEE48F9F2885AF0900743CAA /* MockTableConfigurationProtocol.swift in Sources */,
 				CEA9A0002880AC1100F1150D /* CategoryModelTests.swift in Sources */,
@@ -462,6 +563,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CE478929288741BE00EDFD02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE8D16C62863A12C001FCD4F /* TodoListViewCode */;
+			targetProxy = CE478928288741BE00EDFD02 /* PBXContainerItemProxy */;
+		};
 		CEDC658D287DF89600B06290 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CE8D16C62863A12C001FCD4F /* TodoListViewCode */;
@@ -481,6 +587,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CE47892A288741BE00EDFD02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2HX6PAF8Z8;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.malengo.TodoListViewCodeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TodoListViewCode;
+			};
+			name = Debug;
+		};
+		CE47892B288741BE00EDFD02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2HX6PAF8Z8;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.malengo.TodoListViewCodeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TodoListViewCode;
+			};
+			name = Release;
+		};
 		CE8D16DC2863A12D001FCD4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -701,6 +854,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CE47892C288741BE00EDFD02 /* Build configuration list for PBXNativeTarget "TodoListViewCodeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE47892A288741BE00EDFD02 /* Debug */,
+				CE47892B288741BE00EDFD02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CE8D16C22863A12C001FCD4F /* Build configuration list for PBXProject "TodoListViewCode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

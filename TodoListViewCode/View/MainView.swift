@@ -26,6 +26,7 @@ class MainView: UIView, ViewCodeProtocol {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
+        button.accessibilityIdentifier = "CoreData"
         return button
     }()
     

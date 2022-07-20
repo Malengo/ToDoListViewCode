@@ -94,12 +94,6 @@ extension ItemOfCategoryViewController: UITableViewDelegate {
     }
 }
 
-
-//MARK: - Data Model
-extension ItemOfCategoryViewController {
-    
-}
-
 //MARK: SearchBar delegate
 extension ItemOfCategoryViewController: UISearchBarDelegate {
     

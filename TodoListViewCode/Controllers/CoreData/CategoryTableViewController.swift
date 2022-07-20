@@ -10,7 +10,7 @@ import CoreData
 class CategoryTableViewController: UIViewController {
     
     var categoryModel: TableConfigurationProtocol = CategoryModel()
-    var searchData = SearchHistoryData(keyWord: Constants.keyWordSearchUserDefauts)
+    var searchData: SearchHistoryProtocol = SearchHistoryData(keyWord: Constants.keyWordSearchUserDefauts)
     
     var coreDataView: DataTableView? {
         return view as? DataTableView
@@ -101,7 +101,7 @@ extension CategoryTableViewController {
     }
     
     @objc func deleteItemSearch(_ sender: UIButton) {
-        let index = sender.tag 
+        let index = sender.tag
         searchData.deleteWord(index: index)
         DispatchQueue.main.async {
             self.coreDataView?.reloadCollectionViewData()

@@ -20,6 +20,7 @@ class MockTableConfigurationProtocol: TableConfigurationProtocol {
     var saveDataCalled: String = "No"
     
     func saveData(data: String) {
+        saveDataCalled = "Yes"
         list.append(data)
     }
     

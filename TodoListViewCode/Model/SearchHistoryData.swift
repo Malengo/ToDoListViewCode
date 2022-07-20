@@ -7,27 +7,25 @@
 
 import Foundation
 
-struct SearchHistoryData {
+class SearchHistoryData: SearchHistoryProtocol {
     
     private var wordsList: [String] = []
     private let defaults = UserDefaults.standard
-    private let keyWord: String?
+    private let keyWord: String
     
     init(keyWord: String) {
         self.keyWord = keyWord
         wordsList = readData()
     }
     
-    mutating func readData() -> [String] {
-        guard let keyWord = keyWord else { return [] }
+    func readData() -> [String] {
         if let words = defaults.array(forKey: keyWord) as? [String] {
-            self.wordsList = words
+            wordsList = words
         }
         return wordsList
     }
     
-    mutating func saveData(word: String) {
-        guard let keyWord = keyWord else { return }
+    func saveData(word: String) {
         if wordsList.isEmpty {
             wordsList.append(word)
         } else {
@@ -36,16 +34,15 @@ struct SearchHistoryData {
         defaults.set(wordsList, forKey: keyWord)
     }
     
-    mutating func getCount() -> Int {
+    func getCount() -> Int {
         return wordsList.count
     }
     
-    mutating func getWord(index: Int) -> String {
+    func getWord(index: Int) -> String {
         return wordsList[index]
     }
     
-    mutating func deleteWord(index: Int) {
-        guard let keyWord = keyWord else { return }
+    func deleteWord(index: Int) {
         wordsList.remove(at: index)
         defaults.set(wordsList, forKey: keyWord)
     }

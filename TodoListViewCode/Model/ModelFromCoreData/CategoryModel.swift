@@ -62,20 +62,6 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
         return list[indexPath.row] as AnyObject
     }
     
-    func saveCategory(categoryName: String) {
-        do {
-            let category = Category(context: self.context)
-            category.name = categoryName
-            addNewCategory(category: category)
-            try self.context.save()
-        } catch {
-            fatalError()
-        }
-    }
-}
-
-// MARK: - DataProtocol
-extension CategoryModel: DataEntityProtocol {
     func saveData(data: String) {
         do {
             let category = Category(context: self.context)
@@ -87,5 +73,6 @@ extension CategoryModel: DataEntityProtocol {
         }
     }
 }
+
 
 

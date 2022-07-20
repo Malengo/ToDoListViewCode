@@ -113,6 +113,7 @@ class DataTableView: UIView, ViewCodeProtocol {
     func configureBarButton(action: Selector, target: AnyObject) -> UIBarButtonItem {
         barButton.action = action
         barButton.target = target
+        barButton.accessibilityIdentifier = "barButton"
         return barButton
     }
     
