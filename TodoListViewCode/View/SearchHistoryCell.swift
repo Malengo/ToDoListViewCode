@@ -20,13 +20,13 @@ class SearchHistoryCell: UICollectionViewCell, ViewCodeProtocol {
     
     // MARK: - Components Cell
     
-    private lazy var deleteButton: UIButton = {
+    private(set) lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "trash"), for: .normal)
         return button
     }()
     
-    private lazy var buttonAdd: UIButton = {
+    private(set) lazy var buttonAdd: UIButton = {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
         return button

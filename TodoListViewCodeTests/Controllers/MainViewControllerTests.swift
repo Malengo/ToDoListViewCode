@@ -66,7 +66,6 @@ class MainViewControllerTests: XCTestCase {
     
     func test_WhenFireBaseButtonPressed_WillCalledCategoryFireBaseViewController() {
         //Given
-        
         //When
         sut.loadViewIfNeeded()
         sut.mainView?.firebaseButton.sendActions(for: .touchDown)
@@ -75,6 +74,17 @@ class MainViewControllerTests: XCTestCase {
         guard let _ = pushedVc as? CategoryFireBaseViewController else {
             //Then
             XCTFail("Expected CategoryFireBaseViewController, but was \(String(describing: pushedVc))")
+            return
+        }
+    }
+    
+    func testSpyViewController() {
+        sut.loadViewIfNeeded()
+        let spy = SpyNavigationController(rootViewController: sut)
+        sut.mainView?.coreDataButton.sendActions(for: .touchDown)
+        guard let _ = spy.pushedViewController as? CategoryTableViewController else {
+            print(spy.pushedViewController)
+            XCTFail()
             return
         }
     }

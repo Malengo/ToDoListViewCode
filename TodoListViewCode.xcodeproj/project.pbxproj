@@ -54,6 +54,7 @@
 		CEE5B9562869EF4E00F3DB1F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B9552869EF4E00F3DB1F /* CategoryViewController.swift */; };
 		CEE5B959286A30F900F3DB1F /* ItemOfCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B958286A30F900F3DB1F /* ItemOfCategoryViewController.swift */; };
 		CEE5B95B286A39F700F3DB1F /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE5B95A286A39F700F3DB1F /* ItemModel.swift */; };
+		CEF5DB492889963300A07586 /* SpyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5DB482889963300A07586 /* SpyNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,7 @@
 		CEE5B9552869EF4E00F3DB1F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		CEE5B958286A30F900F3DB1F /* ItemOfCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOfCategoryViewController.swift; sourceTree = "<group>"; };
 		CEE5B95A286A39F700F3DB1F /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
+		CEF5DB482889963300A07586 /* SpyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 			children = (
 				CEE48F9E2885AF0900743CAA /* MockTableConfigurationProtocol.swift */,
 				CECF9B88288890F8001EAC14 /* MockSearchHistoryData.swift */,
+				CEF5DB482889963300A07586 /* SpyNavigationController.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 				CEDC6592287DF8EB00B06290 /* SearchHistoryDataTests.swift in Sources */,
 				CEC904E92881F06600B738E8 /* CategoryTableViewControllerTests.swift in Sources */,
 				CECF9B89288890F8001EAC14 /* MockSearchHistoryData.swift in Sources */,
+				CEF5DB492889963300A07586 /* SpyNavigationController.swift in Sources */,
 				CE13824E287F59CF00B8481C /* MainViewControllerTests.swift in Sources */,
 				CEE48F9F2885AF0900743CAA /* MockTableConfigurationProtocol.swift in Sources */,
 				CEA9A0002880AC1100F1150D /* CategoryModelTests.swift in Sources */,

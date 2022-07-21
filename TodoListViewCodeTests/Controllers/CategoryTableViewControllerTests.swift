@@ -250,5 +250,53 @@ class CategoryTableViewControllerTests: XCTestCase {
         guard let hidden = sut.coreDataView?.searchStack.isHidden else { return }
         XCTAssertTrue(hidden, "Shoulded return true but return false")
     }
+    
+    func test_WhenCalledCollectionViewNumberOfItemsInSection_WillCalledSearchDataGetCount() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.searchData = mockSearchHistoryData
+        let result = sut.collectionView(sut.coreDataView!.collection, numberOfItemsInSection: 0)
+        
+        //Then
+        XCTAssertEqual(result, mockSearchHistoryData.getCount())
+    }
+    
+    func test_WhenCalledCollectionViewCellForItemAt_WillReturnSearchHistoryCell() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.searchData = mockSearchHistoryData
+        guard let _ = sut.collectionView(sut.coreDataView!.collection, cellForItemAt: IndexPath(row: 1, section: 0)) as? SearchHistoryCell else {
+            //Then
+            XCTFail()
+            return
+        }
+    }
+    
+    func test_WhenConfiguredCollectionViewCell_WillActionAddButton() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.searchData = mockSearchHistoryData
+        let result = sut.collectionView(sut.coreDataView!.collection, cellForItemAt: IndexPath(row: 1, section: 0)) as? SearchHistoryCell
+        
+        result?.buttonAdd.sendActions(for: .touchDown)
+    }
+    
+    func test_WhenConfiguredCollectionViewCell_WillActionTrashButton() {
+        //Given
+        sut.loadViewIfNeeded()
+        
+        //When
+        sut.searchData = mockSearchHistoryData
+        let result = sut.collectionView(sut.coreDataView!.collection, cellForItemAt: IndexPath(row: 1, section: 0)) as? SearchHistoryCell
+        
+        result?.deleteButton.sendActions(for: .touchDown)
+    }
 
 }
+
