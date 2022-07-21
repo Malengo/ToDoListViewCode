@@ -10,9 +10,14 @@ import ViewControllerPresentationSpy
 @testable import TodoListViewCode
 
 class MainViewControllerTests: XCTestCase {
+    
+    var sut: MainViewController!
+    var navigation: UINavigationController!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        sut = MainViewController()
+        navigation = UINavigationController(rootViewController: sut)
     }
 
     override func tearDownWithError() throws {
@@ -21,7 +26,6 @@ class MainViewControllerTests: XCTestCase {
 
     func test_LoadingMainViewController() {
         //Given
-        let sut = MainViewController()
         
         //When
         sut.loadViewIfNeeded()
@@ -32,14 +36,12 @@ class MainViewControllerTests: XCTestCase {
     
     func test_WhenButtonCoreDataPressed_WillCalledCategoryViewController() {
         //Given
-        let sut = MainViewController()
         
         //When
         sut.loadViewIfNeeded()
-        let navigation = UINavigationController(rootViewController: sut)
         sut.mainView?.coreDataButton.sendActions(for: .touchDown)
         RunLoop.current.run(until: Date())
-        let pushedVc = navigation.viewControllers.last
+        let pushedVc = navigation.topViewController
         guard let _ = pushedVc as? CategoryTableViewController else {
             //Then
             XCTFail("Expected CategoryTableViewController, but was \(String(describing: pushedVc))")
@@ -49,14 +51,12 @@ class MainViewControllerTests: XCTestCase {
     
     func test_WhenRealmButtonPressed_WillCalledCategoryRealmViewController() {
         //Given
-        let sut = MainViewController()
         
         //When
         sut.loadViewIfNeeded()
-        let navigation = UINavigationController(rootViewController: sut)
         sut.mainView?.realmButton.sendActions(for: .touchDown)
         RunLoop.current.run(until: Date())
-        let pushedVc = navigation.viewControllers.last
+        let pushedVc = navigation.topViewController
         guard let _ = pushedVc as? CategoryRealmViewController else {
             //Then
             XCTFail("Expected CategoryRealmViewController, but was \(String(describing: pushedVc))")
@@ -66,14 +66,12 @@ class MainViewControllerTests: XCTestCase {
     
     func test_WhenFireBaseButtonPressed_WillCalledCategoryFireBaseViewController() {
         //Given
-        let sut = MainViewController()
         
         //When
         sut.loadViewIfNeeded()
-        let navigation = UINavigationController(rootViewController: sut)
         sut.mainView?.firebaseButton.sendActions(for: .touchDown)
         RunLoop.current.run(until: Date())
-        let pushedVc = navigation.viewControllers.last
+        let pushedVc = navigation.topViewController
         guard let _ = pushedVc as? CategoryFireBaseViewController else {
             //Then
             XCTFail("Expected CategoryFireBaseViewController, but was \(String(describing: pushedVc))")
