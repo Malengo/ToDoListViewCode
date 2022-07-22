@@ -12,8 +12,8 @@ class ItemOfCategoryViewController: UIViewController {
     private var itemManager = ItemModel()
     var selectedCategory: Category?{
         didSet{
-            if let category = selectedCategory {
-                itemManager.typeCategory = category.name!
+            if let category = selectedCategory, let name = category.name {
+                itemManager.typeCategory = name
                 itemManager.category = category
                 itemManager.getAll()
             }

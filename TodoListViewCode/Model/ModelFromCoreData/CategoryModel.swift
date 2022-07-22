@@ -50,8 +50,8 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
     }
     
     func currentTextCell(indexPath: IndexPath) -> String {
-        guard let name = list[indexPath.row] as? Category else { return "There are no Items in the Category List" }
-        return name.name!
+        guard let category = list[indexPath.row] as? Category, let name = category.name else { return "There are no Items in the Category List" }
+        return name
     }
     
     func isEmptyList() -> Bool {

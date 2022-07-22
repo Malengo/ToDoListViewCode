@@ -18,6 +18,7 @@ class MockTableConfigurationProtocol: TableConfigurationProtocol {
     var getEntityCalled = false
     var deleteTableItemCalled = false
     var saveDataCalled: String = "No"
+    var getAllCalled: Bool = false
     
     func saveData(data: String) {
         saveDataCalled = "Yes"
@@ -38,7 +39,7 @@ class MockTableConfigurationProtocol: TableConfigurationProtocol {
     }
     
     func getAll() {
-        
+        getAllCalled = true
     }
     
     func deleteTableItem(indexPath: IndexPath) {

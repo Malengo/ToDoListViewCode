@@ -10,6 +10,7 @@ import Foundation
 
 class MockSearchHistoryData: SearchHistoryProtocol {
     
+    var list: [String] = []
     var readDataCalled: Bool = false
     var saveDataCalled: Bool = false
     var getCountCalled: Bool = false
@@ -23,11 +24,12 @@ class MockSearchHistoryData: SearchHistoryProtocol {
     
     func saveData(word: String) {
         saveDataCalled = true
+        list.append(word)
     }
     
     func getCount() -> Int {
         getCountCalled = true
-        return 1
+        return list.count
     }
     
     func getWord(index: Int) -> String {

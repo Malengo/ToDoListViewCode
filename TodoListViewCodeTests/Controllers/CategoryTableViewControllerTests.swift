@@ -180,7 +180,7 @@ class CategoryTableViewControllerTests: XCTestCase {
         XCTAssertEqual(mockTableConfigurationProtocol.saveDataCalled, "Yes")
     }
     
-    func test_whenSearchBarCalledTextDidChange_willCalledGetCoountAnd() {
+    func test_whenSearchBarCalledTextDidChange_willCalledGetCountAnd() {
         //Given
         sut.loadViewIfNeeded()
         sut.searchData = mockSearchHistoryData
@@ -215,6 +215,7 @@ class CategoryTableViewControllerTests: XCTestCase {
         let searchBar = UISearchBar()
         
         //When
+        mockSearchHistoryData.saveData(word: "Teste")
         searchBar.text = "A"
         sut.searchBarTextDidBeginEditing(searchBar)
         
@@ -296,6 +297,38 @@ class CategoryTableViewControllerTests: XCTestCase {
         let result = sut.collectionView(sut.coreDataView!.collection, cellForItemAt: IndexPath(row: 1, section: 0)) as? SearchHistoryCell
         
         result?.deleteButton.sendActions(for: .touchDown)
+        
+        //Then
+        XCTAssertTrue(mockSearchHistoryData.deleteWordCalled)
+    }
+    
+    func test_whenSearchBarCalledSearchButtonClickedAndDoNotHaveText_willCalledGetAll() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.categoryModel = mockTableConfigurationProtocol
+        let searchBar = UISearchBar()
+        searchBar.text = ""
+        //When
+        sut.searchBarSearchButtonClicked(searchBar)
+        
+        //Then
+        XCTAssertTrue(mockTableConfigurationProtocol.getAllCalled)
+    }
+    
+    func test_whenSearchBarCalledTextDidChangeAndDoNotHaveText_willCalledGetAll() {
+        //Given
+        sut.loadViewIfNeeded()
+        sut.categoryModel = mockTableConfigurationProtocol
+        sut.searchData = mockSearchHistoryData
+        let searchBar = UISearchBar()
+        
+        //When
+        mockSearchHistoryData.saveData(word: "Test")
+        searchBar.text = ""
+        sut.searchBar(searchBar, textDidChange: "")
+        
+        //Then
+        XCTAssertTrue(mockTableConfigurationProtocol.getAllCalled)
     }
 
 }

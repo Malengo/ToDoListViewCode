@@ -128,10 +128,8 @@ extension CategoryTableViewController: UISearchBarDelegate {
             self.coreDataView?.reloadTableViewData()
             self.coreDataView?.reloadCollectionViewData()
         } else {
-            DispatchQueue.main.async {
                 self.categoryModel.getAll()
                 self.coreDataView?.reloadTableViewData()
-            }
         }
     }
     
@@ -140,10 +138,8 @@ extension CategoryTableViewController: UISearchBarDelegate {
         if let name = searchBar.text, !name.isEmpty {
             coreDataView?.showSearchHistory()
         } else {
-            DispatchQueue.main.async {
-                self.categoryModel.getAll()
-                self.coreDataView?.reloadTableViewData()
-            }
+            self.categoryModel.getAll()
+            self.coreDataView?.reloadTableViewData()
         }
     }
     

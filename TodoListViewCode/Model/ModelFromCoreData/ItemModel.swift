@@ -29,8 +29,8 @@ class ItemModel: Model<Item>, TableConfigurationProtocol {
     }
     
     func currentTextCell(indexPath: IndexPath) -> String {
-        guard let title = list[indexPath.row] as? Item else { return "There are no Items "}
-        return title.title!
+        guard let item = list[indexPath.row] as? Item, let title = item.title else { return "There are no Items "}
+        return title
     }
     
     func getCount() -> Int {
