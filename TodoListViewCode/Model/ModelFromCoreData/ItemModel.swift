@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class ItemModel: Model<Item>, TableConfigurationProtocol {
+class ItemModel: Model<Item>, CRUDModelProtocol {
   
     var list: [Any] = []
     private var predicate: NSPredicate?

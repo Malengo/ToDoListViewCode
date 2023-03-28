@@ -12,81 +12,119 @@ import ViewControllerPresentationSpy
 class MainViewControllerTests: XCTestCase {
     
     var sut: MainViewController!
-    var navigation: UINavigationController!
+    var navigation: UINavigationControllerSpy!
+    var mainViewMock: MainViewMock!
 
-    override func setUpWithError() throws {
-        
+    override func setUp() {
         sut = MainViewController()
-        navigation = UINavigationController(rootViewController: sut)
+        navigation = UINavigationControllerSpy()
+        navigation.viewControllers = [sut]
+        mainViewMock = MainViewMock()
+        sut.mainView = mainViewMock
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testViewDidLoadMustSetupButtons() {
+        //Given
+    
+        //When
+        sut.viewDidLoad()
+        //Then
+        XCTAssertTrue(mainViewMock.wasSetupButtonsCalled)
     }
-
-    func test_LoadingMainViewController() {
+    
+    func testViewDidloadMustSetNavigationItemTitle() {
         //Given
         
         //When
-        sut.loadViewIfNeeded()
+        sut.viewDidLoad()
         
         //Then
-        XCTAssertNotNil(sut.mainView, "mainview shoulded return not nil, but returned nil")
+        XCTAssertEqual(sut.navigationItem.title, "ToDo List with data")
+    }
+    
+    func testLoadViewMustLoadView() {
+        //Given
+        
+        //When
+        sut.loadView()
+        
+        //Then
+        XCTAssertTrue(mainViewMock.wasAddictionalConfigurationCalled)
+        XCTAssertTrue(mainViewMock.wasSetupConstraintsCalled)
+        XCTAssertTrue(mainViewMock.wasBuildViewHierachyCalled)
+        XCTAssertTrue(sut.view is MainViewMock)
     }
     
     func test_WhenButtonCoreDataPressed_WillCalledCategoryViewController() {
         //Given
+        let exp = expectation(description: "Waiting for Navigation pushViewController to be called")
+        
+        navigation.pushViewControllerCompletionHandler = { viewController, animated in
+            XCTAssertTrue(viewController is CategoryTableViewController)
+            XCTAssertTrue(animated)
+            exp.fulfill()
+        }
         
         //When
-        sut.loadViewIfNeeded()
-        sut.mainView?.coreDataButton.sendActions(for: .touchDown)
-        RunLoop.current.run(until: Date())
-        let pushedVc = navigation.topViewController
-        guard let _ = pushedVc as? CategoryTableViewController else {
-            //Then
-            XCTFail("Expected CategoryTableViewController, but was \(String(describing: pushedVc))")
-            return
-        }
+        sut.coreDataButtonPressed()
+        
+        //Then
+        waitForExpectations(timeout: 1)
+        XCTAssertTrue(navigation.wasPushViewControllerCalled)
     }
-    
+
     func test_WhenRealmButtonPressed_WillCalledCategoryRealmViewController() {
         //Given
+        let exp = expectation(description: "Waiting for Navigation pushViewController to be called")
+        
+        navigation.pushViewControllerCompletionHandler = { viewController, animated in
+            XCTAssertTrue(viewController is CategoryRealmViewController)
+            XCTAssertTrue(animated)
+            exp.fulfill()
+        }
         
         //When
-        sut.loadViewIfNeeded()
-        sut.mainView?.realmButton.sendActions(for: .touchDown)
-        RunLoop.current.run(until: Date())
-        let pushedVc = navigation.topViewController
-        guard let _ = pushedVc as? CategoryRealmViewController else {
-            //Then
-            XCTFail("Expected CategoryRealmViewController, but was \(String(describing: pushedVc))")
-            return
-        }
+        sut.realmButtonPressed()
+        
+        //Then
+        waitForExpectations(timeout: 1)
+        XCTAssertTrue(navigation.wasPushViewControllerCalled)
     }
-    
+
     func test_WhenFireBaseButtonPressed_WillCalledCategoryFireBaseViewController() {
         //Given
+        let exp = expectation(description: "Waiting for Navigation pushViewController to be called")
+        
+        navigation.pushViewControllerCompletionHandler = { viewController, animated in
+            XCTAssertTrue(viewController is CategoryFireBaseViewController)
+            XCTAssertTrue(animated)
+            exp.fulfill()
+        }
+        
         //When
-        sut.loadViewIfNeeded()
-        sut.mainView?.firebaseButton.sendActions(for: .touchDown)
-        RunLoop.current.run(until: Date())
-        let pushedVc = navigation.topViewController
-        guard let _ = pushedVc as? CategoryFireBaseViewController else {
-            //Then
-            XCTFail("Expected CategoryFireBaseViewController, but was \(String(describing: pushedVc))")
-            return
-        }
-    }
-    
-    func testSpyViewController() {
-        sut.loadViewIfNeeded()
-        let spy = SpyNavigationController(rootViewController: sut)
-        sut.mainView?.coreDataButton.sendActions(for: .touchDown)
-        guard let _ = spy.pushedViewController as? CategoryTableViewController else {
-            print(spy.pushedViewController)
-            XCTFail()
-            return
-        }
+        sut.fireBaseButtonPressed()
+        
+        //Then
+        waitForExpectations(timeout: 1)
+        XCTAssertTrue(navigation.wasPushViewControllerCalled)
     }
 
 }
+////Given
+//let viewModel =  BPFSecurityKeyQRCodeReader.ConfigureScreen.ViewModel(
+//    screenTitle: "Title"
+//)
+//
+//let exp = expectation(description: "Waiting for notificationCenter")
+//notificationCenter.addObserverCompletionHandler = { observer, selector, name, object in
+//    XCTAssertEqual(name, UIApplication.willResignActiveNotification)
+//    XCTAssertEqual(selector.description, "backToSecurityKeyList")
+//    exp.fulfill()
+//}
+//
+////When
+//sut.displayConfigureScreen(viewModel: viewModel)
+//
+////Then
+//waitForExpectations(timeout: 1)
+//XCTAssertTrue(notificationCenter.wasAddObserverCalled)

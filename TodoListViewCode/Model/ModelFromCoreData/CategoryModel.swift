@@ -13,8 +13,8 @@ protocol UpdateTableProtocol {
     func update()
 }
 
-class CategoryModel: Model<Category>, TableConfigurationProtocol {
-   
+class CategoryModel: Model<Category>, CRUDModelProtocol {
+       
     var list: [Any] = []
     var delegate: UpdateTableProtocol?
     
@@ -71,6 +71,10 @@ class CategoryModel: Model<Category>, TableConfigurationProtocol {
         } catch {
             fatalError()
         }
+    }
+    
+    func updateIsChecked(index: IndexPath) {
+        
     }
 }
 

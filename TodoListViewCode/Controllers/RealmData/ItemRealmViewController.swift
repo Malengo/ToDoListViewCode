@@ -40,12 +40,12 @@ class ItemRealmViewController: UIViewController, UITableViewDataSource, UITableV
     //MARK: - Configuration navigation
     private func setupNavigationBar(){
         navigationItem.title = selectedCategory?.name
-        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(buttonAddCategoryPressed), target: self)
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(buttonAddPressed), target: self)
         navigationItem.hidesSearchBarWhenScrolling = false
         
     }
     
-    @objc private func buttonAddCategoryPressed() {
+    @objc private func buttonAddPressed() {
         let alertToAddItem = UIAlertController(title: "Add new Item", message: nil, preferredStyle: .alert)
         alertToAddItem.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Item"

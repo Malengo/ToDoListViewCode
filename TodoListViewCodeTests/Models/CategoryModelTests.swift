@@ -9,14 +9,23 @@ import XCTest
 @testable import TodoListViewCode
 
 class CategoryModelTests: XCTestCase {
-
+    
+    var sut: CategoryModel!
+    var mock: CRUDModelMock!
+    
     override func setUpWithError() throws {
+        try? super.setUpWithError()
+        sut = CategoryModel()
+        mock = CRUDModelMock()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
     
+    func testAdd() {
+        
+    }
     
 
 }

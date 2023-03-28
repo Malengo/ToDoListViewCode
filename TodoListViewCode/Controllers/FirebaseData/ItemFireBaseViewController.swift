@@ -53,10 +53,10 @@ class ItemFireBaseViewController: UIViewController, UICollectionViewDataSource, 
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = selectedCategory?.name
-        navigationItem.rightBarButtonItem = tableItem?.configureBarButton(action: #selector(buttonAddCategoryPressed), target: self)
+        navigationItem.rightBarButtonItem = tableItem?.configureBarButton(action: #selector(buttonAddPressed), target: self)
     }
     
-    @objc private func buttonAddCategoryPressed() {
+    @objc private func buttonAddPressed() {
         let alertToAddCategory = UIAlertController(title: "Add new Item", message: nil, preferredStyle: .alert)
         alertToAddCategory.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Item"

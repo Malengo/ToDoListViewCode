@@ -20,5 +20,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0EBFBCDB-8C89-48BC-BD55-58FFFEE15744"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListViewCodeTests/Mocks/UISearchBarMock.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "searchBarCancelButtonClicked(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9EE11F9E-0EBC-48F8-8DD6-3CD87B9616BF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListViewCodeTests/Mocks/UIAlertActionSpy.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "init(title:style:handler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9EE11F9E-0EBC-48F8-8DD6-3CD87B9616BF - d5f5b2e75dddb145"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoListViewCodeTests.UIAlertActionSpy.init(title: Swift.Optional&lt;Swift.String&gt;, style: __C.UIAlertActionStyle, handler: Swift.Optional&lt;(__C.UIAlertAction) -&gt; ()&gt;) -&gt; TodoListViewCodeTests.UIAlertActionSpy"
+                  moduleName = "TodoListViewCodeTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/TodoListViewCode/TodoListViewCodeTests/Mocks/UIAlertActionSpy.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "9EE11F9E-0EBC-48F8-8DD6-3CD87B9616BF - 11cd6c6cfabeef57"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoListViewCodeTests.UIAlertActionSpy.__allocating_init(title: Swift.Optional&lt;Swift.String&gt;, style: __C.UIAlertActionStyle, handler: Swift.Optional&lt;(__C.UIAlertAction) -&gt; ()&gt;) -&gt; TodoListViewCodeTests.UIAlertActionSpy"
+                  moduleName = "TodoListViewCodeTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/TodoListViewCode/TodoListViewCodeTests/Mocks/UIAlertActionSpy.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

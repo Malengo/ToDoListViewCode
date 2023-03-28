@@ -26,7 +26,7 @@ class SearchHistoryCell: UICollectionViewCell, ViewCodeProtocol {
         return button
     }()
     
-    private(set) lazy var buttonAdd: UIButton = {
+    private(set) lazy var textSearchButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
         return button
@@ -44,7 +44,7 @@ class SearchHistoryCell: UICollectionViewCell, ViewCodeProtocol {
     // MARK: - View Code
     func buildViewHierachy() {
         addSubview(mainStack)
-        mainStack.addArrangedSubview(buttonAdd)
+        mainStack.addArrangedSubview(textSearchButton)
         mainStack.addArrangedSubview(deleteButton)
     }
     
@@ -67,7 +67,7 @@ class SearchHistoryCell: UICollectionViewCell, ViewCodeProtocol {
     }
     
     func setButtonTitle(title: String) {
-        buttonAdd.setTitle(title, for: .normal)
+        textSearchButton.setTitle(title, for: .normal)
     }
     
     func setIndexButton(index: Int) {
@@ -75,6 +75,6 @@ class SearchHistoryCell: UICollectionViewCell, ViewCodeProtocol {
     }
     
     func configureAddButton(action: Selector, target: AnyObject) {
-        buttonAdd.addTarget(target, action: action, for: .touchDown)
+        textSearchButton.addTarget(target, action: action, for: .touchDown)
     }
 }

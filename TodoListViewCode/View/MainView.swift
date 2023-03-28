@@ -7,7 +7,11 @@
 
 import UIKit
 
-class MainView: UIView, ViewCodeProtocol {
+protocol MainViewProtocol: ViewCodeProtocol {
+    func setupButtons(target: Any?, coredata: Selector, realm: Selector, firebase: Selector)
+}
+
+class MainView: UIView, MainViewProtocol {
     
     //MARK: -- View Components
     lazy var stackView: UIStackView = {
@@ -52,8 +56,7 @@ class MainView: UIView, ViewCodeProtocol {
     func buildViewHierachy() {
         backgroundColor = .white
         addSubview(stackView)
-        [coreDataButton,
-         realmButton, firebaseButton].forEach { stackView.addArrangedSubview($0) }
+        [coreDataButton, realmButton, firebaseButton].forEach { stackView.addArrangedSubview($0) }
     }
     
     func setupConstraints() {
@@ -81,5 +84,11 @@ class MainView: UIView, ViewCodeProtocol {
     
     func addictionalConfiguration() {
         
+    }
+    
+    func setupButtons(target: Any?, coredata: Selector, realm: Selector, firebase: Selector) {
+        coreDataButton.addTarget(target, action: coredata, for: .touchDown)
+        realmButton.addTarget(target, action: realm, for: .touchDown)
+        firebaseButton.addTarget(target, action: firebase, for: .touchDown)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SearchHistoryProtocol {
+protocol CRUDSearchHistoryProtocol {
     func readData() -> [String]
     func saveData(word: String)
     func getCount() -> Int

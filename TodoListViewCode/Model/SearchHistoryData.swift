@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SearchHistoryData: SearchHistoryProtocol {
+class SearchHistoryData: CRUDSearchHistoryProtocol {
     
     private var wordsList: [String] = []
     private let defaults = UserDefaults.standard

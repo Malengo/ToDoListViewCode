@@ -9,7 +9,8 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-class CategoryFireBaseModel: TableConfigurationProtocol { 
+class CategoryFireBaseModel: CRUDModelProtocol {
+      
     
     private let db = Firestore.firestore()
     var list: [Any] = []
@@ -81,5 +82,9 @@ class CategoryFireBaseModel: TableConfigurationProtocol {
     
     func saveData(data: String) {
         print("Ok")
+    }
+    
+    func updateIsChecked(index: IndexPath) {
+        
     }
 }

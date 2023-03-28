@@ -8,14 +8,15 @@
 import Foundation
 @testable import TodoListViewCode
 
-class MockSearchHistoryData: SearchHistoryProtocol {
+class SearchHistoryDataMock: CRUDSearchHistoryProtocol {
     
     var list: [String] = []
     var readDataCalled: Bool = false
     var saveDataCalled: Bool = false
     var getCountCalled: Bool = false
-    var getWordCalled: String = "No"
+    var getWordCalled: Bool = false
     var deleteWordCalled: Bool = false
+    var getCountCompletionHandler: (() -> Int)?
     
     func readData() -> [String] {
         readDataCalled = true
@@ -24,17 +25,16 @@ class MockSearchHistoryData: SearchHistoryProtocol {
     
     func saveData(word: String) {
         saveDataCalled = true
-        list.append(word)
     }
     
     func getCount() -> Int {
         getCountCalled = true
-        return list.count
+        return getCountCompletionHandler?() ?? -1
     }
     
     func getWord(index: Int) -> String {
-        getWordCalled = "Yes"
-        return getWordCalled
+        getWordCalled = true
+        return ""
     }
     
     func deleteWord(index: Int) {

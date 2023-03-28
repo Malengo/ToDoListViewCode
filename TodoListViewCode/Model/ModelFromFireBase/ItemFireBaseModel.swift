@@ -9,8 +9,8 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-class ItemFireBaseModel: TableConfigurationProtocol {
-    
+class ItemFireBaseModel: CRUDModelProtocol {
+       
     var list: [Any] = []
     private let db = Firestore.firestore()
     var delegate: UpdateTableProtocol?
@@ -105,6 +105,9 @@ class ItemFireBaseModel: TableConfigurationProtocol {
     }
     
     func saveData(data: String) {
-        print("Ok")
+    }
+    
+    func updateIsChecked(index: IndexPath) {
+        
     }
 }

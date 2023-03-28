@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TableConfigurationProtocol {
+protocol CRUDModelProtocol {
     var delegate: UpdateTableProtocol? { get set }
     var list: [Any] { get }
     func isEmptyList() -> Bool
@@ -17,4 +17,5 @@ protocol TableConfigurationProtocol {
     func deleteTableItem(indexPath: IndexPath)
     func getEntity(indexPath: IndexPath) -> AnyObject
     func saveData(data: String)
+    func updateIsChecked(index: IndexPath)
 }

@@ -7,7 +7,18 @@
 
 import UIKit
 
-class DataTableView: UIView, ViewCodeProtocol {
+protocol DataTableViewProtocol: ViewCodeProtocol {
+    func setViewDelegateAndDataSource(to delegate: UITableViewDelegate & UITableViewDataSource & UISearchBarDelegate & UICollectionViewDelegate & UICollectionViewDataSource)
+    func configureBarButton(action: Selector, target: AnyObject) -> UIBarButtonItem
+    func deselectRow(at index: IndexPath, animated: Bool)
+    func reloadTableViewData()
+    func reloadCollectionViewData()
+    func hideSearchHistory()
+    func showSearchHistory()
+    func setTextSearchBar(text: String)
+}
+
+class DataTableView: UIView, DataTableViewProtocol {
     
     //MARK : Components View
     private(set) lazy var tableView: UITableView = {
@@ -144,4 +155,5 @@ class DataTableView: UIView, ViewCodeProtocol {
     func setTextSearchBar(text: String) {
         searchBar.text = text
     }
+    
 }

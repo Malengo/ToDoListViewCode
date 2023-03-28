@@ -35,10 +35,10 @@ class CategoryRealmViewController: UIViewController, UITableViewDelegate, UITabl
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Realm Data"
-        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(buttonAddCategoryPressed), target: self)
+        navigationItem.rightBarButtonItem = coreDataView?.configureBarButton(action: #selector(buttonAddPressed), target: self)
     }
     
-    @objc private func buttonAddCategoryPressed() {
+    @objc private func buttonAddPressed() {
         let alertToAddCategory = UIAlertController(title: "Add new Category", message: nil, preferredStyle: .alert)
         alertToAddCategory.addTextField { textfieldNewCategory in
             textfieldNewCategory.placeholder = "Enter here for new Category"
